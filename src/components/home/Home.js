@@ -1,12 +1,9 @@
 import React from 'react'
 import './css/Home.css'
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const elements = Array.from({ length: 13 }, (_, index) => index + 1);
-
-  function onAdvClick(key){
-    console.log(key);
-  }
 
   return (
     <div>
@@ -38,16 +35,18 @@ export default function Home() {
         {/* List Adv */}
         <div className="grid-container">
             {elements.map((element) => (
-                <div key={element} className="grid-item" onClick={() => onAdvClick(element)}>
-                  {/* Image */}
-                  <div className='grid-item-image'></div>
-                  
-                  {/* Description */}
-                  <div className='grid-item-description'>
-                    <h5 style={{fontSize: '14px', marginBottom: '2px'}}>Caterina, 20</h5>
-                    <p style={{fontSize: '11px', color: 'grey'}}>131,73 km da te</p>
+                <Link to={"/adv-detail/" + element} style={{color: 'white', textDecoration: 'none'}}>
+                  <div key={element} className="grid-item">
+                    {/* Image */}
+                    <div className='grid-item-image'></div>
+                    
+                    {/* Description */}
+                    <div className='grid-item-description'>
+                      <h5 style={{fontSize: '14px', marginBottom: '2px'}}>Caterina, 20</h5>
+                      <p style={{fontSize: '11px', color: 'grey'}}>131,73 km da te</p>
+                    </div>
                   </div>
-                </div>
+                </Link>
             ))}
         </div>
       </div>

@@ -1,0 +1,56 @@
+.main-buttons{
+    border: 1px white solid;
+    border-radius: 4px;
+    display: flex;
+    color: white;
+    align-items: center;
+    padding: 8px 16px;
+    width: 100%;
+    background-color: transparent;
+    transition: 100ms;
+}
+
+.main-buttons:hover{
+    background-color: #313030;
+    transition: 100ms;
+    cursor: pointer;
+}
+
+.buttons-icons{
+    font-size: 22px;
+    color: white;
+}
+
+.buttons-icons-secondary{
+    font-size: 24px;
+}
+
+.buttons-text{
+    padding-left: 6px;
+    font-size: 16px;
+}
+
+.secondary-buttons{
+    display: flex;
+    border: none;
+    align-items: center;
+    border-radius: 12px;
+    color: white;
+    padding: 0px 12px;
+    height: 55px;
+    margin-bottom: 8px;
+    background-color: #313030;
+    transition: 100ms;
+}
+
+.secondary-buttons:hover{
+    background-color: #292929;
+    transition: 100ms;
+    cursor: pointer;
+}
+
+.links-sidebar{
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}

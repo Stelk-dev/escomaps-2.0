@@ -2,6 +2,7 @@ import React from 'react'
 import { CgMenu } from 'react-icons/cg';
 import { AiOutlineSearch } from 'react-icons/ai';
 import img from '../../assets/escomaps_logo.png';
+import { Link } from 'react-router-dom';
 
 export default function AppBar(props) {
   return (
@@ -10,7 +11,9 @@ export default function AppBar(props) {
         <CgMenu style={{color: 'white', fontSize: 22}} onClick={props.showSidebar}/>
 
         {/* Logo */}
-        <img src={img} style={{width: 180, objectFit: 'contain'}} alt='logo_escort' />
+        <Link to="/" style={{textDecoration: 'none', height: 30}}>
+          <img src={img} style={{width: 180, objectFit: 'contain'}} alt='logo_escort' />
+        </Link>
         
         {/* Search icon */}
         <AiOutlineSearch style={{color: 'white', fontSize: 22}}/>
