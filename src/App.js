@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// import SignupAdvertiser from './components/auth/SignupAdvertiser';
+import { useState } from 'react';
+import Home from './components/home/Home';
+import AppBar from './components/widgets/AppBar';
+import './css/App.css';
 
 function App() {
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
+
+  const Sidebar = () => {
+    return (
+      <div className={showSidebar ? "sidebar" : "show-sidebar"}>
+        Sidebar Content
+        <button onClick={toggleSidebar}>Close</button>
+      </div>
+    );
+  };
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{padding: '0px', display: 'flex', flexDirection: 'column'}}>
+      <Sidebar />
+      <AppBar showSidebar = {toggleSidebar}/>
+      <Home />
+      {/* <SignupAdvertiser /> */}
     </div>
   );
 }

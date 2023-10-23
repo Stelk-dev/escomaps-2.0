@@ -1,0 +1,32 @@
+.filter-button {
+    background-color: #B02D2333;
+    border: 1px solid #B02D23;
+    color: #ADADAD;
+    border-radius: 100px;
+    padding: 8px 14px;
+    margin-right: 8px;
+}
+
+/* Grid style */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 8px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+}
+
+.grid-item-image {
+    background-color: grey;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.grid-item-description {
+    padding: 6px 0px 0px 2px;
+    border-radius: 0px 0px 8px 8px;
+}

@@ -1,0 +1,16 @@
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 300px;
+    height: 100vh;
+    background-color: lightgray;
+    transition: left 0.3s ease;
+}
+
+.show-sidebar {
+    position: absolute;
+    left: -300px; /* initial position off-screen */
+    transition: left 0.3s ease;
+}
