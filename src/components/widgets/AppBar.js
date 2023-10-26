@@ -16,7 +16,9 @@ export default function AppBar(props) {
         </Link>
         
         {/* Search icon */}
-        <AiOutlineSearch style={{color: 'white', fontSize: 22}}/>
+        <Link to="/signup-advertiser" style={{textDecoration: 'none', height: 30}}>
+          <AiOutlineSearch style={{color: 'white', fontSize: 22}}/>
+        </Link>
     </div>
   )
 }

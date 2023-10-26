@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import img from '../../assets/escomaps_logo.png';
 
 export default function SignupAdvertiser() {
