@@ -43,28 +43,30 @@ export default function Sidebar(props) {
                     {/* Title and close */}
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0px'}}>
                         {/* Logo */}
-                        <Link to="/" style={{textDecoration: 'none', height: 30}}>
+                        <Link to="/" style={{textDecoration: 'none', height: 30}} onClick={props.onSidebarClose}>
                             <img src={img} style={{width: 150, objectFit: 'contain'}} alt='logo_escort' />
                         </Link>
 
                         {/* Close */}
-                        <AiFillCloseCircle style={{color: 'white', fontSize: 24}} onClick={props.onSidebarClose}/>
+                        <AiFillCloseCircle style={{color: 'white', fontSize: 24, cursor: 'pointer'}} onClick={props.onSidebarClose}/>
                     </div>
                     <br />
 
                     {/* Login signup */}
                     <div>
-                        <button className='main-buttons' onClick={() => {}} >
+                        <button className='main-buttons' onClick={props.onSidebarClose} >
                             <CgProfile className='buttons-icons'/>
                             <div className='buttons-text'>Entra come utente</div>
                         </button>
                         
                         <div style={{padding: '4px 0px'}}/>
 
-                        <button className='main-buttons' onClick={() => {}} >
-                            <IoMdAddCircleOutline className='buttons-icons' />
-                            <div className='buttons-text'>Inizia a pubblicare</div>
-                        </button>
+                        <Link to="/signup-advertiser" style={{textDecoration: 'none', height: 30}}>
+                            <button className='main-buttons' onClick={props.onSidebarClose}>
+                                <IoMdAddCircleOutline className='buttons-icons' />
+                                <div className='buttons-text'>Inizia a pubblicare</div>
+                            </button>
+                        </Link>
                     </div>
                     <br />
 

@@ -8,7 +8,12 @@ export default function AppBar(props) {
   return (
     <div style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px'}}>
         {/* Menu */}
-        <CgMenu style={{color: 'white', fontSize: 22}} onClick={props.showSidebar}/>
+        {
+          props.showMenuIcon ?
+            <CgMenu style={{color: 'white', fontSize: 22, cursor: 'pointer'}} onClick={props.showSidebar}/>
+            :
+            <div></div>
+        }
 
         {/* Logo */}
         <Link to="/" style={{textDecoration: 'none', height: 30}}>
@@ -16,9 +21,12 @@ export default function AppBar(props) {
         </Link>
         
         {/* Search icon */}
-        <Link to="/signup-advertiser" style={{textDecoration: 'none', height: 30}}>
-          <AiOutlineSearch style={{color: 'white', fontSize: 22}}/>
-        </Link>
+        {
+          props.showSearchIcon ?
+            <AiOutlineSearch style={{color: 'white', fontSize: 22}}/>
+            :
+            <div></div>
+        }
     </div>
   )
 }
