@@ -1,0 +1,10 @@
+#main-app-bar{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    justify-content: space-between;
+    padding: 14px 22px;
+    width: 100vw;
+}

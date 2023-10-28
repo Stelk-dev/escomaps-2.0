@@ -5,20 +5,6 @@
     justify-content: center;
 }
 
-.main-form{
-    background-color: #242424;
-    color: white;
-    border: 1px #9E9E9E solid;
-    border-radius: 8px;
-    width: 100%;
-    padding: 14px 14px;
-}
-
-.main-form:focus{
-    border: 1px #7e7d7d solid;
-    box-shadow: none;
-}
-
 .link-style{
     text-decoration: none;
     color: white;

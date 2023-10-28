@@ -1,0 +1,19 @@
+.bottom-element{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.bottom-element:hover{
+    background-color: #050505;
+}
+
+.bottom-icon{
+    color: white;
+    font-size: 20px;
+}

@@ -6,10 +6,14 @@ export default function Home() {
   const elements = Array.from({ length: 13 }, (_, index) => index + 1);
 
   return (
-    <div>
+    <div style={{ margin: "60px 0px" }}>
       {/* Banners */}
       <div
-        style={{ height: 150, backgroundColor: "red", margin: "32px" }}
+        style={{
+          height: "170px",
+          backgroundColor: "red",
+          margin: "32px 32px 32px 32px",
+        }}
       ></div>
 
       {/* Advs */}
@@ -25,7 +29,7 @@ export default function Home() {
           >
             Escort in Milano
           </h1>
-          <div style={{ color: "grey", fontSize: '14px' }}>
+          <div style={{ color: "grey", fontSize: "14px" }}>
             Vuoi cercare nella tua zona?{" "}
             <a href="google.com" style={{ color: "red" }}>
               clicca qui
@@ -36,7 +40,13 @@ export default function Home() {
 
         {/* Filters */}
         <div>
-          <h4 style={{ marginBottom: "10px", fontWeight: "400", fontSize: '16px' }}>
+          <h4
+            style={{
+              marginBottom: "10px",
+              fontWeight: "400",
+              fontSize: "16px",
+            }}
+          >
             Interessato in:
           </h4>
           <div style={{ display: "flex", flexDirection: "row" }}>
@@ -72,6 +82,8 @@ export default function Home() {
             </Link>
           ))}
         </div>
+
+        <div style={{ height: "40px" }} />
       </div>
     </div>
   );

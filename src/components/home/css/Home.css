@@ -18,7 +18,7 @@
 .grid-item {
     display: flex;
     flex-direction: column;
-    height: 250px;
+    height: 280px;
 }
 
 .grid-item-image {
