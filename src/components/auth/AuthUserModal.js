@@ -243,7 +243,13 @@ export default function AuthUserModal(props) {
       <div className="main-modal">
         {/* Cancel icon */}
         <div style={{ display: "flex", justifyContent: "end" }}>
-          <MdOutlineClear className="cancel-icon" onClick={props.onClose} />
+          <MdOutlineClear
+            className="cancel-icon"
+            onClick={() => {
+              setShowLogin(true);
+              props.onClose();
+            }}
+          />
         </div>
 
         {/* Main home */}
