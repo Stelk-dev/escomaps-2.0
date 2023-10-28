@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './css/AuthAdvertiser.css';
+import "./css/AuthAdvertiser.css";
 import { Link } from "react-router-dom";
 
 export default function SignupAdvertiser() {
@@ -72,36 +72,34 @@ export default function SignupAdvertiser() {
         <br />
 
         {/* Checkbox TOS */}
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <label
-            style={{
-              display: "flex",
-              padding: "0px 8px",
-              alignItems: "center",
-            }}
-          >
+        <div
+          style={{ display: "flex", flexDirection: "row", padding: "0px 8px", alignItems: 'center' }}
+        >
+          <div>
             <input
               type="checkbox"
               checked={data.acceptTOS}
-              onChange={() => setData({ ...data, acceptTOS: !data.acceptTOS })}
-              style={{ width: 60, height: 60 }}
+              onChange={() =>
+                setData({ ...data, acceptTOS: !data.acceptTOS })
+              }
+              style={{width: 18, height: 18}}
             />
+          </div>
 
-            <div style={{ paddingLeft: 16, color: "grey", fontSize: 13 }}>
-              Cliccando su registrati ora confermi di aver letto e accettato i{" "}
-              <Link to="" className="link-style">
-                <strong style={{ color: "white" }}>Termini e condizioni</strong>
-              </Link>{" "}
-              e{" "}
-              <Link to="" className="link-style">
-                <strong style={{ color: "white" }}>
-                  Informativa sulla privacy
-                </strong>
-              </Link>{" "}
-              e autorizzi il trattamento dei tuoi dati personali per la
-              fornitura di questo servizio
-            </div>
-          </label>
+          <div style={{ paddingLeft: 16, color: "grey", fontSize: 13 }}>
+            Cliccando su registrati ora confermi di aver letto e accettato i{" "}
+            <Link to="" className="link-style">
+              <strong style={{ color: "white" }}>Termini e condizioni</strong>
+            </Link>{" "}
+            e{" "}
+            <Link to="" className="link-style">
+              <strong style={{ color: "white" }}>
+                Informativa sulla privacy
+              </strong>
+            </Link>{" "}
+            e autorizzi il trattamento dei tuoi dati personali per la
+            fornitura di questo servizio
+          </div>
         </div>
         <br />
 
@@ -131,9 +129,22 @@ export default function SignupAdvertiser() {
         )}
 
         {/* Login */}
-        <div style={{display: 'flex', flexDirection: 'row', marginTop: 24, fontSize: 14}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginTop: 24,
+            fontSize: 14,
+          }}
+        >
           <div>Hai già un account?</div>
-          <Link to="/login-advertiser" className="link-style" style={{marginLeft: 8, color: '#B02D23'}}>Accedi ora</Link>
+          <Link
+            to="/login-advertiser"
+            className="link-style"
+            style={{ marginLeft: 8, color: "#B02D23" }}
+          >
+            Accedi ora
+          </Link>
         </div>
       </div>
     </div>
