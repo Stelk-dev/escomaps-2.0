@@ -27,14 +27,16 @@ export default function AppBar(props) {
   return (
     <div id="main-app-bar" style={{ top: visible ? 0 : -100, transition: 'top 0.3s' }}>
       {/* Menu */}
-      {props.showMenuIcon ? (
-        <CgMenu
-          style={{ color: "white", fontSize: 22, cursor: "pointer" }}
-          onClick={props.showSidebar}
-        />
-      ) : (
-        <div></div>
-      )}
+      <div style={{width: "22px"}}>
+        {props.showMenuIcon ? (
+          <CgMenu
+            style={{ color: "white", fontSize: 22, cursor: "pointer" }}
+            onClick={props.showSidebar}
+          />
+        ) : (
+          <div></div>
+        )}
+      </div>
 
       {/* Logo */}
       <Link to="/" style={{ textDecoration: "none", height: 30 }}>
@@ -46,11 +48,13 @@ export default function AppBar(props) {
       </Link>
 
       {/* Search icon */}
-      {props.showSearchIcon ? (
-        <AiOutlineSearch style={{ color: "white", fontSize: 22 }} />
-      ) : (
-        <div></div>
-      )}
+      <div style={{width: "22px"}}>
+        {props.showSearchIcon ? (
+          <AiOutlineSearch style={{ color: "white", fontSize: 22 }} />
+        ) : (
+          <div></div>
+        )}
+      </div>
     </div>
   );
 }

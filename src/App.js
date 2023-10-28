@@ -21,6 +21,13 @@ function App() {
     setShowSidebar(!showSidebar);
   };
 
+  const showSearchIcon = () => loc.pathname === "/";
+
+  const showMenuIcon = () =>
+    loc.pathname === "/" ||
+    loc.pathname === "/chats-user" ||
+    loc.pathname === "/favourites-user";
+
   return (
     <div style={{ padding: "0px", display: "flex", flexDirection: "column" }}>
       {/* Side bar */}
@@ -28,12 +35,14 @@ function App() {
 
       {/* App bar */}
       <AppBar
-        showMenuIcon={isAtHome}
-        showSearchIcon={isAtHome}
+        showMenuIcon={showMenuIcon()}
+        showSearchIcon={showSearchIcon()}
         showSidebar={toggleSidebar}
       />
 
-      <BottomBar index={index} setIndex={setIndex}/>
+      {
+        showMenuIcon() && <BottomBar index={index} setIndex={setIndex} />
+      }
 
       {/* Routes */}
       <Routes>
