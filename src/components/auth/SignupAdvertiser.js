@@ -133,7 +133,7 @@ export default function SignupAdvertiser() {
           style={{
             display: "flex",
             flexDirection: "row",
-            marginTop: 24,
+            marginTop: 14,
             fontSize: 14,
           }}
         >

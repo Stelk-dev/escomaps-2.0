@@ -11,7 +11,7 @@ export default function LoginAdvertiser() {
   const [error, setError] = useState(null);
 
   const isButtonActive = () =>
-    data.email.length > 8 && data.password.length >= 8 && data.acceptTOS;
+    data.email.length > 8 && data.password.length >= 8;
 
   function Login() {
     console.log(data);
@@ -64,7 +64,7 @@ export default function LoginAdvertiser() {
                 type="password"
                 className="main-form"
                 id="password"
-                placeholder="password (8+ caratteri)"
+                placeholder="password"
                 value={data.password}
                 onChange={(v) => setData({ ...data, password: v.target.value })}
             ></input>
@@ -102,8 +102,8 @@ export default function LoginAdvertiser() {
           <></>
         )}
 
-        {/* Login */}
-        <div style={{display: 'flex', flexDirection: 'row', marginTop: 24, fontSize: 14}}>
+        {/* Signup */}
+        <div style={{display: 'flex', flexDirection: 'row', marginTop: 14, fontSize: 14}}>
           <div>Non hai ancora un account?</div>
           <Link to="/signup-advertiser" className="link-style" style={{marginLeft: 8, color: '#B02D23'}}>Registrati ora</Link>
         </div>

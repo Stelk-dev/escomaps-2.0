@@ -1,0 +1,13 @@
+.main-modal{
+    background-color: #1A1A1A;
+    padding: 16px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+}
+
+.cancel-icon{
+    color: grey;
+    border-radius: 100%;
+    cursor: pointer;
+}
