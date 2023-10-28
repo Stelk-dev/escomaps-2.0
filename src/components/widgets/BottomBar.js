@@ -9,7 +9,7 @@ export default function BottomBar() {
 
   //Element at bottom bar
   function BottomElement({ Icon, FilledIcon, title, path }) {
-    const isSamePath = userLocation.pathname == path;
+    const isSamePath = userLocation.pathname === path;
     return (
       <Link to={path} className="bottom-element" style={{ opacity: isSamePath ? "1" : ".5" }}>
         {isSamePath ? FilledIcon: Icon}

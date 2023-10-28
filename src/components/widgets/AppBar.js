@@ -7,13 +7,13 @@ import "./css/Appbar.css";
 
 export default function AppBar(props) {
   // Animation
-  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
+  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos);
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
       setPrevScrollPos(currentScrollPos);
     };
 
