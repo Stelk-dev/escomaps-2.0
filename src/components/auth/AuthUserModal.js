@@ -13,12 +13,19 @@ export default function AuthUserModal(props) {
     password: "",
   });
 
+  function HandleFormValue(e){
+    setData({...data, [e.target.name]: e.target.value});
+  }
+
   const [error, setError] = useState(null);
 
   const isButtonActive = () =>
     data.email.length > 8 && data.password.length >= 8;
 
-  const Login = () => {};
+  const Login = () => {
+    // TODO: Continue
+    setError("Password incorretta");
+  };
 
   return (
     <Modal
@@ -27,6 +34,7 @@ export default function AuthUserModal(props) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       className="center-class"
+      style={{backgroundColor: '#00000077'}}
     >
       <div className="main-modal">
         {/* Cancel icon */}
@@ -52,14 +60,18 @@ export default function AuthUserModal(props) {
               type="email"
               className="main-form"
               id="email"
+              name="email"
               placeholder="email@gmail.com"
-            ></input>
+              value={v => HandleFormValue(v)}
+              ></input>
             <div style={{ height: 8 }} />
             <input
               type="password"
               className="main-form"
               id="password"
+              name="passwrod"
               placeholder="password"
+              value={v => HandleFormValue(v)}
             ></input>
           </form>
           <div style={{ height: 8 }} />
