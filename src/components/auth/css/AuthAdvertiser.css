@@ -18,3 +18,8 @@
     border: 1px #7e7d7d solid;
     box-shadow: none;
 }
+
+.link-style{
+    text-decoration: none;
+    color: white;
+}

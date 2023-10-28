@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./css/SignupAdvertiser.css";
+import './css/AuthAdvertiser.css';
 import { Link } from "react-router-dom";
 
 export default function SignupAdvertiser() {
@@ -89,11 +89,11 @@ export default function SignupAdvertiser() {
 
             <div style={{ paddingLeft: 16, color: "grey", fontSize: 13 }}>
               Cliccando su registrati ora confermi di aver letto e accettato i{" "}
-              <Link to="" style={{ textDecoration: "none" }}>
+              <Link to="" className="link-style">
                 <strong style={{ color: "white" }}>Termini e condizioni</strong>
               </Link>{" "}
               e{" "}
-              <Link to="" style={{ textDecoration: "none" }}>
+              <Link to="" className="link-style">
                 <strong style={{ color: "white" }}>
                   Informativa sulla privacy
                 </strong>
@@ -129,6 +129,12 @@ export default function SignupAdvertiser() {
         ) : (
           <></>
         )}
+
+        {/* Login */}
+        <div style={{display: 'flex', flexDirection: 'row', marginTop: 24, fontSize: 14}}>
+          <div>Hai già un account?</div>
+          <Link to="/login-advertiser" className="link-style" style={{marginLeft: 8, color: '#B02D23'}}>Accedi ora</Link>
+        </div>
       </div>
     </div>
   );

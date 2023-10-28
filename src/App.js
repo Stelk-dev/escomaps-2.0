@@ -7,6 +7,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import AdvDetailView from './components/adv/AdvDetailView';
 import Sidebar from './components/widgets/Sidebar';
 import SignupAdvertiser from './components/auth/SignupAdvertiser';
+import LoginAdvertiser from './components/auth/LoginAdvertiser';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -27,6 +28,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/adv-detail/:id' element={<AdvDetailView />} />
         <Route path='/signup-advertiser' element={<SignupAdvertiser />} />
+        <Route path='/login-advertiser' element={<LoginAdvertiser />} />
       </Routes>
       {/* <SignupAdvertiser /> */}
     </div>
