@@ -73,16 +73,19 @@ export default function SignupAdvertiser() {
 
         {/* Checkbox TOS */}
         <div
-          style={{ display: "flex", flexDirection: "row", padding: "0px 8px", alignItems: 'center' }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            padding: "0px 8px",
+            alignItems: "center",
+          }}
         >
           <div>
             <input
               type="checkbox"
               checked={data.acceptTOS}
-              onChange={() =>
-                setData({ ...data, acceptTOS: !data.acceptTOS })
-              }
-              style={{width: 18, height: 18}}
+              onChange={() => setData({ ...data, acceptTOS: !data.acceptTOS })}
+              style={{ width: 18, height: 18 }}
             />
           </div>
 
@@ -97,8 +100,8 @@ export default function SignupAdvertiser() {
                 Informativa sulla privacy
               </strong>
             </Link>{" "}
-            e autorizzi il trattamento dei tuoi dati personali per la
-            fornitura di questo servizio
+            e autorizzi il trattamento dei tuoi dati personali per la fornitura
+            di questo servizio
           </div>
         </div>
         <br />

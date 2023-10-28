@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import "./css/AuthUser.css";
 import { Link } from "react-router-dom";
+import { FaUserSecret } from "react-icons/fa";
 
 // TODO: Make 2 function one for login and one for registration
 // In the main function add a bool to show login or signup
@@ -48,16 +49,18 @@ function LoginUser(props) {
             id="email"
             name="email"
             placeholder="email@gmail.com"
-            value={(v) => HandleFormValue(v)}
-          ></input>
+            value={data.email}
+            onChange={v => HandleFormValue(v)}
+            ></input>
           <div style={{ height: 8 }} />
           <input
             type="password"
             className="main-form"
             id="password"
-            name="passwrod"
+            name="password"
             placeholder="password"
-            value={(v) => HandleFormValue(v)}
+            value={data.password}
+            onChange={v => HandleFormValue(v)}
           ></input>
         </form>
         <div style={{ height: 8 }} />
@@ -119,8 +122,10 @@ function LoginUser(props) {
 
 function SignupUser(props) {
   const [data, setData] = useState({
+    name: "",
     email: "",
     password: "",
+    acceptTOS: false,
   });
 
   function HandleFormValue(e) {
@@ -130,7 +135,10 @@ function SignupUser(props) {
   const [error, setError] = useState(null);
 
   const isButtonActive = () =>
-    data.email.length > 8 && data.password.length >= 8;
+    data.name.length >= 4 &&
+    data.email.length > 8 &&
+    data.password.length >= 8 &&
+    data.acceptTOS;
 
   const Login = () => {
     // TODO: Continue
@@ -154,29 +162,70 @@ function SignupUser(props) {
       <div style={{ width: "100%" }}>
         <form>
           <input
+            type="text"
+            className="main-form"
+            id="name"
+            name="name"
+            placeholder="Nickname (4+ caratteri)"
+            value={data.name}
+            onChange={v => HandleFormValue(v)}
+            ></input>
+          <div style={{ height: 8 }} />
+          <input
             type="email"
             className="main-form"
             id="email"
             name="email"
             placeholder="email@gmail.com"
-            value={(v) => HandleFormValue(v)}
+            value={data.email}
+            onChange={v => HandleFormValue(v)}
           ></input>
           <div style={{ height: 8 }} />
           <input
             type="password"
             className="main-form"
             id="password"
-            name="passwrod"
+            name="password"
             placeholder="password"
-            value={(v) => HandleFormValue(v)}
-          ></input>
+            value={data.password}
+            onChange={v => HandleFormValue(v)}
+            ></input>
         </form>
         <div style={{ height: 8 }} />
 
-        {/* TOS */}
-        {/* <Link to="" className="link-style" style={{ fontSize: 12 }}>
-          Non ricordi email o password? Clicca qui
-        </Link> */}
+        {/* Checkbox TOS */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            padding: "0px 8px",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <input
+              type="checkbox"
+              checked={data.acceptTOS}
+              onChange={() => setData({ ...data, acceptTOS: !data.acceptTOS })}
+              style={{ width: 18, height: 18 }}
+            />
+          </div>
+
+          <div style={{ paddingLeft: 16, color: "grey", fontSize: 13 }}>
+            Cliccando su registrati ora confermi di aver letto e accettato i{" "}
+            <Link to="" className="link-style">
+              <strong style={{ color: "white" }}>Termini e condizioni</strong>
+            </Link>{" "}
+            e{" "}
+            <Link to="" className="link-style">
+              <strong style={{ color: "white" }}>
+                Informativa sulla privacy
+              </strong>
+            </Link>{" "}
+            e autorizzi il trattamento dei tuoi dati personali per la fornitura
+            di questo servizio
+          </div>
+        </div>
       </div>
       <br />
 
@@ -195,7 +244,41 @@ function SignupUser(props) {
         disabled={!isButtonActive()}
         onClick={Login}
       >
-        Registrati
+        Entra
+      </button>
+      <div
+        className="center-class"
+        style={{
+          padding: "12px",
+          width: "100%",
+          fontSize: "14px",
+          color: "grey",
+        }}
+      >
+        Oppure
+      </div>
+
+      {/* Signu up anonymous */}
+      <button
+        type="submit"
+        style={{
+          width: "100%",
+          border: "none",
+          padding: "12px",
+          borderRadius: "4px",
+          fontWeight: "500",
+          color: "white",
+          backgroundColor: "#B02D23",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onClick={Login}
+      >
+        <FaUserSecret style={{marginRight: '8px', fontSize: 18}} />
+        <div>
+          Entra come anonimo
+        </div>
       </button>
 
       {/* Error message */}
