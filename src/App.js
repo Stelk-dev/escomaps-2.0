@@ -14,7 +14,6 @@ import Favourites from "./components/home/components-user/Favourites";
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const loc = useLocation();
-  const isAtHome = loc.pathname === "/";
   const [index, setIndex] = useState(0);
 
   const toggleSidebar = () => {
