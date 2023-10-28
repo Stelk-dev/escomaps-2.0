@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CgMenu } from "react-icons/cg";
 import { AiOutlineSearch } from "react-icons/ai";
 import img from "../../assets/escomaps_logo.png";
@@ -6,8 +6,26 @@ import { Link } from "react-router-dom";
 import "./css/Appbar.css";
 
 export default function AppBar(props) {
+  // Animation
+  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(prevScrollPos > currentScrollPos);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos, visible]);
+
   return (
-    <div id="main-app-bar">
+    <div id="main-app-bar" style={{ top: visible ? 0 : -100, transition: 'top 0.3s' }}>
       {/* Menu */}
       {props.showMenuIcon ? (
         <CgMenu

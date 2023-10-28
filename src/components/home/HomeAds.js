@@ -2,7 +2,7 @@ import React from "react";
 import "./css/Home.css";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function HomeAds() {
   const elements = Array.from({ length: 13 }, (_, index) => index + 1);
 
   return (

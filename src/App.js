@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Home from "./components/home/Home";
+import HomeAds from "./components/home/HomeAds";
 import AppBar from "./components/widgets/AppBar";
 import "./css/App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -37,7 +37,7 @@ function App() {
 
       {/* Routes */}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeAds />} />
         <Route path="/chats-user" element={<Chat />} />
         <Route path="/favourites-user" element={<Favourites />} />
         <Route path="/adv-detail/:id" element={<AdvDetailView />} />
