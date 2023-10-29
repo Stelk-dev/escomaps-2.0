@@ -62,7 +62,7 @@ export default function AdvDetailView() {
     const totalScrollWidth = e.target.scrollWidth - e.target.clientWidth;
     const scrollPercentage = e.target.scrollLeft / totalScrollWidth;
     const activeTabIndex = Math.floor(scrollPercentage * photos.length);
-    if (indexPhoto != activeTabIndex) setIndexPhoto(activeTabIndex);
+    if (indexPhoto !== activeTabIndex) setIndexPhoto(activeTabIndex);
   };
 
   return (
