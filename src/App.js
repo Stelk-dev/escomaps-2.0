@@ -11,6 +11,10 @@ import BottomBar from "./components/widgets/BottomBar";
 import Chat from "./components/home/components-user/Chat";
 import Favourites from "./components/home/components-user/Favourites";
 import SearchAds from "./components/home/SearchAds";
+import Faq from "./components/widgets/sidebar-pages/Faq";
+import ContactUs from "./components/widgets/sidebar-pages/ContactUs";
+import TermsAndConditions from "./components/widgets/sidebar-pages/TermsAndConditions";
+import PrivacyPolicy from "./components/widgets/sidebar-pages/PrivacyPolicy";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -35,7 +39,11 @@ function App() {
     loc.pathname === "/search" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/chats-user" ||
-    loc.pathname === "/favourites-user";
+    loc.pathname === "/favourites-user" ||
+    loc.pathname === "/faq" ||
+    loc.pathname === "/contact-us" ||
+    loc.pathname === "/terms-and-conditions" ||
+    loc.pathname === "/privacy-policy";
 
   return (
     <div style={{ padding: "0px", display: "flex", flexDirection: "column" }}>
@@ -55,13 +63,24 @@ function App() {
 
       {/* Routes */}
       <Routes>
+        {/* Main home */}
         <Route path="/" element={<HomeAds />} />
         <Route path="/search" element={<SearchAds />} />
+        <Route path="/adv-detail/:id" element={<AdvDetailView />} />
+
+        {/* User page */}
         <Route path="/chats-user" element={<Chat />} />
         <Route path="/favourites-user" element={<Favourites />} />
-        <Route path="/adv-detail/:id" element={<AdvDetailView />} />
+        
+        {/* Auth */}
         <Route path="/signup-advertiser" element={<SignupAdvertiser />} />
         <Route path="/login-advertiser" element={<LoginAdvertiser />} />
+        
+        {/* Sidebar option */}
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
     </div>
   );

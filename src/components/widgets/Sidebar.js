@@ -1,6 +1,6 @@
 import { SwipeableDrawer } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/escomaps_logo.png";
 import "./css/Sidebar.css";
 import { CgProfile } from "react-icons/cg";
@@ -10,9 +10,11 @@ import { MdOutlineLanguage, MdContactSupport } from "react-icons/md";
 import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
 import AuthUserModal from "../auth/AuthUserModal";
+import { MdPrivacyTip } from "react-icons/md";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
+  const navigate = useNavigate();
 
   function SecondaryButton(props) {
     return (
@@ -27,7 +29,9 @@ export default function Sidebar(props) {
             alignItems: "start",
           }}
         >
-          <div style={{ fontSize: 16 }}>{props.title}</div>
+          <div style={{ fontSize: "16px", textAlign: "start" }}>
+            {props.title}
+          </div>
 
           {/* Description */}
           {props.description != null && (
@@ -135,19 +139,38 @@ export default function Sidebar(props) {
           <SecondaryButton
             title="Domande frequenti"
             icon={<MdContactSupport className="buttons-icons-secondary" />}
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/faq");
+              props.onSidebarClose();
+            }}
           />
           <SecondaryButton
             title="Contattaci"
             icon={
               <BiSolidMessageRoundedDetail className="buttons-icons-secondary" />
             }
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/contact-us");
+              props.onSidebarClose();
+            }}
           />
+
+          {/* Last options */}
           <SecondaryButton
             title="Termini e condizioni"
             icon={<IoDocuments className="buttons-icons-secondary" />}
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/terms-and-conditions");
+              props.onSidebarClose();
+            }}
+          />
+          <SecondaryButton
+            title="Privacy policy"
+            icon={<MdPrivacyTip className="buttons-icons-secondary" />}
+            onClick={() => {
+              navigate("/privacy-policy");
+              props.onSidebarClose();
+            }}
           />
         </div>
       </SwipeableDrawer>

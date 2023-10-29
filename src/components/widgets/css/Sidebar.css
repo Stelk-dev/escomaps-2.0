@@ -39,12 +39,12 @@
     padding: 0px 12px;
     height: 55px;
     margin-bottom: 8px;
-    background-color: #313030;
+    background-color: #151414;
     transition: 100ms;
 }
 
 .secondary-buttons:hover{
-    background-color: #292929;
+    background-color: #111111;
     transition: 100ms;
     cursor: pointer;
 }
