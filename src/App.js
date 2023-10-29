@@ -10,6 +10,7 @@ import LoginAdvertiser from "./components/auth/LoginAdvertiser";
 import BottomBar from "./components/widgets/BottomBar";
 import Chat from "./components/home/components-user/Chat";
 import Favourites from "./components/home/components-user/Favourites";
+import SearchAds from "./components/home/SearchAds";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -20,13 +21,18 @@ function App() {
     setShowSidebar(!showSidebar);
   };
 
+  const hideAnimationAppBar = () => loc.pathname.includes("/adv-detail");
+
   const showBottomBar = () => loc.pathname === "/";
 
   const showSearchIcon = () =>
-    loc.pathname === "/" || loc.pathname.includes("/adv-detail");
+    loc.pathname === "/" ||
+    loc.pathname.includes("/adv-detail") ||
+    loc.pathname === "/search";
 
   const showMenuIcon = () =>
     loc.pathname === "/" ||
+    loc.pathname === "/search" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user";
@@ -38,7 +44,7 @@ function App() {
 
       {/* App bar */}
       <AppBar
-        hideAnimation={useLocation().pathname.includes("/adv-detail")}
+        hideAnimation={hideAnimationAppBar()}
         showMenuIcon={showMenuIcon()}
         showSearchIcon={showSearchIcon()}
         showSidebar={toggleSidebar}
@@ -50,6 +56,7 @@ function App() {
       {/* Routes */}
       <Routes>
         <Route path="/" element={<HomeAds />} />
+        <Route path="/search" element={<SearchAds />} />
         <Route path="/chats-user" element={<Chat />} />
         <Route path="/favourites-user" element={<Favourites />} />
         <Route path="/adv-detail/:id" element={<AdvDetailView />} />

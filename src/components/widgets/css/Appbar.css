@@ -1,11 +1,23 @@
-#main-app-bar{
+.main-app-bar{
     background-color: black;
     display: flex;
     flex-direction: row;
     align-items: center;
     position: fixed;
     justify-content: space-between;
-    padding: 14px 22px;
+    height: 60px;
     width: 100vw;
     z-index: 2;
+}
+
+#cancel-button{
+    border: none;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+#cancel-button:hover{
+    color: #FFFFFF88;
 }
