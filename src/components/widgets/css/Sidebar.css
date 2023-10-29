@@ -54,3 +54,8 @@
     color: white;
     text-decoration: none;
 }
+
+.default-information-page{
+    padding: 0px 16px;
+    margin-top: 80px;
+}
