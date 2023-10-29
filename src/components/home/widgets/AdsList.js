@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 export default function AdsList({ ads }) {
   return (
     <div className="grid-container">
-      {ads.map((a) => (
+      {ads.map((a, i) => (
         <Link
+          key={i}
           to={"/adv-detail/" + a}
           style={{ color: "white", textDecoration: "none" }}
         >

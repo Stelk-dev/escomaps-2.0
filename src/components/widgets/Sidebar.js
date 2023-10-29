@@ -49,6 +49,7 @@ export default function Sidebar(props) {
       <SwipeableDrawer
         anchor={"left"}
         open={props.open}
+        onOpen={() => {}}
         onClose={props.onSidebarClose}
       >
         <div

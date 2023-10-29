@@ -14,7 +14,7 @@ const DefaultAppBar = ({
 }) => {
   return (
     <div
-      class="main-app-bar"
+      className="main-app-bar"
       style={{
         padding: "0px 14px",
         top: visible ? 0 : -100,
@@ -70,7 +70,7 @@ function SearchBar({ onSearchCancel }) {
   }
 
   return (
-    <div class="main-app-bar" style={{ padding: "0px 14px" }}>
+    <div className="main-app-bar" style={{ padding: "0px 14px" }}>
       {/* Search form */}
       <form onSubmit={HandleSubmit} style={{ flex: 1 }} action=".">
         <input
