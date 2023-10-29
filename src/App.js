@@ -20,6 +20,8 @@ function App() {
     setShowSidebar(!showSidebar);
   };
 
+  const showBottomBar = () => loc.pathname === "/";
+
   const showSearchIcon = () =>
     loc.pathname === "/" || loc.pathname.includes("/adv-detail");
 
@@ -43,7 +45,7 @@ function App() {
       />
 
       {/* Bottom bar */}
-      {showMenuIcon() && <BottomBar index={index} setIndex={setIndex} />}
+      {showBottomBar() && <BottomBar index={index} setIndex={setIndex} />}
 
       {/* Routes */}
       <Routes>

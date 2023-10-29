@@ -10,20 +10,20 @@ export default function AppBar(props) {
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
-      setPrevScrollPos(currentScrollPos);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollPos = window.scrollY;
+  //     setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
+  //     setPrevScrollPos(currentScrollPos);
+  //   };
     
-    if(!props.hideAnimation)
-      window.addEventListener('scroll', handleScroll);
+  //   if(!props.hideAnimation)
+  //     window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [prevScrollPos, visible]);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, [props.hideAnimation, prevScrollPos, visible]);
 
   return (
     <div id="main-app-bar" style={{ top: visible ? 0 : -100, transition: 'top 0.3s' }}>
