@@ -10,25 +10,28 @@ export default function AppBar(props) {
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollPos = window.scrollY;
-  //     setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
-  //     setPrevScrollPos(currentScrollPos);
-  //   };
-    
-  //   if(!props.hideAnimation)
-  //     window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
+      setPrevScrollPos(currentScrollPos);
+    };
 
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, [props.hideAnimation, prevScrollPos, visible]);
+    if (!props.hideAnimation) window.addEventListener("scroll", handleScroll);
+    else setVisible(true);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [props.hideAnimation, prevScrollPos, visible]);
 
   return (
-    <div id="main-app-bar" style={{ top: visible ? 0 : -100, transition: 'top 0.3s' }}>
+    <div
+      id="main-app-bar"
+      style={{ top: visible ? 0 : -100, transition: "top 0.3s" }}
+    >
       {/* Menu */}
-      <div style={{width: "22px"}}>
+      <div style={{ width: "22px" }}>
         {props.showMenuIcon ? (
           <CgMenu
             style={{ color: "white", fontSize: 22, cursor: "pointer" }}
@@ -49,7 +52,7 @@ export default function AppBar(props) {
       </Link>
 
       {/* Search icon */}
-      <div style={{width: "22px"}}>
+      <div style={{ width: "22px" }}>
         {props.showSearchIcon ? (
           <AiOutlineSearch style={{ color: "white", fontSize: 22 }} />
         ) : (
