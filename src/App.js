@@ -27,7 +27,10 @@ function App() {
 
   const hideAnimationAppBar = () => loc.pathname.includes("/adv-detail");
 
-  const showBottomBar = () => loc.pathname === "/";
+  const showBottomBar = () =>
+    loc.pathname === "/" ||
+    loc.pathname === "/chats-user" ||
+    loc.pathname === "/favourites-user";
 
   const showSearchIcon = () =>
     loc.pathname === "/" ||
@@ -71,11 +74,11 @@ function App() {
         {/* User page */}
         <Route path="/chats-user" element={<Chat />} />
         <Route path="/favourites-user" element={<Favourites />} />
-        
+
         {/* Auth */}
         <Route path="/signup-advertiser" element={<SignupAdvertiser />} />
         <Route path="/login-advertiser" element={<LoginAdvertiser />} />
-        
+
         {/* Sidebar option */}
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact-us" element={<ContactUs />} />
