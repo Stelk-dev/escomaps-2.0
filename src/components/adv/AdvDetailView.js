@@ -8,6 +8,7 @@ import MapView from "../widgets/views/MapView";
 import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { BsTelephoneFill } from "react-icons/bs";
+import { Tabs, TabList, Tab } from "@mui/joy";
 
 export default function AdvDetailView() {
   // const state = useLocation();
@@ -41,9 +42,7 @@ export default function AdvDetailView() {
           width: "80px",
           height: "55px",
           margin: "0px 3px",
-          cursor: "pointer",
         }}
-        onClick={() => setIndexPhoto(index)}
       >
         <img
           src={image}
@@ -58,6 +57,13 @@ export default function AdvDetailView() {
       </div>
     );
   }
+
+  const handleScroll = (e) => {
+    const totalScrollWidth = e.target.scrollWidth - e.target.clientWidth;
+    const scrollPercentage = e.target.scrollLeft / totalScrollWidth;
+    const activeTabIndex = Math.floor(scrollPercentage * photos.length);
+    if (indexPhoto != activeTabIndex) setIndexPhoto(activeTabIndex);
+  };
 
   return (
     <div>
@@ -131,12 +137,44 @@ export default function AdvDetailView() {
 
       {/* Images */}
       <div>
-        {/* Image */}
-        <img
-          src={photos[indexPhoto]}
-          alt="main_escort_label"
-          style={{ width: "100%", height: "450px", objectFit: "cover" }}
-        />
+        {/* Images carousel */}
+        <Tabs
+          aria-label="Scrollable tabs"
+          defaultValue={0}
+          onSelect={(index) => console.log(index)}
+        >
+          <TabList
+            sx={{
+              overflow: "auto",
+              overflowY: "hidden",
+              scrollSnapType: "x mandatory",
+              backgroundColor: "black",
+              "&::-webkit-scrollbar": { display: "none" },
+            }}
+            onScroll={handleScroll}
+          >
+            {photos.map((e, index) => (
+              <Tab
+                key={index}
+                sx={{
+                  flex: "none",
+                  scrollSnapAlign: "start",
+                  width: "100%",
+                  padding: "0px",
+                  border: "none",
+                  height: "500px",
+                }}
+              >
+                <img
+                  src={e}
+                  key={index}
+                  alt="main_escort_label"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </Tab>
+            ))}
+          </TabList>
+        </Tabs>
 
         {/* Images list */}
         <div
