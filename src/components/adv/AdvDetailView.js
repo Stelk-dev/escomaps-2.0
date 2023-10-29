@@ -25,6 +25,9 @@ export default function AdvDetailView() {
   const address =
     "Via S. Michele Cavana, 48, 43037, Neviano degli Arduini Peloponneso";
   const typeOfMoving = ["Ricevo a casa", "Vengo in casa"];
+  const phoneNumber = "+393802640304";
+  const waNumber = "3802640304";
+  const tgNumber = "3802640304";
 
   function CarouselPhotoElement({ image, index }) {
     return (
@@ -66,6 +69,7 @@ export default function AdvDetailView() {
         <div
           className="social-circle-button"
           style={{ backgroundColor: "#4caf51" }}
+          onClick={() => window.open("https://wa.me/+39" + waNumber, "_blank")}
         >
           <FaWhatsapp />
         </div>
@@ -76,7 +80,11 @@ export default function AdvDetailView() {
         </div>
 
         {/* Phone */}
-        <div className="chat-button" style={{ backgroundColor: "white" }}>
+        <div
+          className="chat-button"
+          style={{ backgroundColor: "white" }}
+          onClick={() => window.open("tel:" + phoneNumber, "_blank")}
+        >
           <BsTelephoneFill />
         </div>
 
@@ -84,6 +92,7 @@ export default function AdvDetailView() {
         <div
           className="social-circle-button"
           style={{ backgroundColor: "#29b7f7", marginRight: "0px" }}
+          onClick={() => window.open("https://t.me/+39" + tgNumber, "_blank")}
         >
           <FaTelegramPlane />
         </div>
@@ -115,6 +124,7 @@ export default function AdvDetailView() {
         {/* Favourite */}
         <BsHeart style={{ color: "white", fontSize: "24px" }} />
       </div>
+      {/* Header bar */}
 
       {/* Black space */}
       <div style={{ height: "72px", backgroundColor: "black" }} />
@@ -229,7 +239,12 @@ export default function AdvDetailView() {
           <input
             className="main-form"
             value={address}
-            style={{ height: "45px", marginTop: "4px", color: "white", pointerEvents: "none" }}
+            style={{
+              height: "45px",
+              marginTop: "4px",
+              color: "white",
+              pointerEvents: "none",
+            }}
             readonly
           />
 
