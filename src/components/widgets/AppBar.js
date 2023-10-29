@@ -16,8 +16,9 @@ export default function AppBar(props) {
       setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
       setPrevScrollPos(currentScrollPos);
     };
-
-    window.addEventListener('scroll', handleScroll);
+    
+    if(!props.hideAnimation)
+      window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);

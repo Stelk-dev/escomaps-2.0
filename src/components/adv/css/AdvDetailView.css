@@ -1,0 +1,10 @@
+#header-bar{
+    position: fixed;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 16px;
+    height: 72px;
+    background: linear-gradient(to bottom, #00000088, transparent);
+}

@@ -20,10 +20,12 @@ function App() {
     setShowSidebar(!showSidebar);
   };
 
-  const showSearchIcon = () => loc.pathname === "/";
+  const showSearchIcon = () =>
+    loc.pathname === "/" || loc.pathname.includes("/adv-detail");
 
   const showMenuIcon = () =>
     loc.pathname === "/" ||
+    loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user";
 
@@ -34,14 +36,14 @@ function App() {
 
       {/* App bar */}
       <AppBar
+        hideAnimation={useLocation().pathname.includes("/adv-detail")}
         showMenuIcon={showMenuIcon()}
         showSearchIcon={showSearchIcon()}
         showSidebar={toggleSidebar}
       />
 
-      {
-        showMenuIcon() && <BottomBar index={index} setIndex={setIndex} />
-      }
+      {/* Bottom bar */}
+      {showMenuIcon() && <BottomBar index={index} setIndex={setIndex} />}
 
       {/* Routes */}
       <Routes>
