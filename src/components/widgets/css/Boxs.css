@@ -1,0 +1,15 @@
+.filter-button {
+    background-color: #B02D2333;
+    border: 1px solid #B02D23;
+    color: #ADADAD;
+    border-radius: 100px;
+    font-size: 14px;
+    padding: 8px 14px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #B02D23;
+    color: white;
+}

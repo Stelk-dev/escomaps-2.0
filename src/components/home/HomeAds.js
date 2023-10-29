@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Home.css";
 import AdsList from "./widgets/AdsList";
+import SelectableBox from "../widgets/boxes/SelectableBox";
+import { FiltersInHome } from "../../constants/ValueConstants";
 
 export default function HomeAds() {
   const elements = Array.from({ length: 13 }, (_, index) => index + 1);
+  const [interestedFilters, setInterestedFilters] = useState([]);
+
+  function HandleFilterTap(name) {
+    const elementExist = interestedFilters.some((item) => item === name);
+
+    if (elementExist) {
+      setInterestedFilters((prev) => [...prev].filter((e) => e !== name));
+    } else setInterestedFilters([...interestedFilters, name]);
+  }
 
   return (
     <div style={{ margin: "60px 0px" }}>
@@ -50,10 +61,14 @@ export default function HomeAds() {
             Interessato in:
           </h4>
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <div className="filter-button">Donna</div>
-            <div className="filter-button">Uomo</div>
-            <div className="filter-button">Trans</div>
-            <div className="filter-button">Coppia</div>
+            {FiltersInHome.map((e, index) => (
+              <SelectableBox
+                name={e}
+                key={index}
+                onSelect={() => HandleFilterTap(e)}
+                isSelected={interestedFilters.includes(e)}
+              />
+            ))}
           </div>
         </div>
         <br />

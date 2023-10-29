@@ -10,11 +10,11 @@ export default function ContactUs() {
           Per qualsiasi domande, esigenza, o problema generico puoi scriverci
           all'indirizzo:
         </div>
-        <a href="mailto:support@escomaps.com" target="_blank">
+        <a href="mailto:support@escomaps.com" target="_blank" rel="noreferrer">
           support@escomaps.com
         </a>
         <div>o al numero:</div>
-        <a href="https://wa.me/+39388098323" target="_blank">
+        <a href="https://wa.me/+39388098323" target="_blank" rel="noreferrer">
           +39 388 098 323
         </a>
       </div>
