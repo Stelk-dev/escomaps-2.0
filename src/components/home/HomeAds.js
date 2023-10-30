@@ -77,13 +77,14 @@ const HeaderSection = () => {
         {/* When user doesn't location permission ask it, if it has show change location modal */}
         <div style={{ color: "grey", fontSize: "14px" }}>
           {position.hasPermission
-            ? "Vuoi cercare in una zona diversa?"
-            : "Vuoi cercare nella tua zona?"}
+            ? "Vuoi cercare in una zona diversa? "
+            : "Vuoi cercare nella tua zona? "}
           <button
             style={{
               border: "none",
               backgroundColor: "transparent",
               color: "red",
+              padding: "0px",
               textDecoration: "underline",
             }}
             onClick={
