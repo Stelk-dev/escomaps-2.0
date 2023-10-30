@@ -11,9 +11,12 @@ import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
 import AuthUserModal from "../auth/AuthUserModal";
 import { MdPrivacyTip } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
+  const [position, setPosition] = useRecoilState(UserLocation);
   const navigate = useNavigate();
 
   function SecondaryButton(props) {
@@ -35,7 +38,7 @@ export default function Sidebar(props) {
 
           {/* Description */}
           {props.description != null && (
-            <div style={{ paddingTop: 3, fontSize: 12, color: "grey" }}>
+            <div style={{ fontSize: 12, color: "grey" }}>
               {props.description}
             </div>
           )}
@@ -133,9 +136,28 @@ export default function Sidebar(props) {
           />
           <SecondaryButton
             title="Posizione"
-            description="-"
+            description={
+              position.latitude === null
+                ? "Attiva posizione"
+                : position.latitude.toString()
+            }
             icon={<BiSolidMap className="buttons-icons-secondary" />}
-            onClick={() => {}}
+            onClick={
+              position.hasPermission
+                ? () => {}
+                : () =>
+                    GetUserPosition(
+                      (position) => {
+                        setPosition((prev) => ({
+                          ...prev,
+                          hasPermission: true,
+                          latitude: position.coords.latitude,
+                          longitude: position.coords.longitude,
+                        }));
+                      },
+                      () => {}
+                    )
+            }
           />
           <SecondaryButton
             title="Domande frequenti"
