@@ -1,8 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/Home.css";
 import AdsList from "./widgets/AdsList";
 import SelectableBox from "../widgets/boxes/SelectableBox";
 import { FiltersInHome } from "../../constants/ValueConstants";
+import { useRecoilState } from "recoil";
+import {
+  GetUserPosition,
+  HavePositionPermission,
+  UserLocation,
+} from "../../providers/UserLocation";
+
+const HeaderSection = () => {
+  const [loading, setLoading] = useState(false);
+  const [position, setPosition] = useRecoilState(UserLocation);
+
+  async function InitPosition() {
+    const r = await HavePositionPermission();
+
+    setPosition((prev) => ({ ...prev, hasPermission: r }));
+
+    if (r && (position.latitude === null || position.longitude === null))
+      getPosition();
+  }
+
+  function getPosition() {
+    setLoading(true);
+
+    GetUserPosition(
+      (position) => {
+        console.log("Position: ");
+        console.log(position);
+
+        setPosition((prev) => ({
+          ...prev,
+          hasPermission: true,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }));
+
+        setLoading(false);
+      },
+      (error) => {
+        console.log("Error..");
+        setLoading(false);
+      }
+    );
+  }
+
+  useEffect(() => {
+    InitPosition();
+    // eslint-disable-next-line
+  }, []);
+
+  return (
+    <div>
+      {/* Title positon */}
+      <div>
+        <h1
+          style={{
+            fontWeight: "bold",
+            fontSize: "24px",
+            marginBottom: "4px",
+          }}
+        >
+          Escort in{" "}
+          {loading
+            ? "Loading..."
+            : (position?.latitude ?? "lat") +
+              " " +
+              (position?.longitude ?? "lng")}
+        </h1>
+        <div style={{ color: "grey", fontSize: "14px" }}>
+          {position
+            ? "Vuoi cercare in una zona diversa?"
+            : "Vuoi cercare nella tua zona?"}{" "}
+          <button
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              color: "red",
+              padding: "0px",
+              textDecoration: "underline",
+            }}
+            onClick={position ? () => {} : () => getPosition()}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "clicca qui"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function HomeAds() {
   const elements = Array.from({ length: 13 }, (_, index) => index + 1);
@@ -27,26 +116,9 @@ export default function HomeAds() {
         }}
       ></div>
 
-      {/* Advs */}
       <div style={{ padding: "0px 12px" }}>
-        {/* Title positon */}
-        <div>
-          <h1
-            style={{
-              fontWeight: "bold",
-              fontSize: "24px",
-              marginBottom: "4px",
-            }}
-          >
-            Escort in Milano
-          </h1>
-          <div style={{ color: "grey", fontSize: "14px" }}>
-            Vuoi cercare nella tua zona?{" "}
-            <a href="google.com" style={{ color: "red" }}>
-              clicca qui
-            </a>
-          </div>
-        </div>
+        {/* Title */}
+        <HeaderSection />
         <div style={{ height: 36 }} />
 
         {/* Filters */}
