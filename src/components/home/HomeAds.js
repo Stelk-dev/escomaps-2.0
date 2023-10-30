@@ -10,6 +10,7 @@ import {
   UserLocation,
 } from "../../providers/UserLocation";
 import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
+import "./css/HomeAds.css";
 
 const HeaderSection = () => {
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ const HeaderSection = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ padding: "0px 16px" }}>
       <div>
         {/* Title positon */}
         <h1
@@ -134,7 +135,7 @@ export default function HomeAds() {
         }}
       ></div>
 
-      <div style={{ padding: "0px 12px" }}>
+      <div>
         {/* Title */}
         <HeaderSection />
         <div style={{ height: 36 }} />
@@ -146,11 +147,12 @@ export default function HomeAds() {
               marginBottom: "10px",
               fontWeight: "400",
               fontSize: "16px",
+              padding: "0px 16px",
             }}
           >
             Interessato in:
           </h4>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div className="container-list">
             {FiltersInHome.map((e, index) => (
               <SelectableBox
                 name={e}
@@ -163,7 +165,10 @@ export default function HomeAds() {
         </div>
         <br />
 
-        <AdsList ads={elements} />
+        {/* Ads list */}
+        <div style={{ padding: "0px 16px" }}>
+          <AdsList ads={elements} />
+        </div>
 
         <div style={{ height: "40px" }} />
       </div>

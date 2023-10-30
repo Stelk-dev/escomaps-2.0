@@ -1,0 +1,15 @@
+.container-list {
+    overflow-x: auto;
+    white-space: nowrap;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    padding: 0px 16px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    -webkit-overflow-scrolling: touch;
+}
+  
+.container-list::-webkit-scrollbar {
+    display: none;
+}
