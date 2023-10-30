@@ -31,7 +31,7 @@ export default function SelectCityLocationModal({ open, onSelect, onClose }) {
       <div
         style={{
           float: "left",
-          width: "23%",
+          width: "22%",
           marginRight: "8px",
           marginBottom: "8px",
         }}
