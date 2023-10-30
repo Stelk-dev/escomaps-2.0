@@ -71,7 +71,7 @@ const HeaderSection = () => {
               (position?.longitude ?? "lng")}
         </h1>
         <div style={{ color: "grey", fontSize: "14px" }}>
-          {position
+          {position.hasPermission
             ? "Vuoi cercare in una zona diversa?"
             : "Vuoi cercare nella tua zona?"}{" "}
           <button
