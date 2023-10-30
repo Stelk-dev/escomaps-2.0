@@ -17,6 +17,7 @@ async function HavePositionPermission() {
   const { state } = await navigator.permissions.query({
     name: "geolocation",
   });
+  console.log(state === "granted");
 
   return state === "granted";
 }
