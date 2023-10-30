@@ -7,14 +7,15 @@
 
 .main-form{
     background-color: #242424;
-    color: white;
-    border: 1px #9E9E9E solid;
+    border: 1px #9E9E9E solid !important;
     border-radius: 8px;
     width: 100%;
     padding: 14px 14px;
+    color: white;
+    outline: none;
 }
 
 .main-form:focus{
-    border: 1px #7e7d7d solid;
+    border: 1px white solid !important;
     box-shadow: none;
 }
