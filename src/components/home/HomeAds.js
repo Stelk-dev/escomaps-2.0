@@ -82,7 +82,7 @@ const HeaderSection = () => {
               padding: "0px",
               textDecoration: "underline",
             }}
-            onClick={position ? () => {} : () => getPosition()}
+            onClick={position.hasPermission ? () => {} : () => getPosition()}
             disabled={loading}
           >
             {loading ? "Loading..." : "clicca qui"}
