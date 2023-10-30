@@ -9,9 +9,11 @@ import {
   HavePositionPermission,
   UserLocation,
 } from "../../providers/UserLocation";
+import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 
 const HeaderSection = () => {
   const [loading, setLoading] = useState(false);
+  const [showLocationModal, setShowLocationModal] = useState(false);
   const [position, setPosition] = useRecoilState(UserLocation);
 
   async function InitPosition() {
@@ -54,8 +56,8 @@ const HeaderSection = () => {
 
   return (
     <div>
-      {/* Title positon */}
       <div>
+        {/* Title positon */}
         <h1
           style={{
             fontWeight: "bold",
@@ -70,25 +72,40 @@ const HeaderSection = () => {
               " " +
               (position?.longitude ?? "lng")}
         </h1>
+
+        {/* Subtitle */}
+        {/* When user doesn't location permission ask it, if it has show change location modal */}
         <div style={{ color: "grey", fontSize: "14px" }}>
           {position.hasPermission
             ? "Vuoi cercare in una zona diversa?"
-            : "Vuoi cercare nella tua zona?"}{" "}
+            : "Vuoi cercare nella tua zona?"}
           <button
             style={{
               border: "none",
               backgroundColor: "transparent",
               color: "red",
-              padding: "0px",
               textDecoration: "underline",
             }}
-            onClick={position.hasPermission ? () => {} : () => getPosition()}
+            onClick={
+              position.hasPermission
+                ? () => setShowLocationModal(true)
+                : () => getPosition()
+            }
             disabled={loading}
           >
             {loading ? "Loading..." : "clicca qui"}
           </button>
         </div>
       </div>
+
+      {/* Select location dialog */}
+      <SelectCityLocationModal
+        open={showLocationModal}
+        onSelect={(newPos) => {
+          console.log(newPos);
+        }}
+        onClose={() => setShowLocationModal(false)}
+      />
     </div>
   );
 };
