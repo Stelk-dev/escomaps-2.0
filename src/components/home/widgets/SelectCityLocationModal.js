@@ -8,15 +8,22 @@ import { BsSearchHeart } from "react-icons/bs";
 export default function SelectCityLocationModal({ open, onSelect, onClose }) {
   const [searchInput, setSearchInput] = useState(null);
   const cities = [
-    "Milano",
-    "Roma",
-    "Firenze",
-    "Torino",
-    "Venezia",
-    "Parma",
+    "Bari",
     "Bologna",
+    "Catania",
+    "Firenze",
+    "Genova",
+    "Messina",
+    "Milano",
+    "Napoli",
+    "Padova",
     "Palermo",
-  ];
+    "Roma",
+    "Torino",
+    "Trieste",
+    "Venezia",
+    "Verona"
+];
 
   function handleSubmit(value) {
     if(value === "") return;
