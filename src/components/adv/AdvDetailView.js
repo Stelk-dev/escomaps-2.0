@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
 import { IoMdFemale } from "react-icons/io";
@@ -64,6 +64,10 @@ export default function AdvDetailView() {
     const activeTabIndex = Math.floor(scrollPercentage * photos.length);
     if (indexPhoto !== activeTabIndex) setIndexPhoto(activeTabIndex);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div>
