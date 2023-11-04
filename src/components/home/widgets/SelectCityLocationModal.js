@@ -6,7 +6,7 @@ import { BsSearchHeart } from "react-icons/bs";
 
 // Appear search button when input is filled
 export default function SelectCityLocationModal({ open, onSelect, onClose }) {
-  const [searchInput, setSearchInput] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
   const cities = [
     "Bari",
     "Bologna",

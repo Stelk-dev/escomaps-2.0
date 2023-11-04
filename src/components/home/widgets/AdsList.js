@@ -5,6 +5,7 @@ import { UserLocation } from "../../../providers/UserLocation";
 import { useRecoilState } from "recoil";
 
 export default function AdsList({ ads }) {
+  const [userPosition] = useRecoilState(UserLocation);
   //   {
   //     "reviews": [],
   //     "uidAdvertiser": "2H2bZ4tFcCRWqUbULJpv1lfXDr12",
@@ -78,12 +79,10 @@ export default function AdsList({ ads }) {
     return "404";
   };
 
-  const DistanceCalculator = ({ advLatitude, advLongitude }) => {
-    const [position] = useRecoilState(UserLocation);
-
+  const GetDistance = ({ advLatitude, advLongitude }) => {
     const calculateDistance = () => {
-      const lat1 = position.latitude;
-      const lon1 = position.longitude;
+      const lat1 = userPosition.latitude;
+      const lon1 = userPosition.longitude;
       const lat2 = advLatitude;
       const lon2 = advLongitude;
       const dLat = deg2rad(lat2 - lat1); // deg2rad below
@@ -105,9 +104,7 @@ export default function AdsList({ ads }) {
 
     const distance = calculateDistance(advLatitude, advLongitude).toFixed(2);
 
-    return (
-      <p style={{ fontSize: "11px", color: "grey" }}>{distance} km da te</p>
-    );
+    return distance;
   };
 
   return (
@@ -127,39 +124,49 @@ export default function AdsList({ ads }) {
 
       {/* Grid view list */}
       <div className="grid-container">
-        {ads.map((a) => (
-          <Link
-            key={a.idADV}
-            to={{pathname: "/adv-detail/" + a.idADV, param1: "ciao"}}
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            <div key={a} className="grid-item">
-              {/* Image */}
-              <img
-                src={getImagePath({
-                  image: a.photos[0],
-                  idAdvertiser: a.uidAdvertiser,
-                })}
-                className="grid-item-image"
-                alt="escort-label"
-              />
+        {ads.map((a) => {
+          const distance = GetDistance({
+            advLatitude: a.locationData.lat,
+            advLongitude: a.locationData.lon,
+          });
+          const age = getAge(a.birthDate);
 
-              {/* Description */}
-              <div className="grid-item-description">
-                {/* Data */}
-                <h5 style={{ fontSize: "14px", marginBottom: "2px" }}>
-                  {a.name}, {getAge(a.birthDate)}
-                </h5>
-
-                {/* Distance */}
-                <DistanceCalculator
-                  advLatitude={a.locationData.lat}
-                  advLongitude={a.locationData.lon}
+          return (
+            <Link
+              key={a.idADV}
+              to={{
+                pathname: "/adv-detail/" + a.idADV,
+              }}
+              state={{ adv: a, distanceFromUser: distance, age: age }}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              <div key={a} className="grid-item">
+                {/* Image */}
+                <img
+                  src={getImagePath({
+                    image: a.photos[0],
+                    idAdvertiser: a.uidAdvertiser,
+                  })}
+                  className="grid-item-image"
+                  alt="escort-label"
                 />
+
+                {/* Description */}
+                <div className="grid-item-description">
+                  {/* Data */}
+                  <h5 style={{ fontSize: "14px", marginBottom: "2px" }}>
+                    {a.name}, {age}
+                  </h5>
+
+                  {/* Distance */}
+                  <p style={{ fontSize: "11px", color: "grey" }}>
+                    {distance} km da te
+                  </p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

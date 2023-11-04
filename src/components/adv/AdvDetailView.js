@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
-import { IoMdFemale } from "react-icons/io";
+import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
 import "./css/AdvDetailView.css";
 import CategoryBox from "../widgets/boxes/CategoryBox";
 import MapView from "../widgets/views/MapView";
@@ -9,26 +9,32 @@ import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { BsTelephoneFill } from "react-icons/bs";
 import { Tabs, TabList, Tab } from "@mui/joy";
+import { useLocation } from "react-router-dom";
 
-export default function AdvDetailView({ adv }) {
-  // const state = useLocation();
-  // const idAdv = state.pathname.substring(state.pathname.lastIndexOf("/") + 1);
+export default function AdvDetailView() {
+  const loc = useLocation();
+  const adv = loc.state.adv;
+  const distanceFromUser = loc.state.distanceFromUser;
+  const age = loc.state.age;
 
   const [indexPhoto, setIndexPhoto] = useState(0);
 
-  const photos = [
-    "https://i.scdn.co/image/ab6761610000e5eb3ad3804fd76ae920054fe83b",
-    "https://insidethemagic.net/wp-content/uploads/2023/04/panda4-800x400.jpg",
-    "https://resizing.flixster.com/bUHfz6f5Jl-STdX8vdyauuFMIfY=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzUwMzUyZGMxLTViMjAtNDM5MS04YjhmLTRlNzU1YWNlMzViZS53ZWJw",
-  ];
-  const categories = ["Donna", "Uomo"];
-  const services = ["Anale", "Orale", "Fetish"];
-  const address =
-    "Via S. Michele Cavana, 48, 43037, Neviano degli Arduini Peloponneso";
-  const typeOfMoving = ["Ricevo a casa", "Vengo in casa"];
-  const phoneNumber = "+393802640304";
-  const waNumber = "3802640304";
-  const tgNumber = "3802640304";
+  const photos = adv.photos;
+  const categories = adv.categories;
+  const services = adv.services;
+  const typeOfMoving = () => {
+    const canReceive = adv.locationData.canReceiveAtHome;
+    const canGo = adv.locationData.canGoToHomes;
+    var values = ["Ricevo a casa", "Vengo in casa"];
+
+    if (!canReceive && !canGo) values = [];
+    else if (!canReceive || !canGo) values = values.slice(1);
+
+    return values;
+  };
+
+  const waNumber = adv.whatsapp;
+  const tgNumber = adv.telegram;
 
   function CarouselPhotoElement({ image, index }) {
     return (
@@ -39,8 +45,8 @@ export default function AdvDetailView({ adv }) {
               ? "2px white solid"
               : "2px transparent solid",
           borderRadius: "8px",
-          width: "80px",
-          height: "55px",
+          width: "60px",
+          height: "50px",
           margin: "0px 3px",
         }}
       >
@@ -76,13 +82,17 @@ export default function AdvDetailView({ adv }) {
       {/* Chat icons */}
       <div id="bottom-bar">
         {/* WA */}
-        <div
-          className="social-circle-button"
-          style={{ backgroundColor: "#4caf51" }}
-          onClick={() => window.open("https://wa.me/+39" + waNumber, "_blank")}
-        >
-          <FaWhatsapp />
-        </div>
+        {waNumber && (
+          <div
+            className="social-circle-button"
+            style={{ backgroundColor: "#4caf51" }}
+            onClick={() =>
+              window.open("https://wa.me/+39" + waNumber, "_blank")
+            }
+          >
+            <FaWhatsapp />
+          </div>
+        )}
 
         {/* Chat */}
         <div className="chat-button" style={{ backgroundColor: "white" }}>
@@ -93,30 +103,39 @@ export default function AdvDetailView({ adv }) {
         <div
           className="chat-button"
           style={{ backgroundColor: "white" }}
-          onClick={() => window.open("tel:" + phoneNumber, "_blank")}
+          onClick={() => window.open("tel:" + adv.phoneNumber, "_blank")}
         >
           <BsTelephoneFill />
         </div>
 
         {/* TG */}
-        <div
-          className="social-circle-button"
-          style={{ backgroundColor: "#29b7f7", marginRight: "0px" }}
-          onClick={() => window.open("https://t.me/+39" + tgNumber, "_blank")}
-        >
-          <FaTelegramPlane />
-        </div>
+        {tgNumber && (
+          <div
+            className="social-circle-button"
+            style={{ backgroundColor: "#29b7f7", marginRight: "0px" }}
+            onClick={() => window.open("https://t.me/+39" + tgNumber, "_blank")}
+          >
+            <FaTelegramPlane />
+          </div>
+        )}
       </div>
 
       {/* Header bar */}
       <div id="header-bar">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <IoMdFemale
-            style={{ color: "white", fontSize: "32px", marginRight: "4px" }}
-          />
+          {/* Sex symbol */}
+          {adv.gender === 0 ? (
+            <IoMdMale id="sex-symbol-icon" />
+          ) : adv.gender === 1 ? (
+            <IoMdFemale id="sex-symbol-icon" />
+          ) : (
+            <IoMdTransgender id="sex-symbol-icon" />
+          )}
+          <div style={{ marginRight: "8px" }} />
+
           <div>
             <h1 style={{ fontSize: "18px", fontWeight: "600" }}>
-              Caterina, 20
+              {adv.name}, {age}
             </h1>
             <h2
               style={{
@@ -126,7 +145,7 @@ export default function AdvDetailView({ adv }) {
                 marginLeft: "1px",
               }}
             >
-              131,73 km da te
+              {distanceFromUser} km da te
             </h2>
           </div>
         </div>
@@ -205,16 +224,9 @@ export default function AdvDetailView({ adv }) {
             padding: "10px",
           }}
         >
-          <h3 style={{ fontSize: "16px", fontWeight: "bold" }}>
-            Cilena rossa e disponibile
-          </h3>
+          <h3 style={{ fontSize: "16px", fontWeight: "bold" }}>{adv.title}</h3>
           <p style={{ fontSize: "14px", marginTop: "14px" }}>
-            Foto reale, a casa mia o da te, erotica donna sudamericana, 40 anni,
-            caldissima, disponibilità assoluta, preliminari lunghi e al
-            naturale, lato b, tutte le posizione, giochi di ruolo, sexy toy,
-            dolce o severa padrona, strapon, massaggio prostatico, pioggia
-            dorata, tutto con molta calma e pazienza, goditi il piacere di stare
-            con una vera donna!
+            {adv.description}
           </p>
         </div>
         {/* Description */}
@@ -234,10 +246,8 @@ export default function AdvDetailView({ adv }) {
               marginTop: "8px",
             }}
           >
-            {categories.map((e, index) => (
-              <div style={{ marginRight: "8px" }}>
-                <CategoryBox name={e} key={index} />
-              </div>
+            {categories.map((c) => (
+              <CategoryBox name={c.name} key={c.index} />
             ))}
           </div>
         </div>
@@ -246,22 +256,13 @@ export default function AdvDetailView({ adv }) {
         <br />
 
         {/* Services */}
-        <div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>Servizi:</h3>
 
           {/* List services */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-              marginTop: "8px",
-            }}
-          >
-            {services.map((e, index) => (
-              <div style={{ marginRight: "8px" }}>
-                <CategoryBox name={e} key={index} />
-              </div>
+          <div style={{ marginTop: "8px" }}>
+            {services.map((s) => (
+              <CategoryBox name={s.name} key={s.index} />
             ))}
           </div>
         </div>
@@ -275,26 +276,29 @@ export default function AdvDetailView({ adv }) {
             Dove risiedo:
           </h3>
           {/* Webview */}
-          <MapView latLng={[44.570287, 10.3181128]} isPositionPublic={true} />
+          <MapView
+            latLng={[adv.locationData.lat, adv.locationData.lon]}
+            isPositionPublic={adv.locationData.locationPublic}
+          />
 
           {/* Form address */}
           <input
             className="main-form"
-            defaultValue={address}
+            defaultValue={adv.locationData.address}
             style={{
               height: "45px",
               marginTop: "4px",
               color: "white",
               pointerEvents: "none",
             }}
-            readonly={true}
+            readOnly={true}
           />
 
           {/* Type of coming */}
           <div style={{ display: "flex", marginTop: "8px" }}>
-            {typeOfMoving.map((e, index) => (
-              <div style={{ marginRight: "8px" }}>
-                <CategoryBox name={e} key={index} />
+            {typeOfMoving().map((e, index) => (
+              <div style={{ marginRight: "8px" }} key={index}>
+                <CategoryBox name={e} />
               </div>
             ))}
           </div>
