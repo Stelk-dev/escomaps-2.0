@@ -15,9 +15,13 @@
     background-color: grey;
     border-radius: 8px;
     flex: 1;
+    width: 100%;
+    object-fit: cover;
+    height: 80%;
 }
 
 .grid-item-description {
     padding: 6px 0px 0px 2px;
     border-radius: 0px 0px 8px 8px;
+    height: 20%;
 }

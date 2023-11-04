@@ -11,6 +11,7 @@ import {
 } from "../../providers/UserLocation";
 import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
+import { getAds } from "../../services/Database";
 
 const HeaderSection = () => {
   const [loading, setLoading] = useState(false);
@@ -113,8 +114,8 @@ const HeaderSection = () => {
 };
 
 export default function HomeAds() {
-  const elements = Array.from({ length: 13 }, (_, index) => index + 1);
   const [interestedFilters, setInterestedFilters] = useState([]);
+  const [ads, setAds] = useState([]);
 
   function HandleFilterTap(name) {
     const elementExist = interestedFilters.some((item) => item === name);
@@ -123,6 +124,15 @@ export default function HomeAds() {
       setInterestedFilters((prev) => [...prev].filter((e) => e !== name));
     } else setInterestedFilters([...interestedFilters, name]);
   }
+
+  // Init ads
+  useEffect(() => {
+    getAds.then((e) => {
+      const data = e.docs.map((a) => a.data());
+      setAds(data);
+    });
+    return;
+  }, []);
 
   return (
     <div style={{ margin: "60px 0px" }}>
@@ -167,7 +177,7 @@ export default function HomeAds() {
 
         {/* Ads list */}
         <div style={{ padding: "0px 16px" }}>
-          <AdsList ads={elements} />
+          <AdsList ads={ads} />
         </div>
 
         <div style={{ height: "40px" }} />

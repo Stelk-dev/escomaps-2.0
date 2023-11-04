@@ -10,7 +10,7 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { BsTelephoneFill } from "react-icons/bs";
 import { Tabs, TabList, Tab } from "@mui/joy";
 
-export default function AdvDetailView() {
+export default function AdvDetailView({ adv }) {
   // const state = useLocation();
   // const idAdv = state.pathname.substring(state.pathname.lastIndexOf("/") + 1);
 
@@ -280,14 +280,14 @@ export default function AdvDetailView() {
           {/* Form address */}
           <input
             className="main-form"
-            value={address}
+            defaultValue={address}
             style={{
               height: "45px",
               marginTop: "4px",
               color: "white",
               pointerEvents: "none",
             }}
-            readonly
+            readonly={true}
           />
 
           {/* Type of coming */}
