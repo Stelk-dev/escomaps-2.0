@@ -2,11 +2,9 @@ import React from "react";
 import AdsList from "./widgets/AdsList";
 import { useLocation } from "react-router-dom";
 import { BsFilter } from "react-icons/bs";
-import "./css/SearchAds.css"
+import "./css/SearchAds.css";
 
 export default function SearchAds() {
-  const elements = Array.from({ length: 5 }, (_, index) => index + 1);
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q");
@@ -40,7 +38,7 @@ export default function SearchAds() {
       <br />
 
       {/* Ads list */}
-      <AdsList ads={elements} />
+      <AdsList ads={[]} />
 
       <div style={{ height: "40px" }} />
     </div>

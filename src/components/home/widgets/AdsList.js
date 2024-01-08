@@ -4,7 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { UserLocation } from "../../../providers/UserLocation";
 import { useRecoilState } from "recoil";
 
-export default function AdsList({ ads }) {
+export default function AdsList({ ads, loading }) {
   const [userPosition] = useRecoilState(UserLocation);
   //   {
   //     "reviews": [],
@@ -110,7 +110,7 @@ export default function AdsList({ ads }) {
   return (
     <div>
       {/* Loading */}
-      {ads.length === 0 && (
+      {loading && (
         <div
           style={{
             display: "flex",

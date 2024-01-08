@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import img from "../../assets/escomaps_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/Appbar.css";
+import { FaFontAwesome } from "react-icons/fa";
 
 const DefaultAppBar = ({
   showSidebar,
@@ -64,6 +65,7 @@ function SearchBar({ onSearchCancel }) {
   function HandleSubmit(e) {
     e.preventDefault();
     if (query === null) return;
+    console.log("All good");
 
     navigate("/search?q=" + query.current.value);
     onSearchCancel();
@@ -72,7 +74,11 @@ function SearchBar({ onSearchCancel }) {
   return (
     <div className="main-app-bar" style={{ padding: "0px 14px" }}>
       {/* Search form */}
-      <form onSubmit={HandleSubmit} style={{ flex: 1 }} action=".">
+      <form
+        onSubmit={HandleSubmit}
+        style={{ flex: 1, position: "relative" }}
+        action="."
+      >
         <input
           ref={query}
           className="main-form"
@@ -80,7 +86,21 @@ function SearchBar({ onSearchCancel }) {
           id="search"
           placeholder="Cerca per nome, telefono, città..."
           autoFocus={true}
-          style={{ height: "45px" }}
+          style={{ height: "45px", paddingRight: "50px" }}
+        />
+        <AiOutlineSearch
+          onClick={HandleSubmit}
+          style={{
+            backgroundColor: "white",
+            color: "black",
+            borderRadius: "0px 6px 6px 0px",
+            width: "44px",
+            padding: "12px",
+            position: "absolute",
+            right: "1px",
+            top: "1px",
+            height: "97%",
+          }}
         />
       </form>
 

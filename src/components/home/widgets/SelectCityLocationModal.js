@@ -22,12 +22,12 @@ export default function SelectCityLocationModal({ open, onSelect, onClose }) {
     "Torino",
     "Trieste",
     "Venezia",
-    "Verona"
-];
+    "Verona",
+  ];
 
   function handleSubmit(value) {
-    if(value === "") return;
-    
+    if (value === "") return;
+
     onSelect(value);
     setSearchInput("");
     onClose();
@@ -102,14 +102,18 @@ export default function SelectCityLocationModal({ open, onSelect, onClose }) {
             />
 
             {/* Search button */}
-            <button id="search-button" type="submit" onClick={() => handleSubmit(searchInput)}>
+            <button
+              id="search-button"
+              type="submit"
+              onClick={() => handleSubmit(searchInput)}
+            >
               <BsSearchHeart fontSize="18px" />
               <div style={{ marginLeft: "4px", fontSize: "14px" }}>Cerca</div>
             </button>
           </form>
 
           {/* Cities list */}
-          <div style={{ paddingLeft: "8px" }}>
+          <div>
             {cities.map((e, index) => (
               <SelectCityElement name={e} key={index} />
             ))}

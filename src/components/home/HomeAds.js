@@ -117,6 +117,7 @@ const HeaderSection = () => {
 export default function HomeAds() {
   const [interestedFilters, setInterestedFilters] = useState([]);
   const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   function HandleFilterTap(name) {
     const elementExist = interestedFilters.some((item) => item === name);
@@ -131,6 +132,7 @@ export default function HomeAds() {
     getAds.then((e) => {
       const data = e.docs.map((a) => a.data());
       setAds(data);
+      setLoading(false);
     });
     return;
   }, []);
@@ -178,7 +180,7 @@ export default function HomeAds() {
 
         {/* Ads list */}
         <div style={{ padding: "0px 16px" }}>
-          <AdsList ads={ads} />
+          <AdsList ads={ads} loading={loading} />
         </div>
 
         {/* Divider */}
