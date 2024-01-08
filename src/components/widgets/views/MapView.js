@@ -13,11 +13,7 @@ const MapView = ({ latLng, isPositionPublic }) => {
   });
 
   return (
-    <MapContainer
-      id="map"
-      center={latLng}
-      zoom={17}
-    >
+    <MapContainer id="map" center={latLng} zoom={17}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
