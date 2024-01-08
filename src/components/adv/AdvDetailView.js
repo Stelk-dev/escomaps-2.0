@@ -125,11 +125,11 @@ export default function AdvDetailView() {
         <div style={{ display: "flex", alignItems: "center" }}>
           {/* Sex symbol */}
           {adv.gender === 0 ? (
-            <IoMdMale id="sex-symbol-icon" />
+            <IoMdMale className="sex-symbol-icon" />
           ) : adv.gender === 1 ? (
-            <IoMdFemale id="sex-symbol-icon" />
+            <IoMdFemale className="sex-symbol-icon" />
           ) : (
-            <IoMdTransgender id="sex-symbol-icon" />
+            <IoMdTransgender className="sex-symbol-icon" />
           )}
           <div style={{ marginRight: "8px" }} />
 

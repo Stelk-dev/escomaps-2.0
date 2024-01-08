@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { UserLocation } from "../../../providers/UserLocation";
 import { useRecoilState } from "recoil";
+import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
 
 export default function AdsList({ ads, loading }) {
   const [userPosition] = useRecoilState(UserLocation);
@@ -140,28 +141,66 @@ export default function AdsList({ ads, loading }) {
               state={{ adv: a, distanceFromUser: distance, age: age }}
               style={{ color: "white", textDecoration: "none" }}
             >
-              <div key={a} className="grid-item">
-                {/* Image */}
-                <img
-                  src={getImagePath({
-                    image: a.photos[0],
-                    idAdvertiser: a.uidAdvertiser,
-                  })}
-                  className="grid-item-image"
-                  alt="escort-label"
-                />
+              <div
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  zIndex: "-1",
+                }}
+              >
+                {/* Sex symbol */}
+                <div
+                  style={{
+                    top: "-6px",
+                    left: "-6px",
+                    position: "absolute",
+                    fontSize: "16px",
+                    height: "32px",
+                    width: "32px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                    backgroundColor: "black",
+                    borderRadius: "100%",
+                    color:
+                      a.gender === 0
+                        ? "lightblue"
+                        : a.gender === 1
+                        ? "pink"
+                        : "red",
+                  }}
+                >
+                  {a.gender === 0 ? (
+                    <IoMdMale />
+                  ) : a.gender === 1 ? (
+                    <IoMdFemale />
+                  ) : (
+                    <IoMdTransgender />
+                  )}
+                </div>
+                <div key={a} className="grid-item">
+                  {/* Image */}
+                  <img
+                    src={getImagePath({
+                      image: a.photos[0],
+                      idAdvertiser: a.uidAdvertiser,
+                    })}
+                    className="grid-item-image"
+                    alt="escort-label"
+                  />
 
-                {/* Description */}
-                <div className="grid-item-description">
-                  {/* Data */}
-                  <h5 style={{ fontSize: "14px", marginBottom: "2px" }}>
-                    {a.name}, {age}
-                  </h5>
+                  {/* Description */}
+                  <div className="grid-item-description">
+                    {/* Data */}
+                    <h5 style={{ fontSize: "14px", marginBottom: "2px" }}>
+                      {a.name}, {age}
+                    </h5>
 
-                  {/* Distance */}
-                  <p style={{ fontSize: "11px", color: "grey" }}>
-                    {distance} km da te
-                  </p>
+                    {/* Distance */}
+                    <p style={{ fontSize: "11px", color: "grey" }}>
+                      {distance} km da te
+                    </p>
+                  </div>
                 </div>
               </div>
             </Link>
