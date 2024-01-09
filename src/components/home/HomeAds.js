@@ -26,6 +26,13 @@ const HeaderSection = () => {
 
     if (r && (position.latitude === null || position.longitude === null))
       getPosition();
+    else
+      setPosition((prev) => ({
+        ...prev,
+        hasPermission: false,
+        latitude: 0,
+        longitude: 0,
+      }));
   }
 
   function getPosition() {
@@ -47,6 +54,7 @@ const HeaderSection = () => {
       },
       (error) => {
         console.log("Error..");
+        // TODOs: Handle user denied location
         setLoading(false);
       }
     );

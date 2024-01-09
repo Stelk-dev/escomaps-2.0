@@ -151,7 +151,7 @@ export default function AdsList({ ads, loading }) {
                 {/* Sex symbol */}
                 <div
                   style={{
-                    top: "-6px",
+                    top: "-10px",
                     left: "-6px",
                     position: "absolute",
                     fontSize: "16px",
