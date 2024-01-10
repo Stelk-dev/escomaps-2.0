@@ -8,8 +8,8 @@ import Sidebar from "./components/widgets/Sidebar";
 import SignupAdvertiser from "./components/auth/signup/SignupAdvertiser";
 import LoginAdvertiser from "./components/auth/LoginAdvertiser";
 import BottomBar from "./components/widgets/BottomBar";
-import Chat from "./components/home/components-user/Chat";
-import Favourites from "./components/home/components-user/Favourites";
+import Chat from "./components/home/home-user/Chat";
+import Favourites from "./components/home/home-user/Favourites";
 import SearchAds from "./components/home/SearchAds";
 import Faq from "./components/widgets/sidebar-pages/Faq";
 import ContactUs from "./components/widgets/sidebar-pages/ContactUs";
@@ -24,6 +24,10 @@ import {
   GetAdvertiserData,
 } from "./providers/AdvertiserUserData";
 import VerifyIdentity from "./components/auth/signup/VerifyIdentity";
+import HomeAdvertiser from "./components/home/home-advertiser/HomeAdvertiser";
+import AdvertiserAds from "./components/home/home-advertiser/AdvertiserAds";
+import AdvertiserChats from "./components/home/home-advertiser/AdvertiserChats";
+import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSettings";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -41,6 +45,8 @@ function App() {
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user";
 
+  const showAdvertiserBottomBar = () => loc.pathname.includes("/advertiser");
+
   const showSearchIcon = () =>
     loc.pathname === "/" ||
     loc.pathname.includes("/adv-detail") ||
@@ -48,6 +54,7 @@ function App() {
 
   const showMenuIcon = () =>
     loc.pathname === "/" ||
+    loc.pathname === "/advertiser" ||
     loc.pathname === "/search" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/chats-user" ||
@@ -87,7 +94,12 @@ function App() {
       />
 
       {/* Bottom bar */}
-      {showBottomBar() && <BottomBar index={index} setIndex={setIndex} />}
+      {showBottomBar() && (
+        <BottomBar index={index} setIndex={setIndex} isAdvertiser={false} />
+      )}
+
+      {/* Bottom bar advertiser */}
+      {showAdvertiserBottomBar() && <BottomBar isAdvertiser={true} />}
 
       {/* Routes */}
       <Routes>
@@ -99,6 +111,12 @@ function App() {
         {/* User page */}
         <Route path="/chats-user" element={<Chat />} />
         <Route path="/favourites-user" element={<Favourites />} />
+
+        {/* Advertiser page */}
+        <Route path="/advertiser" element={<HomeAdvertiser />} />
+        <Route path="/advertiser/chats" element={<AdvertiserChats />} />
+        <Route path="/advertiser/ads" element={<AdvertiserAds />} />
+        <Route path="/advertiser/settings" element={<AdvertiserSettings />} />
 
         {/* Auth Signup*/}
         <Route path="/signup-advertiser" element={<SignupAdvertiser />} />

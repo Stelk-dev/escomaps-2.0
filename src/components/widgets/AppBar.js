@@ -4,6 +4,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import img from "../../assets/escomaps_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/Appbar.css";
+import { useRecoilState } from "recoil";
+import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
 
 const DefaultAppBar = ({
   showSidebar,
@@ -12,6 +14,8 @@ const DefaultAppBar = ({
   onSearchClick,
   visible,
 }) => {
+  const [user] = useRecoilState(CurrentUserAdvertiser);
+
   return (
     <div
       className="main-app-bar"
@@ -34,7 +38,10 @@ const DefaultAppBar = ({
       </div>
 
       {/* Logo */}
-      <Link to="/" style={{ textDecoration: "none", height: 30 }}>
+      <Link
+        to={user ? "/advertiser" : "/"}
+        style={{ textDecoration: "none", height: 30 }}
+      >
         <img
           src={img}
           style={{ width: 180, objectFit: "contain" }}

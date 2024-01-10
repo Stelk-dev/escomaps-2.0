@@ -4,7 +4,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { UserLocation } from "../../../providers/UserLocation";
 import { useRecoilState } from "recoil";
 import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
-import { yellow } from "@mui/material/colors";
 
 export default function AdsList({ ads, loading }) {
   const [userPosition] = useRecoilState(UserLocation);

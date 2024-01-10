@@ -13,8 +13,6 @@ import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
 import { getAds } from "../../services/Database";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Auth } from "../../Firebase";
 
 const HeaderSection = () => {
   const [loading, setLoading] = useState(false);
@@ -62,7 +60,6 @@ const HeaderSection = () => {
     );
   }
 
-  const [user] = useAuthState(Auth);
   useEffect(() => {
     InitPosition();
     // eslint-disable-next-line
@@ -70,10 +67,6 @@ const HeaderSection = () => {
 
   return (
     <div style={{ padding: "0px 16px" }}>
-      <p style={{ color: "red", fontSize: "12px" }}>
-        Email: {user?.email.toString()} ||| Email verified:{" "}
-        {user?.emailVerified.toString()}
-      </p>
       <div>
         {/* Title positon */}
         <h1

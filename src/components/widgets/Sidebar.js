@@ -13,8 +13,7 @@ import AuthUserModal from "../auth/AuthUserModal";
 import { MdPrivacyTip } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Auth } from "../../Firebase";
+import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
@@ -49,7 +48,57 @@ export default function Sidebar(props) {
     );
   }
 
-  const [user] = useAuthState(Auth);
+  const [user] = useRecoilState(CurrentUserAdvertiser);
+
+  function PathForSignup() {
+    if (user?.email == null) return "/signup-advertiser";
+
+    if (!user.emailVerified) return "/signup-advertiser-verify-email";
+
+    if (user.name.length === 0) return "/signup-advertiser-add-data";
+
+    if (!user.identityVerified) return "/signup-advertiser-verify-identity";
+
+    return null;
+  }
+
+  const LoginSignup = () => {
+    return (
+      <div>
+        <button
+          className="main-buttons"
+          onClick={() => {
+            setshowLoginUserModal(true);
+            props.onSidebarClose();
+          }}
+        >
+          <CgProfile className="buttons-icons" />
+          <div className="buttons-text">Entra come utente</div>
+        </button>
+
+        <div style={{ padding: "4px 0px" }} />
+
+        <Link
+          to={PathForSignup()}
+          style={{ textDecoration: "none", height: 30 }}
+        >
+          <button className="main-buttons" onClick={props.onSidebarClose}>
+            <IoMdAddCircleOutline className="buttons-icons" />
+            <div className="buttons-text">Inizia a pubblicare</div>
+          </button>
+        </Link>
+      </div>
+    );
+  };
+
+  const UserBox = () => {
+    return (
+      <div>
+        <div>Utente</div>
+        <div>Crediti: 0</div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -99,37 +148,8 @@ export default function Sidebar(props) {
           </div>
           <br />
 
-          {/* Login signup */}
-          <div>
-            <button
-              className="main-buttons"
-              onClick={() => {
-                setshowLoginUserModal(true);
-                props.onSidebarClose();
-              }}
-            >
-              <CgProfile className="buttons-icons" />
-              <div className="buttons-text">Entra come utente</div>
-            </button>
-
-            <div style={{ padding: "4px 0px" }} />
-
-            <Link
-              to={
-                user?.email != null
-                  ? user.emailVerified
-                    ? "/signup-advertiser-add-data"
-                    : "/signup-advertiser-verify-email"
-                  : "/signup-advertiser"
-              }
-              style={{ textDecoration: "none", height: 30 }}
-            >
-              <button className="main-buttons" onClick={props.onSidebarClose}>
-                <IoMdAddCircleOutline className="buttons-icons" />
-                <div className="buttons-text">Inizia a pubblicare</div>
-              </button>
-            </Link>
-          </div>
+          {/* User tab Login & signup */}
+          {PathForSignup() === null ? <UserBox /> : <LoginSignup />}
           <br />
 
           <div
