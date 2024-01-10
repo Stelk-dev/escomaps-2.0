@@ -4,6 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { UserLocation } from "../../../providers/UserLocation";
 import { useRecoilState } from "recoil";
 import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
+import { yellow } from "@mui/material/colors";
 
 export default function AdsList({ ads, loading }) {
   const [userPosition] = useRecoilState(UserLocation);
@@ -139,13 +140,17 @@ export default function AdsList({ ads, loading }) {
                 pathname: "/adv-detail/" + a.idADV,
               }}
               state={{ adv: a, distanceFromUser: distance, age: age }}
-              style={{ color: "white", textDecoration: "none" }}
+              style={{
+                color: "white",
+                textDecoration: "none",
+              }}
             >
               <div
                 style={{
                   position: "relative",
                   display: "inline-block",
                   zIndex: "-1",
+                  width: "100%",
                 }}
               >
                 {/* Sex symbol */}
