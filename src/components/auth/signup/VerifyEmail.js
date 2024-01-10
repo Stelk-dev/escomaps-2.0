@@ -2,11 +2,16 @@ import React, { useEffect } from "react";
 import { Auth } from "../../../Firebase";
 import { SignOut } from "../../../services/Authentication";
 import { useNavigate } from "react-router-dom";
-import { UpdateAdvertiserData } from "../../../providers/AdvertiserUserData";
+import {
+  CurrentUserAdvertiser,
+  UpdateAdvertiserData,
+} from "../../../providers/AdvertiserUserData";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRecoilState } from "recoil";
 
 export default function VerifyEmail() {
   const [user] = useAuthState(Auth);
+  const [currentUser, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
   const nv = useNavigate();
 
   async function ExitAndTryAgain() {
@@ -23,7 +28,10 @@ export default function VerifyEmail() {
         UpdateAdvertiserData(user?.uid.toString(), {
           emailVerified: true,
         });
-
+        setcurrentuser({
+          ...currentUser,
+          emailVerified: true,
+        });
         nv("/signup-advertiser-add-data");
       }
     });

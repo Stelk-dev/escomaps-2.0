@@ -5,6 +5,8 @@ import { createUser } from "../../../services/Authentication";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
 import { MdErrorOutline } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
 
 export default function SignupAdvertiser() {
   const [data, setData] = useState({
@@ -16,6 +18,7 @@ export default function SignupAdvertiser() {
   const [error, setError] = useState(null);
   const [showPassword, setshowPassword] = useState(false);
   const [signupLoading, setsignupLoading] = useState(false);
+  const [, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
   const navigate = useNavigate();
 
   const isButtonActive = () =>
@@ -40,6 +43,7 @@ export default function SignupAdvertiser() {
       if (typeof resp === "string") setError(resp);
       else {
         console.log(resp);
+        setcurrentuser(resp);
         navigate("/signup-advertiser-verify-email");
       }
     });

@@ -23,6 +23,7 @@ import {
   CurrentUserAdvertiser,
   GetAdvertiserData,
 } from "./providers/AdvertiserUserData";
+import VerifyIdentity from "./components/auth/signup/VerifyIdentity";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -56,15 +57,10 @@ function App() {
     loc.pathname === "/terms-and-conditions" ||
     loc.pathname === "/privacy-policy";
 
-  const [currentUser, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
+  const [, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
 
   // Init user from DB
   useEffect(() => {
-    InitUser();
-    // eslint-disable-next-line
-  }, []);
-
-  function InitUser() {
     Auth.onAuthStateChanged((user) => {
       console.log("Uid: " + user?.uid);
 
@@ -72,12 +68,10 @@ function App() {
         GetAdvertiserData(user?.uid).then((v) => {
           console.log(v);
           if (v != null) setcurrentuser(v);
-
-          console.log("Current user: " + currentUser.email);
-          console.log("Current user: " + currentUser.identityVerified);
         });
     });
-  }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div style={{ padding: "0px", display: "flex", flexDirection: "column" }}>
@@ -118,7 +112,7 @@ function App() {
         />
         <Route
           path="/signup-advertiser-verify-identity"
-          element={<AdvertiserDataSignup />}
+          element={<VerifyIdentity />}
         />
 
         {/* Auth Login */}

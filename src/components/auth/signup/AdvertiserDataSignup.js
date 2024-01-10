@@ -3,37 +3,56 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Auth } from "../../../Firebase";
 import {
   CurrentUserAdvertiser,
-  SetAdvertiserData,
+  UpdateAdvertiserData,
 } from "../../../providers/AdvertiserUserData";
+import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 export default function AdvertiserDataSignup() {
   const [data, setData] = useState({
     name: "",
-    lastname: "",
+    lastName: "",
     age: "",
-    prefiSelected: "+39",
+    prefix: "+39",
     phoneNumber: "",
   });
 
   const isButtonActive = () =>
     data.name.length >= 4 &&
-    data.lastname.length >= 4 &&
+    data.lastName.length >= 4 &&
     data.age.length >= 2 &&
     parseInt(data.age) >= 18 &&
     data.phoneNumber.length >= 4;
 
   const [user] = useAuthState(Auth);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [currentUser, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
 
-  function SaveData() {
+  async function SaveData() {
     console.log(data);
-    SetAdvertiserData(user.uid, {
-      ...CurrentUserAdvertiser,
+    if (loading) return;
+
+    setLoading(true);
+    await UpdateAdvertiserData(user.uid, {
       name: data.name,
-      lastname: data.lastname,
-      prefiSelected: data.prefiSelected,
+      lastName: data.lastName,
+      prefix: data.prefix,
       phoneNumber: data.phoneNumber,
       age: data.age,
     });
+    setcurrentuser({
+      ...currentUser,
+      name: data.name,
+      lastName: data.lastName,
+      prefix: data.prefix,
+      phoneNumber: data.phoneNumber,
+      age: data.age,
+    });
+    setLoading(false);
+
+    navigate("/signup-advertiser-verify-identity");
   }
 
   return (
@@ -72,7 +91,6 @@ export default function AdvertiserDataSignup() {
                 className="main-form"
                 id="name"
                 placeholder="Nome (4+ caratteri)"
-                value={data.email}
                 onChange={(v) => setData({ ...data, name: v.target.value })}
               ></input>
               <div style={{ width: "16px" }} />
@@ -81,8 +99,7 @@ export default function AdvertiserDataSignup() {
                 className="main-form"
                 id="lastname"
                 placeholder="Cognome (4+ caratteri)"
-                value={data.email}
-                onChange={(v) => setData({ ...data, lastname: v.target.value })}
+                onChange={(v) => setData({ ...data, lastName: v.target.value })}
               ></input>
             </div>
             <div style={{ height: "24px" }} />
@@ -93,7 +110,6 @@ export default function AdvertiserDataSignup() {
               className="main-form"
               id="age"
               placeholder="Età"
-              value={data.email}
               onChange={(v) => setData({ ...data, age: v.target.value })}
             ></input>
             <div style={{ height: "24px" }} />
@@ -122,10 +138,7 @@ export default function AdvertiserDataSignup() {
                     borderRadius: "8px",
                     backgroundColor: "#333333",
                   }}
-                  value={data.prefiSelected}
-                  onChange={(v) =>
-                    setData({ ...data, prefiSelected: v.target.value })
-                  }
+                  onChange={(v) => setData({ ...data, prefix: v.target.value })}
                 >
                   <option value="+39">+39</option>
                   <option value="+44">+44</option>
@@ -137,7 +150,6 @@ export default function AdvertiserDataSignup() {
                 className="main-form"
                 id="number"
                 placeholder="12345678"
-                value={data.email}
                 style={{ paddingLeft: "64px" }}
                 onChange={(v) =>
                   setData({ ...data, phoneNumber: v.target.value })
@@ -166,8 +178,13 @@ export default function AdvertiserDataSignup() {
                 alignItems: "center",
               }}
             >
-              Continua
+              {loading ? (
+                <CircularProgress size={24} style={{ color: "white" }} />
+              ) : (
+                "Continua"
+              )}
             </button>
+            <p style={{ color: "whtie" }}>Nome: {currentUser.name}</p>
           </form>
         </div>
       </div>
