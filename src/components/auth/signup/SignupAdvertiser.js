@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import "./css/AuthAdvertiser.css";
-import { Link } from "react-router-dom";
+import "../css/AuthAdvertiser.css";
+import { Link, useNavigate } from "react-router-dom";
+import { createUser } from "../../../services/Authentication";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { CircularProgress } from "@mui/material";
+import { MdErrorOutline } from "react-icons/md";
 
 export default function SignupAdvertiser() {
   const [data, setData] = useState({
@@ -10,23 +14,35 @@ export default function SignupAdvertiser() {
   });
 
   const [error, setError] = useState(null);
+  const [showPassword, setshowPassword] = useState(false);
+  const [signupLoading, setsignupLoading] = useState(false);
+  const navigate = useNavigate();
 
   const isButtonActive = () =>
     data.email.length > 8 && data.password.length >= 8 && data.acceptTOS;
 
   function Signup() {
-    console.log(data);
+    if (signupLoading) return;
 
     const emailValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
       data.email
     );
-    console.log(emailValid);
     if (!emailValid) {
       setError("Inserisci una mail valida");
       return;
     }
 
-    // Continue
+    // Signup
+    setsignupLoading(true);
+    createUser(data.email, data.password).then((resp) => {
+      setsignupLoading(false);
+
+      if (typeof resp === "string") setError(resp);
+      else {
+        console.log(resp);
+        navigate("/signup-advertiser-verify-email");
+      }
+    });
   }
 
   return (
@@ -60,16 +76,57 @@ export default function SignupAdvertiser() {
             onChange={(v) => setData({ ...data, email: v.target.value })}
           ></input>
           <div style={{ height: 8 }} />
-          <input
-            type="password"
-            className="main-form"
-            id="password"
-            placeholder="password (8+ caratteri)"
-            value={data.password}
-            onChange={(v) => setData({ ...data, password: v.target.value })}
-          ></input>
+          <div style={{ position: "relative" }}>
+            <div
+              style={{
+                position: "absolute",
+                right: "12px",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "28px",
+              }}
+              onClick={() => setshowPassword(!showPassword)}
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="main-form"
+              id="password"
+              placeholder="password (8+ caratteri)"
+              value={data.password}
+              onChange={(v) => setData({ ...data, password: v.target.value })}
+            ></input>
+          </div>
         </form>
         <br />
+
+        {/* Error message */}
+        {error != null ? (
+          <p
+            style={{
+              color: "white",
+              fontSize: 14,
+              backgroundColor: "red",
+              width: "50vw",
+              maxWidth: "350px",
+              minWidth: "200px",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              borderRadius: "8px",
+              padding: "8px",
+            }}
+          >
+            <MdErrorOutline size={18} />
+            <div style={{ width: "4px" }} />
+            <div style={{ fontSize: "15px" }}>{error}</div>
+          </p>
+        ) : (
+          <></>
+        )}
 
         {/* Checkbox TOS */}
         <div
@@ -85,11 +142,11 @@ export default function SignupAdvertiser() {
               type="checkbox"
               checked={data.acceptTOS}
               onChange={() => setData({ ...data, acceptTOS: !data.acceptTOS })}
-              style={{ width: 18, height: 18 }}
+              style={{ width: 16, height: 16 }}
             />
           </div>
 
-          <div style={{ paddingLeft: 16, color: "grey", fontSize: 13 }}>
+          <div style={{ paddingLeft: 16, color: "grey", fontSize: 12 }}>
             Cliccando su registrati ora confermi di aver letto e accettato i{" "}
             <Link to="" className="link-style">
               <strong style={{ color: "white" }}>Termini e condizioni</strong>
@@ -117,19 +174,19 @@ export default function SignupAdvertiser() {
             fontWeight: "500",
             color: isButtonActive() ? "white" : "#FFFFFF66",
             backgroundColor: isButtonActive() ? "#B02D23" : "#FFFFFF33",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
           disabled={!isButtonActive()}
           onClick={Signup}
         >
-          Registrati
+          {signupLoading ? (
+            <CircularProgress size={24} style={{ color: "white" }} />
+          ) : (
+            "Registrati"
+          )}
         </button>
-
-        {/* Error message */}
-        {error != null ? (
-          <p style={{ color: "red", fontSize: 14, paddingTop: 8 }}>{error}</p>
-        ) : (
-          <></>
-        )}
 
         {/* Login */}
         <div
@@ -144,7 +201,7 @@ export default function SignupAdvertiser() {
           <Link
             to="/login-advertiser"
             className="link-style"
-            style={{ marginLeft: 8, color: "#B02D23" }}
+            style={{ marginLeft: 8, color: "red" }}
           >
             Accedi ora
           </Link>

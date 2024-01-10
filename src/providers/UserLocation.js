@@ -12,12 +12,10 @@ const UserLocation = atom({
 
 // [bool] Check if permission are enabled
 async function HavePositionPermission() {
-  console.log("HavePositionPermission: ");
-
   const { state } = await navigator.permissions.query({
     name: "geolocation",
   });
-  console.log(state === "granted");
+  console.log("HavePositionPermission: " + state === "granted");
 
   return state === "granted";
 }

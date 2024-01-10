@@ -4,7 +4,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import img from "../../assets/escomaps_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/Appbar.css";
-import { FaFontAwesome } from "react-icons/fa";
 
 const DefaultAppBar = ({
   showSidebar,

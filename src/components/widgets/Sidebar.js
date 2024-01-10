@@ -13,6 +13,8 @@ import AuthUserModal from "../auth/AuthUserModal";
 import { MdPrivacyTip } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Auth } from "../../Firebase";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
@@ -46,6 +48,8 @@ export default function Sidebar(props) {
       </button>
     );
   }
+
+  const [user] = useAuthState(Auth);
 
   return (
     <div>
@@ -111,7 +115,13 @@ export default function Sidebar(props) {
             <div style={{ padding: "4px 0px" }} />
 
             <Link
-              to="/signup-advertiser"
+              to={
+                user?.email != null
+                  ? user.emailVerified
+                    ? "/signup-advertiser-add-data"
+                    : "/signup-advertiser-verify-email"
+                  : "/signup-advertiser"
+              }
               style={{ textDecoration: "none", height: 30 }}
             >
               <button className="main-buttons" onClick={props.onSidebarClose}>

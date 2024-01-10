@@ -9,3 +9,16 @@
     text-decoration: none;
     color: white;
 }
+
+.label-style{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+  }
