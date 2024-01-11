@@ -14,6 +14,8 @@ import { MdPrivacyTip } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
+import { FaCircleUser } from "react-icons/fa6";
+import { FiShoppingCart } from "react-icons/fi";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
@@ -99,9 +101,60 @@ export default function Sidebar(props) {
 
   const UserBox = () => {
     return (
-      <div>
-        <div>Utente</div>
-        <div>Crediti: 0</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+        }}
+      >
+        {/* User icon */}
+        <FaCircleUser color="white" size={54} />
+
+        <div style={{ margin: "8px 0px", fontSize: "16px", fontWeight: "600" }}>
+          {user.name}
+        </div>
+
+        {/* Credits */}
+        <Link to="" style={{ color: "white", textDecoration: "none" }}>
+          <div style={{ fontSize: "14px" }}>
+            Crediti:{" "}
+            <strong style={{ fontWeight: "bold", color: "#BA68C8" }}>
+              {user.credits} 💎
+            </strong>
+          </div>
+        </Link>
+
+        <br />
+
+        {/* Buttons */}
+        <button
+          className="main-buttons"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => {}}
+        >
+          <IoMdAddCircleOutline className="buttons-icons" />
+          <div className="buttons-text">Pubblica annuncio</div>
+        </button>
+        <div style={{ margin: "4px 0px" }} />
+        <button
+          className="main-buttons"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => {}}
+        >
+          <FiShoppingCart className="buttons-icons" />
+          <div className="buttons-text">Compra crediti</div>
+        </button>
       </div>
     );
   };

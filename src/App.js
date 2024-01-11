@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HomeAds from "./components/home/HomeAds";
 import AppBar from "./components/widgets/AppBar";
 import "./css/App.css";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import AdvDetailView from "./components/adv/AdvDetailView";
 import Sidebar from "./components/widgets/Sidebar";
 import SignupAdvertiser from "./components/auth/signup/SignupAdvertiser";
@@ -28,10 +28,16 @@ import HomeAdvertiser from "./components/home/home-advertiser/HomeAdvertiser";
 import AdvertiserAds from "./components/home/home-advertiser/AdvertiserAds";
 import AdvertiserChats from "./components/home/home-advertiser/AdvertiserChats";
 import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSettings";
+import ForgotCredentials from "./components/auth/ForgotCredentials";
 
 function App() {
+  const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
+    CurrentUserAdvertiser
+  );
+
   const [showSidebar, setShowSidebar] = useState(false);
   const loc = useLocation();
+  const navigate = useNavigate();
   const [index, setIndex] = useState(0);
 
   const toggleSidebar = () => {
@@ -64,19 +70,18 @@ function App() {
     loc.pathname === "/terms-and-conditions" ||
     loc.pathname === "/privacy-policy";
 
-  const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
-    CurrentUserAdvertiser
-  );
-
   // Init user from DB
   useEffect(() => {
     Auth.onAuthStateChanged((user) => {
       console.log("[onAuthStateChanged] Uid: " + user?.uid);
+      console.log(currentUserAdvertiser.email.length);
 
       if (user?.uid != null && currentUserAdvertiser.email.length === 0)
         GetAdvertiserData(user?.uid).then((v) => {
           console.log(v);
           if (v != null) setcurrentUserAdvertiser(v);
+
+          navigate("/advertiser/ads");
         });
     });
     // eslint-disable-next-line
@@ -137,6 +142,9 @@ function App() {
 
         {/* Auth Login */}
         <Route path="/login-advertiser" element={<LoginAdvertiser />} />
+
+        {/* Forgot credentials */}
+        <Route path="/forgot-credentials" element={<ForgotCredentials />} />
 
         {/* Sidebar option */}
         <Route path="/faq" element={<Faq />} />

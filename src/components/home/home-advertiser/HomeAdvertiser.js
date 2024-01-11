@@ -8,9 +8,8 @@ export default function HomeAdvertiser() {
     <div
       style={{
         width: "100vw",
-        height: "100vw",
+        height: "100vh",
         backgroundColor: "red",
-        position: "relative",
         display: "flex",
         color: "white",
         alignItems: "center",

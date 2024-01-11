@@ -37,7 +37,7 @@ export default function LoginAdvertiser() {
       setloginLoading(false);
 
       if (typeof resp === "string") setError(resp);
-      else navigate("/advertiser");
+      else navigate("/advertiser/ads");
     });
   }
 
@@ -110,7 +110,7 @@ export default function LoginAdvertiser() {
 
           {/* Forgot email/password */}
           <Link
-            to="/login-advertiser"
+            to="/forgot-credentials"
             className="link-style"
             style={{ fontSize: 12 }}
           >

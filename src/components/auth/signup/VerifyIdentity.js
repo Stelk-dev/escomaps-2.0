@@ -98,7 +98,7 @@ export default function VerifyIdentity() {
     // Upload to storage on FB
     await UpdateAdvertiserData(currentUser.uid, { identityVerified: true });
 
-    navigate("/advertiser");
+    navigate("/advertiser/ads");
   }
 
   return (
