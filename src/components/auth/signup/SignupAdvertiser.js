@@ -48,6 +48,13 @@ export default function SignupAdvertiser() {
     });
   }
 
+  function handleKeyPress(e) {
+    if (e.key === "Enter" && isButtonActive()) {
+      e.preventDefault();
+      Signup();
+    }
+  }
+
   return (
     <div className="main-div" style={{ height: "100vh" }}>
       <div className="main-div" style={{ width: "90vw", maxWidth: "600px" }}>
@@ -86,6 +93,7 @@ export default function SignupAdvertiser() {
               id="password"
               placeholder="password (8+ caratteri)"
               value={data.password}
+              onKeyPress={handleKeyPress}
               onChange={(v) => setData({ ...data, password: v.target.value })}
             ></input>
             <button

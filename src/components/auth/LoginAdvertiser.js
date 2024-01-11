@@ -56,6 +56,13 @@ export default function LoginAdvertiser() {
     });
   }
 
+  function handleKeyPress(e) {
+    if (e.key === "Enter" && isButtonActive()) {
+      e.preventDefault();
+      Login();
+    }
+  }
+
   return (
     <div className="main-div" style={{ height: "100vh" }}>
       <div className="main-div" style={{ width: "90vw", maxWidth: "600px" }}>
@@ -95,6 +102,7 @@ export default function LoginAdvertiser() {
                 id="password"
                 placeholder="password"
                 value={data.password}
+                onKeyPress={handleKeyPress}
                 onChange={(v) => setData({ ...data, password: v.target.value })}
               ></input>
               <button
