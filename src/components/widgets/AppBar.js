@@ -20,22 +20,31 @@ const DefaultAppBar = ({
     <div
       className="main-app-bar"
       style={{
-        padding: "0px 14px",
         top: visible ? 0 : -100,
         transition: "top 0.3s",
       }}
     >
       {/* Menu */}
-      <div style={{ width: "22px" }}>
+      <button
+        style={{
+          height: "100%",
+          width: "40px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "pointer",
+          border: "none",
+          backgroundColor: "transparent",
+          marginLeft: "8px",
+        }}
+        onClick={showSidebar}
+      >
         {showMenuIcon ? (
-          <CgMenu
-            style={{ color: "white", fontSize: 22, cursor: "pointer" }}
-            onClick={showSidebar}
-          />
+          <CgMenu style={{ color: "white", fontSize: 22 }} />
         ) : (
           <div></div>
         )}
-      </div>
+      </button>
 
       {/* Logo */}
       <Link
@@ -50,15 +59,28 @@ const DefaultAppBar = ({
       </Link>
 
       {/* Search icon */}
-      <div style={{ width: "22px" }}>
+      <button
+        style={{
+          height: "100%",
+          width: "40px",
+          marginRight: "8px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "pointer",
+          border: "none",
+          backgroundColor: "transparent",
+        }}
+        onClick={onSearchClick}
+      >
         {showSearchIcon ? (
-          <div onClick={onSearchClick} style={{ cursor: "pointer" }}>
+          <div>
             <AiOutlineSearch style={{ color: "white", fontSize: 22 }} />
           </div>
         ) : (
           <div></div>
         )}
-      </div>
+      </button>
     </div>
   );
 };

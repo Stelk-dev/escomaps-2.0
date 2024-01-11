@@ -56,6 +56,7 @@ function App() {
 
   const showSearchIcon = () =>
     loc.pathname === "/" ||
+    loc.pathname === "/advertiser" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/search";
 
