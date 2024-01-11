@@ -29,6 +29,7 @@ import AdvertiserAds from "./components/home/home-advertiser/AdvertiserAds";
 import AdvertiserChats from "./components/home/home-advertiser/AdvertiserChats";
 import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSettings";
 import ForgotCredentials from "./components/auth/ForgotCredentials";
+import DeleteAccount from "./components/home/home-advertiser/settings/DeleteAccount";
 
 function App() {
   const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
@@ -124,6 +125,10 @@ function App() {
         <Route path="/advertiser/chats" element={<AdvertiserChats />} />
         <Route path="/advertiser/ads" element={<AdvertiserAds />} />
         <Route path="/advertiser/settings" element={<AdvertiserSettings />} />
+        <Route
+          path="/advertiser/settings/delete-account"
+          element={<DeleteAccount />}
+        />
 
         {/* Auth Signup*/}
         <Route path="/signup-advertiser" element={<SignupAdvertiser />} />

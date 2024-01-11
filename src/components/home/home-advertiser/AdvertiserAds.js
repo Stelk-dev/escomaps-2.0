@@ -53,7 +53,7 @@ export default function AdvertiserAds() {
             </p>
           </div>
         ) : (
-          <div></div>
+          <div>Ads: {user.adsIds.length}</div>
         )}
       </div>
 

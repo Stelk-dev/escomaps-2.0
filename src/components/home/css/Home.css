@@ -44,3 +44,19 @@
 .floating-action-button:hover{
     background-color: #BA68C8CC;
 }
+
+.setting-box-button{
+    border: none;
+    border-top: 1px solid #414040;
+    background-color: #252425;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.setting-box-button:hover{
+    background-color: #252425CC;
+}
