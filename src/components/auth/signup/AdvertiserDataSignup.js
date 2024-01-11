@@ -31,7 +31,6 @@ export default function AdvertiserDataSignup() {
   const [currentUser, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
 
   async function SaveData() {
-    console.log(data);
     if (loading) return;
 
     setLoading(true);

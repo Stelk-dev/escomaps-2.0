@@ -42,7 +42,6 @@ export default function SignupAdvertiser() {
 
       if (typeof resp === "string") setError(resp);
       else {
-        console.log(resp);
         setcurrentuser(resp);
         navigate("/signup-advertiser-verify-email");
       }

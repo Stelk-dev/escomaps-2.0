@@ -8,7 +8,6 @@ export default function SearchAds() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q");
-  console.log(query);
 
   return (
     <div style={{ padding: "0px 12px" }}>

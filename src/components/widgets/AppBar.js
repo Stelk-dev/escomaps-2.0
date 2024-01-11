@@ -48,7 +48,7 @@ const DefaultAppBar = ({
 
       {/* Logo */}
       <Link
-        to={user.email === "" ? "/" : "/advertiser/ads"}
+        to={user.identityVerified === false ? "/" : "/advertiser/ads"}
         style={{ textDecoration: "none", height: 30 }}
       >
         <img
@@ -93,7 +93,6 @@ function SearchBar({ onSearchCancel }) {
   function HandleSubmit(e) {
     e.preventDefault();
     if (query === null) return;
-    console.log("All good");
 
     navigate("/search?q=" + query.current.value);
     onSearchCancel();

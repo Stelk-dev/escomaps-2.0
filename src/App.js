@@ -76,14 +76,13 @@ function App() {
   useEffect(() => {
     Auth.onAuthStateChanged((user) => {
       console.log("[onAuthStateChanged] Uid: " + user?.uid);
-      console.log(currentUserAdvertiser.email.length);
 
       if (user?.uid != null && currentUserAdvertiser.email.length === 0)
         GetAdvertiserData(user?.uid).then((v) => {
           console.log(v);
           if (v != null) setcurrentUserAdvertiser(v);
 
-          navigate("/advertiser/ads");
+          if (v.identityVerified) navigate("/advertiser/ads");
         });
     });
     // eslint-disable-next-line

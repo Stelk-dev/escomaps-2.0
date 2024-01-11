@@ -5,6 +5,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { MdErrorOutline } from "react-icons/md";
 import { CircularProgress } from "@mui/material";
 import { LoginUser } from "../../services/Authentication";
+import { GetAdvertiserData } from "../../providers/AdvertiserUserData";
 
 export default function LoginAdvertiser() {
   const [data, setData] = useState({
@@ -37,7 +38,21 @@ export default function LoginAdvertiser() {
       setloginLoading(false);
 
       if (typeof resp === "string") setError(resp);
-      else navigate("/advertiser/ads");
+      else {
+        GetAdvertiserData(resp.uid).then((advertiser) => {
+          if (advertiser === null) return;
+
+          // Continue signup flow
+          if (advertiser.emailVerified === false)
+            return navigate("/signup-advertiser-verify-email");
+          else if (advertiser.name.length === 0)
+            return navigate("/signup-advertiser-add-data");
+          else if (advertiser.identityVerified === false)
+            return navigate("/signup-advertiser-verify-identity");
+          // If signup finished go to main home
+          else return navigate("/advertiser/ads");
+        });
+      }
     });
   }
 
@@ -104,73 +119,76 @@ export default function LoginAdvertiser() {
                 {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
               </button>
             </div>
+
+            <div style={{ height: 8 }} />
+
+            {/* Forgot email/password */}
+            <Link
+              to="/forgot-credentials"
+              className="link-style"
+              style={{ fontSize: 12 }}
+            >
+              Non ricordi email o password? Clicca qui
+            </Link>
+
+            {/* Error message */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "16px 0px",
+              }}
+            >
+              {error != null ? (
+                <p
+                  style={{
+                    color: "white",
+                    fontSize: 14,
+                    backgroundColor: "red",
+                    justifyContent: "center",
+                    display: "flex",
+                    borderRadius: "8px",
+                    padding: "8px",
+                  }}
+                >
+                  <MdErrorOutline size={18} />
+                  <div style={{ width: "4px" }} />
+                  <div style={{ fontSize: "15px" }}>{error}</div>
+                </p>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            {/* Login up */}
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                border: "none",
+                padding: "12px",
+                borderRadius: "4px",
+                fontWeight: "500",
+                color: isButtonActive() ? "white" : "#FFFFFF66",
+                backgroundColor: isButtonActive() ? "#B02D23" : "#FFFFFF33",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              disabled={!isButtonActive()}
+              onClick={(v) => {
+                v.preventDefault();
+                Login();
+              }}
+            >
+              {loginLoading ? (
+                <CircularProgress size={24} style={{ color: "white" }} />
+              ) : (
+                "Accedi"
+              )}
+            </button>
           </form>
-
-          <div style={{ height: 8 }} />
-
-          {/* Forgot email/password */}
-          <Link
-            to="/forgot-credentials"
-            className="link-style"
-            style={{ fontSize: 12 }}
-          >
-            Non ricordi email o password? Clicca qui
-          </Link>
-
-          {/* Error message */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "16px 0px",
-            }}
-          >
-            {error != null ? (
-              <p
-                style={{
-                  color: "white",
-                  fontSize: 14,
-                  backgroundColor: "red",
-                  justifyContent: "center",
-                  display: "flex",
-                  borderRadius: "8px",
-                  padding: "8px",
-                }}
-              >
-                <MdErrorOutline size={18} />
-                <div style={{ width: "4px" }} />
-                <div style={{ fontSize: "15px" }}>{error}</div>
-              </p>
-            ) : (
-              <></>
-            )}
-          </div>
-
-          {/* Login up */}
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              border: "none",
-              padding: "12px",
-              borderRadius: "4px",
-              fontWeight: "500",
-              color: isButtonActive() ? "white" : "#FFFFFF66",
-              backgroundColor: isButtonActive() ? "#B02D23" : "#FFFFFF33",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            disabled={!isButtonActive()}
-            onClick={Login}
-          >
-            {loginLoading ? (
-              <CircularProgress size={24} style={{ color: "white" }} />
-            ) : (
-              "Accedi"
-            )}
-          </button>
 
           {/* Signup */}
           <div

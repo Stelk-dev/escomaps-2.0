@@ -32,13 +32,11 @@ async function CreateUser(email, password) {
         uid: user.uid,
         email: user.email,
       };
-      console.log("Data to save: " + newData);
       SetAdvertiserData(user.uid, newData);
       return newData;
     })
     .catch((error) => {
       const errorCode = error.code;
-      console.log(errorCode);
       if (errorCode === "auth/email-already-in-use") return "Email già in uso";
 
       return "Non puoi registrarti con queste credenziali, riprova";
@@ -67,11 +65,9 @@ async function SendVerificationEmail(user) {
 async function SignOut() {
   return await signOut(Auth)
     .then(() => {
-      console.log("Success");
       return true;
     })
     .catch((error) => {
-      console.log("Error: " + error.toString());
       return false;
     });
 }

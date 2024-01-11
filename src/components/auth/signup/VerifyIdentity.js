@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 export default function VerifyIdentity() {
-  const [currentUser] = useRecoilState(CurrentUserAdvertiser);
+  const [currentUser, setCurrentUser] = useRecoilState(CurrentUserAdvertiser);
   const [documentsData, setDocumentsData] = useState({
     front: null,
     back: null,
@@ -97,6 +97,10 @@ export default function VerifyIdentity() {
   async function Continue() {
     // Upload to storage on FB
     await UpdateAdvertiserData(currentUser.uid, { identityVerified: true });
+    setCurrentUser({
+      ...currentUser,
+      identityVerified: true,
+    });
 
     navigate("/advertiser/ads");
   }

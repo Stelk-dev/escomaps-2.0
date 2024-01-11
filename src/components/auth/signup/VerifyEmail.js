@@ -17,7 +17,24 @@ export default function VerifyEmail() {
   async function ExitAndTryAgain() {
     const r = await SignOut();
 
-    if (r) nv("/");
+    if (r) {
+      setcurrentuser({
+        uid: "",
+        name: "",
+        lastName: "",
+        age: "",
+        email: "",
+        prefix: "",
+        phoneNumber: "",
+        adsIds: [],
+        credits: 0,
+        isOnline: false,
+        identityVerified: false,
+        emailVerified: false,
+      });
+
+      nv("/");
+    }
   }
 
   useEffect(() => {
