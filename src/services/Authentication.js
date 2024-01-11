@@ -2,11 +2,12 @@ import { Auth } from "../Firebase";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { SetAdvertiserData } from "../providers/AdvertiserUserData";
 
-async function createUser(email, password) {
+async function CreateUser(email, password) {
   return await createUserWithEmailAndPassword(Auth, email, password)
     .then((userCredential) => {
       // Signed up
@@ -44,6 +45,21 @@ async function createUser(email, password) {
     });
 }
 
+async function LoginUser(email, password) {
+  return await signInWithEmailAndPassword(Auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      return user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      if (errorCode === "auth/wrong-password")
+        return "La password è errata... riprova";
+
+      return "Non esiste utente con questa email";
+    });
+}
+
 async function SendVerificationEmail(user) {
   sendEmailVerification(user);
 }
@@ -60,4 +76,4 @@ async function SignOut() {
     });
 }
 
-export { createUser, SignOut };
+export { CreateUser, SignOut, LoginUser };

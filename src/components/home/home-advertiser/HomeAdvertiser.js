@@ -1,6 +1,9 @@
 import React from "react";
+import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
+import { useRecoilState } from "recoil";
 
 export default function HomeAdvertiser() {
+  const [user] = useRecoilState(CurrentUserAdvertiser);
   return (
     <div
       style={{
@@ -8,9 +11,13 @@ export default function HomeAdvertiser() {
         height: "100vw",
         backgroundColor: "red",
         position: "relative",
+        display: "flex",
+        color: "white",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      HomeAdvertiser
+      Data: {user.email} - {user.name} - {user.age}
     </div>
   );
 }

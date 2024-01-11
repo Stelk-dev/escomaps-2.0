@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/AuthAdvertiser.css";
 import { Link, useNavigate } from "react-router-dom";
-import { createUser } from "../../../services/Authentication";
+import { CreateUser } from "../../../services/Authentication";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
 import { MdErrorOutline } from "react-icons/md";
@@ -37,7 +37,7 @@ export default function SignupAdvertiser() {
 
     // Signup
     setsignupLoading(true);
-    createUser(data.email, data.password).then((resp) => {
+    CreateUser(data.email, data.password).then((resp) => {
       setsignupLoading(false);
 
       if (typeof resp === "string") setError(resp);
@@ -50,7 +50,7 @@ export default function SignupAdvertiser() {
   }
 
   return (
-    <div className="main-div" style={{ height: "80vh" }}>
+    <div className="main-div" style={{ height: "100vh" }}>
       <div className="main-div" style={{ width: "90vw", maxWidth: "600px" }}>
         {/* Title and description */}
         <h1 style={{ fontWeight: "600", fontSize: 40 }}>Registrati ora</h1>
@@ -81,20 +81,6 @@ export default function SignupAdvertiser() {
           ></input>
           <div style={{ height: 8 }} />
           <div style={{ position: "relative" }}>
-            <div
-              style={{
-                position: "absolute",
-                right: "12px",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "28px",
-              }}
-              onClick={() => setshowPassword(!showPassword)}
-            >
-              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-            </div>
             <input
               type={showPassword ? "text" : "password"}
               className="main-form"
@@ -103,6 +89,27 @@ export default function SignupAdvertiser() {
               value={data.password}
               onChange={(v) => setData({ ...data, password: v.target.value })}
             ></input>
+            <button
+              style={{
+                position: "absolute",
+                top: "0px",
+                right: "12px",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "28px",
+                border: "none",
+                backgroundColor: "transparent",
+                color: "white",
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                setshowPassword(!showPassword);
+              }}
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </button>
           </div>
         </form>
         <br />

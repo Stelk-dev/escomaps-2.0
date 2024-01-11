@@ -21,7 +21,20 @@ export default function AdvertiserSettings() {
         style={{ color: "red" }}
         onClick={() => {
           SignOut();
-          setUser({});
+          setUser({
+            uid: "",
+            name: "",
+            lastName: "",
+            age: "",
+            email: "",
+            prefix: "",
+            phoneNumber: "",
+            adsIds: [],
+            credits: 0,
+            isOnline: false,
+            identityVerified: false,
+            emailVerified: false,
+          });
 
           navigate("/");
         }}

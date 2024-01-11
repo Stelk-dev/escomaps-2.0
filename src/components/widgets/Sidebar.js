@@ -51,7 +51,7 @@ export default function Sidebar(props) {
   const [user] = useRecoilState(CurrentUserAdvertiser);
 
   function PathForSignup() {
-    if (user?.email == null) return "/signup-advertiser";
+    if (user.email.length === 0) return "/signup-advertiser";
 
     if (!user.emailVerified) return "/signup-advertiser-verify-email";
 
@@ -65,6 +65,24 @@ export default function Sidebar(props) {
   const LoginSignup = () => {
     return (
       <div>
+        <Link
+          to={PathForSignup()}
+          style={{ textDecoration: "none", height: 30 }}
+        >
+          <button
+            className="main-buttons"
+            onClick={props.onSidebarClose}
+            style={{
+              backgroundColor: "#9A031E",
+              border: "1px solid #B02D23",
+            }}
+          >
+            <IoMdAddCircleOutline className="buttons-icons" />
+            <div className="buttons-text">Inizia a pubblicare</div>
+          </button>
+        </Link>
+
+        <div style={{ padding: "4px 0px" }} />
         <button
           className="main-buttons"
           onClick={() => {
@@ -75,18 +93,6 @@ export default function Sidebar(props) {
           <CgProfile className="buttons-icons" />
           <div className="buttons-text">Entra come utente</div>
         </button>
-
-        <div style={{ padding: "4px 0px" }} />
-
-        <Link
-          to={PathForSignup()}
-          style={{ textDecoration: "none", height: 30 }}
-        >
-          <button className="main-buttons" onClick={props.onSidebarClose}>
-            <IoMdAddCircleOutline className="buttons-icons" />
-            <div className="buttons-text">Inizia a pubblicare</div>
-          </button>
-        </Link>
       </div>
     );
   };

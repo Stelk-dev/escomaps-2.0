@@ -64,17 +64,19 @@ function App() {
     loc.pathname === "/terms-and-conditions" ||
     loc.pathname === "/privacy-policy";
 
-  const [, setcurrentuser] = useRecoilState(CurrentUserAdvertiser);
+  const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
+    CurrentUserAdvertiser
+  );
 
   // Init user from DB
   useEffect(() => {
     Auth.onAuthStateChanged((user) => {
-      console.log("Uid: " + user?.uid);
+      console.log("[onAuthStateChanged] Uid: " + user?.uid);
 
-      if (user?.uid != null)
+      if (user?.uid != null && currentUserAdvertiser.email.length === 0)
         GetAdvertiserData(user?.uid).then((v) => {
           console.log(v);
-          if (v != null) setcurrentuser(v);
+          if (v != null) setcurrentUserAdvertiser(v);
         });
     });
     // eslint-disable-next-line
