@@ -39,7 +39,7 @@ const DefaultAppBar = ({
 
       {/* Logo */}
       <Link
-        to={user.email === "" ? "/" : "/advertiser"}
+        to={user.email === "" ? "/" : "/advertiser/ads"}
         style={{ textDecoration: "none", height: 30 }}
       >
         <img

@@ -25,3 +25,22 @@
     border-radius: 0px 0px 8px 8px;
     height: 20%;
 }
+
+.floating-action-button{
+    background-color: #BA68C8;
+    padding: 16px;
+    border-radius: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 20px;
+    bottom: 80px;
+    border: none;
+    position: absolute;
+    font-size: 28px;
+}
+
+.floating-action-button:hover{
+    background-color: #BA68C8CC;
+}
