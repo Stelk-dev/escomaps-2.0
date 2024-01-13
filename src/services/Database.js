@@ -8,7 +8,10 @@ import {
 } from "firebase/firestore";
 import { DatabaseFirestore } from "../Firebase";
 
-const getAds = getDocs(collection(DatabaseFirestore, "advertisements"));
+const advertisementsKey = "advertisements";
+const advertisersKey = "advertisers";
+
+const getAds = getDocs(collection(DatabaseFirestore, advertisementsKey));
 
 async function GetData(idCollection, idDoc) {
   const d = await getDoc(doc(DatabaseFirestore, idCollection, idDoc));
@@ -25,4 +28,11 @@ async function UpdateData(idCollection, idDoc, dataJson) {
   return await updateDoc(doc(DatabaseFirestore, idCollection, idDoc), dataJson);
 }
 
-export { getAds, GetData, SetData, UpdateData };
+export {
+  getAds,
+  advertisementsKey,
+  advertisersKey,
+  GetData,
+  SetData,
+  UpdateData,
+};

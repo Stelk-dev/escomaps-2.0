@@ -1,5 +1,10 @@
-import { atom } from "recoil";
-import { GetData, SetData, UpdateData } from "../services/Database";
+import { atom, selector } from "recoil";
+import {
+  GetData,
+  SetData,
+  UpdateData,
+  advertisersKey,
+} from "../services/Database";
 
 // Provider for saving location
 const CurrentUserAdvertiser = atom({
@@ -12,7 +17,7 @@ const CurrentUserAdvertiser = atom({
     email: "",
     prefix: "",
     phoneNumber: "",
-    adsIds: [],
+    adsIds: null,
     credits: 0,
     isOnline: false,
     identityVerified: false,
@@ -20,20 +25,32 @@ const CurrentUserAdvertiser = atom({
   },
 });
 
+const CreditsToShow = selector({
+  key: "CreditsToShow",
+  get: ({ get }) => {
+    const credits = get(CurrentUserAdvertiser);
+    const formatter = new Intl.NumberFormat("it-IT", {
+      style: "decimal",
+    });
+    return formatter.format(credits.credits) + " 💎";
+  },
+});
+
 async function GetAdvertiserData(idUser) {
-  return await GetData("advertisers", idUser);
+  return await GetData(advertisersKey, idUser);
 }
 
 async function SetAdvertiserData(idUser, newData) {
-  return await SetData("advertisers", idUser, newData);
+  return await SetData(advertisersKey, idUser, newData);
 }
 
 async function UpdateAdvertiserData(idUser, newData) {
-  return await UpdateData("advertisers", idUser, newData);
+  return await UpdateData(advertisersKey, idUser, newData);
 }
 
 export {
   CurrentUserAdvertiser,
+  CreditsToShow,
   GetAdvertiserData,
   SetAdvertiserData,
   UpdateAdvertiserData,

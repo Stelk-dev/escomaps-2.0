@@ -11,9 +11,12 @@ import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
 import AuthUserModal from "../auth/AuthUserModal";
 import { MdPrivacyTip } from "react-icons/md";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
-import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
+import {
+  CreditsToShow,
+  CurrentUserAdvertiser,
+} from "../../providers/AdvertiserUserData";
 import { FaCircleUser } from "react-icons/fa6";
 import { FiShoppingCart } from "react-icons/fi";
 
@@ -51,6 +54,7 @@ export default function Sidebar(props) {
   }
 
   const [user] = useRecoilState(CurrentUserAdvertiser);
+  const credits = useRecoilValue(CreditsToShow);
 
   function PathForSignup() {
     if (user.email.length === 0) return "/signup-advertiser";
@@ -122,7 +126,7 @@ export default function Sidebar(props) {
           <div style={{ fontSize: "14px" }}>
             Crediti:{" "}
             <strong style={{ fontWeight: "bold", color: "#BA68C8" }}>
-              {user.credits} 💎
+              {credits}
             </strong>
           </div>
         </Link>

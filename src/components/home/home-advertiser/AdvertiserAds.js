@@ -1,11 +1,18 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  CreditsToShow,
+  CurrentUserAdvertiser,
+} from "../../../providers/AdvertiserUserData";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
+import AdvItemStream from "../widgets/AdvItemStream";
+import { CircularProgress } from "@mui/material";
 
 export default function AdvertiserAds() {
   const [user] = useRecoilState(CurrentUserAdvertiser);
+  const credits = useRecoilValue(CreditsToShow);
+
   const navigate = useNavigate();
 
   return (
@@ -23,8 +30,7 @@ export default function AdvertiserAds() {
       </h1>
       <div style={{ height: "16px" }} />
       <div style={{ fontSize: "16px" }}>
-        I tuoi crediti:{" "}
-        <strong style={{ color: "#BA68C8" }}>{user.credits} 💎</strong>
+        I tuoi crediti: <strong style={{ color: "#BA68C8" }}>{credits}</strong>
       </div>
       <div style={{ height: "2px" }} />
       <Link to="" style={{ color: "#BA68C8", fontSize: "13px" }}>
@@ -32,8 +38,10 @@ export default function AdvertiserAds() {
       </Link>
 
       {/* List Advertiser ads */}
-      <div style={{ marginTop: "8px" }}>
-        {user.adsIds.length === 0 ? (
+      <div style={{ marginTop: "32px" }}>
+        {user.adsIds === null ? (
+          <CircularProgress style={{ color: "white" }} />
+        ) : user.adsIds.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -53,7 +61,11 @@ export default function AdvertiserAds() {
             </p>
           </div>
         ) : (
-          <div>Ads: {user.adsIds.length}</div>
+          <div className="grid-container">
+            {user.adsIds.map((e, i) => (
+              <AdvItemStream advId={e} key={e} />
+            ))}
+          </div>
         )}
       </div>
 
