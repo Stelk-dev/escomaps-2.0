@@ -8,6 +8,7 @@ import {
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import PrefixDropDown from "../../widgets/PrefixDropDown";
 
 export default function AdvertiserDataSignup() {
   const [data, setData] = useState({
@@ -117,33 +118,10 @@ export default function AdvertiserDataSignup() {
             <div
               style={{ display: "flex", position: "relative", width: "100%" }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  fontWeight: "bold",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  left: "8px",
-                }}
-              >
-                <select
-                  style={{
-                    fontWeight: "bold",
-                    color: "white",
-                    padding: "4px 8px",
-                    border: "1px solid black",
-                    borderRadius: "8px",
-                    backgroundColor: "#333333",
-                  }}
-                  onChange={(v) => setData({ ...data, prefix: v.target.value })}
-                >
-                  <option value="+39">+39</option>
-                  <option value="+44">+44</option>
-                  <option value="+3">+3</option>
-                </select>
-              </div>
+              <PrefixDropDown
+                valueSelected={data.prefix}
+                onChange={(v) => setData({ ...data, prefix: v.target.value })}
+              />
               <input
                 type="text"
                 className="main-form"

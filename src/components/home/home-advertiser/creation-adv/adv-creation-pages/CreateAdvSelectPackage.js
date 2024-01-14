@@ -16,6 +16,7 @@ export default function CreateAdvSelectPackage({ onContinue }) {
           justifyContent: "space-between",
           padding: "10px 16px",
           marginBottom: "8px",
+          cursor: "pointer",
         }}
         onClick={() =>
           onContinue({ totCredits: totCredits, hoursLeft: hoursLeft })
@@ -100,13 +101,12 @@ export default function CreateAdvSelectPackage({ onContinue }) {
 
   return (
     <div>
-      <h1 style={{ textAlign: "center", fontWeight: "600" }}>
+      <h1 style={{ textAlign: "center", fontWeight: "600", fontSize: "32px" }}>
         Seleziona pacchetto
       </h1>
       <div style={{ color: "grey", textAlign: "center" }}>
         Seleziona il tipo di pacchetto per il tuo annuncio
       </div>
-      <br />
       <br />
 
       <div style={{ fontSize: "16px" }}>

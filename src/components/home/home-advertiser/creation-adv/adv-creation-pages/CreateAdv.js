@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import CreateAdvSelectPackage from "./CreateAdvSelectPackage";
 import CreateAdvPersonalData from "./CreateAdvPersonalData";
+import CreateAdvLocation from "./CreateAdvLocation";
 
 export default function CreateAdv() {
   const [index, setIndex] = useState(0);
@@ -27,17 +28,21 @@ export default function CreateAdv() {
 
     switch (index) {
       case 0:
-        console.log("After package");
         navigate("add-personal-data");
         break;
       case 1:
-        console.log("After name and shit");
+        navigate("add-location");
         break;
       default:
         break;
     }
 
     setIndex((v) => v + 1);
+  };
+
+  const Back = (path) => {
+    navigate(path);
+    setIndex((v) => v - 1);
   };
 
   return (
@@ -75,7 +80,21 @@ export default function CreateAdv() {
             />
             <Route
               path="add-personal-data"
-              element={<CreateAdvPersonalData onContinue={Continue} />}
+              element={
+                <CreateAdvPersonalData
+                  onContinue={Continue}
+                  onBack={() => Back("select-package")}
+                />
+              }
+            />
+            <Route
+              path="add-location"
+              element={
+                <CreateAdvLocation
+                  onContinue={Continue}
+                  onBack={() => Back("add-personal-data")}
+                />
+              }
             />
           </Routes>
         </div>
