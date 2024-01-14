@@ -1,7 +1,7 @@
 import React from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 
-export default function CreateAdvLocation({ onContinue, onBack }) {
+export default function CreateAdvServices({ onContinue, onBack }) {
   return (
     <div>
       <CreationAdvBottomBar

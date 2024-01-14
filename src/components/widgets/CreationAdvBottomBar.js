@@ -11,6 +11,7 @@ export default function CreationAdvBottomBar({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        paddingBottom: "24px",
       }}
     >
       <br />
@@ -36,10 +37,10 @@ export default function CreationAdvBottomBar({
       <button
         onClick={onBack}
         style={{
-          marginTop: "8px",
+          marginTop: "16px",
           border: "none",
           backgroundColor: "transparent",
-          color: "#AAAAAA",
+          color: "white",
           fontSize: "15px",
         }}
       >

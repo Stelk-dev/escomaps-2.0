@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import PrefixDropDown from "../../../../widgets/PrefixDropDown";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
+import { useRecoilState } from "recoil";
+import { CurrentUserAdvertiser } from "../../../../../providers/AdvertiserUserData";
 
 export default function CreateAdvPersonalData({ onContinue, onBack }) {
+  const [user] = useRecoilState(CurrentUserAdvertiser);
   const [data, setData] = useState({
-    name: "",
-    age: "",
-    gender: 1,
-    phoneNumberPrefix: "+39",
-    phoneNumber: "",
-    waNumberPrefix: "+39",
+    name: user.name ?? "",
+    age: (user.age ?? "").toString(),
+    gender: user.gender ?? 1,
+    phoneNumberPrefix: user.prefix,
+    phoneNumber: user.phoneNumber,
+    waNumberPrefix: user.prefix,
     waNumber: "",
-    tgNumberPrefix: "+39",
+    tgNumberPrefix: user.prefix,
     tgNumber: "",
   });
 

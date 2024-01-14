@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import CreateAdvSelectPackage from "./CreateAdvSelectPackage";
 import CreateAdvPersonalData from "./CreateAdvPersonalData";
@@ -24,8 +24,6 @@ export default function CreateAdv() {
   };
 
   const Continue = (data) => {
-    console.log(data);
-
     switch (index) {
       case 0:
         navigate("add-personal-data");

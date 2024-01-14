@@ -82,10 +82,10 @@ function App() {
 
       if (user?.uid != null && currentUserAdvertiser.email.length === 0)
         GetAdvertiserData(user?.uid).then((v) => {
-          console.log(v);
           if (v != null) setcurrentUserAdvertiser(v);
 
-          if (v.identityVerified) navigate("/advertiser/ads");
+          if (v.identityVerified && loc.pathname == "/")
+            navigate("/advertiser/ads");
         });
     });
     // eslint-disable-next-line
