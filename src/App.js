@@ -84,7 +84,7 @@ function App() {
         GetAdvertiserData(user?.uid).then((v) => {
           if (v != null) setcurrentUserAdvertiser(v);
 
-          if (v.identityVerified && loc.pathname == "/")
+          if (v.identityVerified && loc.pathname === "/")
             navigate("/advertiser/ads");
         });
     });
