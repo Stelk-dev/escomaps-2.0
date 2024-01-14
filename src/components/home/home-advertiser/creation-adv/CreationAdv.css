@@ -37,3 +37,17 @@
     font-weight: 500;
     margin-bottom: 8px;
 }
+
+.package-box-create-adv{
+    border: 2px solid #FFFFFF88;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.package-box-create-adv:hover{
+    background-color: #191919;
+}

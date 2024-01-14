@@ -9,15 +9,7 @@ export default function CreateAdvSelectPackage({ onContinue }) {
   const PackageCredits = ({ title, totCredits, subTitle, hoursLeft }) => {
     return (
       <div
-        style={{
-          border: "2px solid #FFFFFF88",
-          borderRadius: "8px",
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "10px 16px",
-          marginBottom: "8px",
-          cursor: "pointer",
-        }}
+        className="package-box-create-adv"
         onClick={() =>
           onContinue({ totCredits: totCredits, hoursLeft: hoursLeft })
         }

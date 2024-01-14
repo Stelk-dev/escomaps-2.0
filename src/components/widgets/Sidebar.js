@@ -145,7 +145,10 @@ export default function Sidebar(props) {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onClick={() => {}}
+          onClick={() => {
+            navigate("/create-adv");
+            props.onSidebarClose();
+          }}
         >
           <IoMdAddCircleOutline className="buttons-icons" />
           <div className="buttons-text">Pubblica annuncio</div>
