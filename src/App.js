@@ -30,6 +30,7 @@ import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSett
 import ForgotCredentials from "./components/auth/ForgotCredentials";
 import DeleteAccount from "./components/home/home-advertiser/settings/DeleteAccount";
 import BuyCredits from "./components/home/home-advertiser/creation-adv/BuyCredits";
+import SuccessScreen from "./components/home/widgets/SuccessScreen";
 
 function App() {
   const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
@@ -92,7 +93,11 @@ function App() {
   return (
     <div style={{ padding: "0px", display: "flex", flexDirection: "column" }}>
       {/* Side bar */}
-      <Sidebar open={showSidebar} onSidebarClose={toggleSidebar} />
+      <Sidebar
+        open={showSidebar}
+        onSidebarOpen={toggleSidebar}
+        onSidebarClose={toggleSidebar}
+      />
 
       {/* App bar */}
       <AppBar
@@ -158,6 +163,17 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+        {/* One time screen */}
+        <Route
+          path="/buy-credits/buy-success"
+          element={
+            <SuccessScreen
+              title={"Grazie per il tuo ordine!"}
+              isBuyFlow={true}
+            />
+          }
+        />
       </Routes>
     </div>
   );

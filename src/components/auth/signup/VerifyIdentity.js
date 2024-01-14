@@ -105,6 +105,10 @@ export default function VerifyIdentity() {
     navigate("/advertiser/ads");
   }
 
+  const DocumentsUploaded = () => {
+    return documentsData.front !== null && documentsData.back !== null;
+  };
+
   return (
     <div className="main-div" style={{ height: "100vh" }}>
       <div className="main-div" style={{ width: "100vw", maxWidth: "600px" }}>
@@ -148,46 +152,26 @@ export default function VerifyIdentity() {
 
           <button
             onClick={() => {
-              document.getElementById("fileInput").click();
+              if (DocumentsUploaded()) Continue();
+              else document.getElementById("fileInput").click();
             }}
             type="submit"
             style={{
+              marginTop: "14px",
               width: "100%",
               border: "none",
               padding: "12px",
               borderRadius: "4px",
               fontWeight: "500",
               color: "white",
-              backgroundColor: "#4D4D4D",
+              backgroundColor: "#B02D23",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            Carica documenti
+            {DocumentsUploaded() ? "Avanti" : "Carica documenti"}
           </button>
-
-          {documentsData.front !== null && documentsData.back !== null && (
-            <button
-              onClick={Continue}
-              type="submit"
-              style={{
-                marginTop: "14px",
-                width: "100%",
-                border: "none",
-                padding: "12px",
-                borderRadius: "4px",
-                fontWeight: "500",
-                color: "white",
-                backgroundColor: "#B02D23",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Avanti
-            </button>
-          )}
         </div>
       </div>
     </div>

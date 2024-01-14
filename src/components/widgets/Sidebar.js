@@ -117,7 +117,7 @@ export default function Sidebar(props) {
         {/* User icon */}
         <FaCircleUser color="white" size={54} />
 
-        <div style={{ margin: "8px 0px", fontSize: "16px", fontWeight: "600" }}>
+        <div style={{ marginTop: "8px", fontSize: "18px", fontWeight: "600" }}>
           {user.name}
         </div>
 
@@ -127,7 +127,7 @@ export default function Sidebar(props) {
           style={{ color: "white", textDecoration: "none" }}
           onClick={props.onSidebarClose}
         >
-          <div style={{ fontSize: "14px" }}>
+          <div style={{ fontSize: "16px" }}>
             Crediti:{" "}
             <strong style={{ fontWeight: "bold", color: "#BA68C8" }}>
               {credits}
@@ -158,7 +158,10 @@ export default function Sidebar(props) {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onClick={() => {}}
+          onClick={() => {
+            navigate("/buy-credits");
+            props.onSidebarClose();
+          }}
         >
           <FiShoppingCart className="buttons-icons" />
           <div className="buttons-text">Compra crediti</div>
@@ -172,7 +175,7 @@ export default function Sidebar(props) {
       <SwipeableDrawer
         anchor={"left"}
         open={props.open}
-        onOpen={() => {}}
+        onOpen={props.onSidebarOpen}
         onClose={props.onSidebarClose}
       >
         <div

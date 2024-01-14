@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { CreditsToShow } from "../../../../providers/AdvertiserUserData";
-import { useRecoilValue } from "recoil";
+import {
+  CreditsToShow,
+  CurrentUserAdvertiser,
+  UpdateAdvertiserData,
+} from "../../../../providers/AdvertiserUserData";
+import { useRecoilState, useRecoilValue } from "recoil";
 import "./CreationAdv.css";
-import { Checkbox } from "@mui/material";
+import { Checkbox, CircularProgress } from "@mui/material";
 import { FaCircleCheck, FaRegCircle } from "react-icons/fa6";
 import { Prices } from "../../../../constants/ValueConstants";
+import { useNavigate } from "react-router-dom";
 
 export default function BuyCredits() {
   const credits = useRecoilValue(CreditsToShow);
+  const [user, setUser] = useRecoilState(CurrentUserAdvertiser);
+  const navigate = useNavigate();
   const [boxOfCredits, setBoxOfCredits] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const CreditBox = ({
     totCredits,
@@ -135,7 +143,25 @@ export default function BuyCredits() {
   };
 
   const IsButtonActive = () => {
-    return boxOfCredits.length > 0;
+    return loading || boxOfCredits.length > 0;
+  };
+
+  const Continue = () => {
+    setLoading(true);
+
+    // TODOs: stripe webview function call
+
+    // Save new data to user
+    const newCredits = user.credits + TotalCredits();
+    UpdateAdvertiserData(user.uid, {
+      credits: newCredits,
+    }).then((v) => {
+      setLoading(false);
+      setUser({ ...user, credits: newCredits });
+      navigate("/buy-credits/buy-success", {
+        state: { totalCredits: TotalCredits() },
+      });
+    });
   };
 
   return (
@@ -198,6 +224,7 @@ export default function BuyCredits() {
 
         {/* Continue button */}
         <button
+          onClick={() => IsButtonActive() && Continue()}
           style={{
             width: "100%",
             border: "none",
@@ -211,13 +238,17 @@ export default function BuyCredits() {
             alignItems: "center",
           }}
         >
-          {IsButtonActive()
-            ? "Compra " +
-              TotalCredits() +
-              " crediti per " +
-              TotalPriceForCredits() +
-              " €"
-            : "Seleziona crediti da comprare"}
+          {loading ? (
+            <CircularProgress size={24} style={{ color: "white" }} />
+          ) : IsButtonActive() ? (
+            "Compra " +
+            TotalCredits() +
+            " crediti per " +
+            TotalPriceForCredits() +
+            " €"
+          ) : (
+            "Seleziona crediti da comprare"
+          )}
         </button>
         <br />
       </div>

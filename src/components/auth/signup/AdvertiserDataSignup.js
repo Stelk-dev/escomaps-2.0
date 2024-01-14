@@ -183,7 +183,6 @@ export default function AdvertiserDataSignup() {
                 "Continua"
               )}
             </button>
-            <p style={{ color: "whtie" }}>Nome: {currentUser.name}</p>
           </form>
         </div>
       </div>
