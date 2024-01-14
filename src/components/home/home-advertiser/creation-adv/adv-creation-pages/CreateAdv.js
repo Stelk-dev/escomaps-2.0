@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import CreateAdvSelectPackage from "./CreateAdvSelectPackage";
 import CreateAdvPersonalData from "./CreateAdvPersonalData";
 import CreateAdvLocation from "./CreateAdvLocation";
+import CreateAdvServices from "./CreateAdvServices";
 
 export default function CreateAdv() {
   const [index, setIndex] = useState(0);
@@ -30,6 +31,9 @@ export default function CreateAdv() {
         break;
       case 1:
         navigate("add-location");
+        break;
+      case 2:
+        navigate("add-services");
         break;
       default:
         break;
@@ -91,6 +95,15 @@ export default function CreateAdv() {
                 <CreateAdvLocation
                   onContinue={Continue}
                   onBack={() => Back("add-personal-data")}
+                />
+              }
+            />
+            <Route
+              path="add-services"
+              element={
+                <CreateAdvServices
+                  onContinue={Continue}
+                  onBack={() => Back("add-location")}
                 />
               }
             />
