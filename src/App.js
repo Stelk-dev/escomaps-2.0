@@ -31,6 +31,7 @@ import ForgotCredentials from "./components/auth/ForgotCredentials";
 import DeleteAccount from "./components/home/home-advertiser/settings/DeleteAccount";
 import BuyCredits from "./components/home/home-advertiser/creation-adv/BuyCredits";
 import SuccessScreen from "./components/home/widgets/SuccessScreen";
+import CreateAdv from "./components/home/home-advertiser/creation-adv/adv-creation-pages/CreateAdv";
 
 function App() {
   const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
@@ -136,6 +137,9 @@ function App() {
           path="/advertiser/settings/delete-account"
           element={<DeleteAccount />}
         />
+
+        {/* Create Adv*/}
+        <Route path="/create-adv/*" element={<CreateAdv />} />
 
         {/* Auth Signup*/}
         <Route path="/signup-advertiser" element={<SignupAdvertiser />} />

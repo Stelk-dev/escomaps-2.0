@@ -69,7 +69,10 @@ export default function AdvertiserAds() {
         )}
       </div>
 
-      <button className="floating-action-button" onClick={() => navigate("")}>
+      <button
+        className="floating-action-button"
+        onClick={() => navigate("/create-adv")}
+      >
         <IoMdAdd />
       </button>
     </div>
