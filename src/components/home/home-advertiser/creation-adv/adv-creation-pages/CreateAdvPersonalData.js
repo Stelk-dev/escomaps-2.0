@@ -32,6 +32,7 @@ export default function CreateAdvPersonalData({ onContinue, onBack }) {
           marginRight: isLast ? "" : "8px",
           color: selected ? "black" : "grey",
           fontWeight: selected ? "700" : "",
+          cursor: "pointer",
         }}
         onClick={() => setData({ ...data, gender: index })}
       >
