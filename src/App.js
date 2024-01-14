@@ -24,7 +24,6 @@ import {
   GetAdvertiserData,
 } from "./providers/AdvertiserUserData";
 import VerifyIdentity from "./components/auth/signup/VerifyIdentity";
-import HomeAdvertiser from "./components/home/home-advertiser/HomeAdvertiser";
 import AdvertiserAds from "./components/home/home-advertiser/AdvertiserAds";
 import AdvertiserChats from "./components/home/home-advertiser/AdvertiserChats";
 import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSettings";
@@ -121,7 +120,7 @@ function App() {
         <Route path="/favourites-user" element={<Favourites />} />
 
         {/* Advertiser page */}
-        <Route path="/advertiser" element={<HomeAdvertiser />} />
+        <Route path="/advertiser" element={<HomeAds />} />
         <Route path="/advertiser/chats" element={<AdvertiserChats />} />
         <Route path="/advertiser/ads" element={<AdvertiserAds />} />
         <Route path="/advertiser/settings" element={<AdvertiserSettings />} />

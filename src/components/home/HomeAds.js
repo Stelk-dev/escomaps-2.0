@@ -187,9 +187,7 @@ export default function HomeAds() {
         <br />
 
         {/* Ads list */}
-        <div style={{ padding: "0px 16px" }}>
-          <AdsList ads={ads} loading={loading} />
-        </div>
+        <AdsList ads={ads} loading={loading} />
 
         {/* Divider */}
         <div

@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import { GetData, advertisementsKey } from "../../../services/Database";
 import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
 import { CircularProgress } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { UserLocation } from "../../../providers/UserLocation";
 
-export default function AdvItemStream({ advId }) {
+export default function AdvItem({
+  preselectedADV = null,
+  advId,
+  showDistance = true,
+}) {
   const [adv, setAdv] = useState({
     idADV: null,
     uidAdvertiser: "",
@@ -30,14 +36,53 @@ export default function AdvItemStream({ advId }) {
     verifiedStatus: -1,
   });
 
+  const getAge = (birthDate) => {
+    const date1 = new Date(birthDate);
+    const date2 = new Date();
+
+    const diffYears = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24 * 365));
+    return diffYears;
+  };
+
+  const [userPosition] = useRecoilState(UserLocation);
+  const GetDistance = ({ advLatitude, advLongitude }) => {
+    const calculateDistance = () => {
+      const lat1 = userPosition.latitude;
+      const lon1 = userPosition.longitude;
+      const lat2 = advLatitude;
+      const lon2 = advLongitude;
+      const dLat = deg2rad(lat2 - lat1); // deg2rad below
+      const dLon = deg2rad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+          Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = 6371 * c; // Distance in km
+      return distance;
+    };
+
+    const deg2rad = (deg) => {
+      return deg * (Math.PI / 180);
+    };
+
+    const distance = calculateDistance(advLatitude, advLongitude).toFixed(2);
+
+    return distance;
+  };
+
   useEffect(() => {
-    GetData(advertisementsKey, advId).then((resp) => {
-      console.log(resp);
-      setAdv(resp);
-    });
+    if (preselectedADV === null)
+      GetData(advertisementsKey, advId).then((resp) => {
+        console.log(resp);
+        setAdv(resp);
+      });
+    else setAdv(preselectedADV);
 
     return () => {};
-  }, [advId]);
+  }, [advId, preselectedADV]);
 
   return adv.idADV === null ? (
     <div
@@ -114,9 +159,20 @@ export default function AdvItemStream({ advId }) {
           {/* Description */}
           <div className="grid-item-description">
             {/* Data */}
-            <h5 style={{ fontSize: "14px", marginBottom: "2px" }}>
-              {adv.name}, {adv.age}
+            <h5 style={{ fontSize: "16px", marginBottom: "2px" }}>
+              {adv.name}, {getAge(adv.birthDate)}
             </h5>
+
+            {/* Distance */}
+            {showDistance && userPosition.hasPermission && (
+              <p style={{ fontSize: "11px", color: "grey" }}>
+                {GetDistance({
+                  advLatitude: adv.locationData.lat,
+                  advLongitude: adv.locationData.lon,
+                })}{" "}
+                km da te
+              </p>
+            )}
           </div>
         </div>
       </div>

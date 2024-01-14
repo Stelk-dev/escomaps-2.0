@@ -6,7 +6,7 @@ import {
 } from "../../../providers/AdvertiserUserData";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
-import AdvItemStream from "../widgets/AdvItemStream";
+import AdvItem from "../widgets/AdvItem";
 import { CircularProgress } from "@mui/material";
 
 export default function AdvertiserAds() {
@@ -63,7 +63,7 @@ export default function AdvertiserAds() {
         ) : (
           <div className="grid-container">
             {user.adsIds.map((e, i) => (
-              <AdvItemStream advId={e} key={e} />
+              <AdvItem advId={e} key={e} showDistance={false} />
             ))}
           </div>
         )}
