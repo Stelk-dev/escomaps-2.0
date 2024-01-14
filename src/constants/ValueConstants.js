@@ -68,12 +68,5 @@ const Prices = [
     creditsFreeInMore: 740,
     recommended: false,
   },
-  {
-    totCredits: 11220,
-    price: 3599.99,
-    priceDiscounted: 2999.99,
-    creditsFreeInMore: 1870,
-    recommended: false,
-  },
 ];
 export { FiltersInHome, Categories, Services, Prices };

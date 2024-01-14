@@ -48,7 +48,7 @@ const DefaultAppBar = ({
 
       {/* Logo */}
       <Link
-        to={user.identityVerified === false ? "/" : "/advertiser/ads"}
+        to={user.identityVerified === true ? "/advertiser/ads" : "/"}
         style={{ textDecoration: "none", height: 30 }}
       >
         <img
