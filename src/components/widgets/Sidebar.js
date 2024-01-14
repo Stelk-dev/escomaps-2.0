@@ -122,7 +122,11 @@ export default function Sidebar(props) {
         </div>
 
         {/* Credits */}
-        <Link to="" style={{ color: "white", textDecoration: "none" }}>
+        <Link
+          to="/buy-credits"
+          style={{ color: "white", textDecoration: "none" }}
+          onClick={props.onSidebarClose}
+        >
           <div style={{ fontSize: "14px" }}>
             Crediti:{" "}
             <strong style={{ fontWeight: "bold", color: "#BA68C8" }}>

@@ -33,7 +33,7 @@ export default function AdvertiserAds() {
         I tuoi crediti: <strong style={{ color: "#BA68C8" }}>{credits}</strong>
       </div>
       <div style={{ height: "2px" }} />
-      <Link to="" style={{ color: "#BA68C8", fontSize: "13px" }}>
+      <Link to="/buy-credits" style={{ color: "#BA68C8", fontSize: "13px" }}>
         Aggiungi crediti ora
       </Link>
 

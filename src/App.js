@@ -29,6 +29,7 @@ import AdvertiserChats from "./components/home/home-advertiser/AdvertiserChats";
 import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSettings";
 import ForgotCredentials from "./components/auth/ForgotCredentials";
 import DeleteAccount from "./components/home/home-advertiser/settings/DeleteAccount";
+import BuyCredits from "./components/home/home-advertiser/creation-adv/BuyCredits";
 
 function App() {
   const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
@@ -63,6 +64,7 @@ function App() {
     loc.pathname === "/" ||
     loc.pathname.includes("/advertiser") ||
     loc.pathname === "/search" ||
+    loc.pathname === "/buy-credits" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user" ||
@@ -121,6 +123,7 @@ function App() {
 
         {/* Advertiser page */}
         <Route path="/advertiser" element={<HomeAds />} />
+        <Route path="/buy-credits" element={<BuyCredits />} />
         <Route path="/advertiser/chats" element={<AdvertiserChats />} />
         <Route path="/advertiser/ads" element={<AdvertiserAds />} />
         <Route path="/advertiser/settings" element={<AdvertiserSettings />} />

@@ -1,0 +1,33 @@
+.credits-box-to-pay{
+    border: 2px solid #FFFFFF88;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    padding: 0px 18px;
+    height: 65px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.selected{
+    border: 2px solid #BA68C8;
+    background-color: transparent;
+}
+
+.credits-box-to-pay:hover{
+    background-color: #1A1A1A;
+}
+
+.credits-price{
+    font-weight: 600;
+    color: white,
+}
+
+.credits-price-discounted{
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: line-through;
+    color: grey;
+}
