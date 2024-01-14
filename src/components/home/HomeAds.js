@@ -174,10 +174,10 @@ export default function HomeAds() {
             Interessato in:
           </h4>
           <div className="container-list">
-            {FiltersInHome.map((e, index) => (
+            {FiltersInHome.map((e) => (
               <SelectableBox
                 name={e}
-                key={index}
+                key={e}
                 onSelect={() => HandleFilterTap(e)}
                 isSelected={interestedFilters.includes(e)}
               />
