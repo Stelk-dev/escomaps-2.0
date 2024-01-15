@@ -2,7 +2,7 @@
 const FiltersInHome = ["Donna", "Mistress", "Trans", "Milf"];
 
 // When creating an ADV you can select which categories you are
-const Categories = ["Donna", "Mistress", "Milf", "Uomo", "Trans"];
+const Categories = ["Donna", "Uomo", "Pornostar", "Coppia", "Trans"];
 
 // When creating an ADV you can select which services do you provide
 const Services = [
@@ -12,7 +12,7 @@ const Services = [
   "Massaggio erotico",
   "Fetish",
   "Gioco di ruolo",
-  "Trio",
+  "Cose a tre",
   "Sex chatting",
   "Video chiamate",
   "Mistress",

@@ -4,6 +4,7 @@ import CreateAdvSelectPackage from "./CreateAdvSelectPackage";
 import CreateAdvPersonalData from "./CreateAdvPersonalData";
 import CreateAdvLocation from "./CreateAdvLocation";
 import CreateAdvServices from "./CreateAdvServices";
+import CreateAdvSocials from "./CreateAdvSocials";
 
 export default function CreateAdv() {
   const [index, setIndex] = useState(0);
@@ -34,6 +35,9 @@ export default function CreateAdv() {
         break;
       case 2:
         navigate("add-services");
+        break;
+      case 3:
+        navigate("add-socials");
         break;
       default:
         break;
@@ -104,6 +108,15 @@ export default function CreateAdv() {
                 <CreateAdvServices
                   onContinue={Continue}
                   onBack={() => Back("add-location")}
+                />
+              }
+            />
+            <Route
+              path="add-socials"
+              element={
+                <CreateAdvSocials
+                  onContinue={Continue}
+                  onBack={() => Back("add-services")}
                 />
               }
             />

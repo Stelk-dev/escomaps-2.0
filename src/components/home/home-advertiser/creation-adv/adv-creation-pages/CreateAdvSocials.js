@@ -1,14 +1,14 @@
 import React from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 
-export default function CreateAdvLocation({ onContinue, onBack }) {
+export default function CreateAdvSocials({ onContinue, onBack }) {
   return (
     <div>
       <h1 style={{ textAlign: "center", fontWeight: "600", fontSize: "32px" }}>
-        Posizione
+        Carica i tuoi social
       </h1>
       <div style={{ color: "grey", textAlign: "center" }}>
-        Seleziona la zona del tuo annuncio
+        Carica i link ai tuoi profili socials!
       </div>
       <br />
 
