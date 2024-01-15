@@ -3,6 +3,8 @@ import PrefixDropDown from "../../../../widgets/PrefixDropDown";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../../../../providers/AdvertiserUserData";
+import WhatsappIcon from "../../../../../assets/social-icons/whatsapp.svg";
+import TelegramIcon from "../../../../../assets/social-icons/telegram.svg";
 
 export default function CreateAdvPersonalData({ onContinue, onBack }) {
   const [user] = useRecoilState(CurrentUserAdvertiser);
@@ -138,8 +140,9 @@ export default function CreateAdvPersonalData({ onContinue, onBack }) {
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <label className="label-form">Whatsapp e telegram (opzionale):</label>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", marginBottom: "8px" }}>
             <PrefixDropDown
+              icon={WhatsappIcon}
               valueSelected={data.waNumberPrefix}
               onChange={(v) =>
                 setData({ ...data, waNumberPrefix: v.target.value })
@@ -147,7 +150,7 @@ export default function CreateAdvPersonalData({ onContinue, onBack }) {
             />
             <input
               className="main-form"
-              style={{ paddingLeft: "64px", marginBottom: "8px" }}
+              style={{ paddingLeft: "100px" }}
               type="tel"
               placeholder="123456789"
               value={data.waNumber}
@@ -161,6 +164,7 @@ export default function CreateAdvPersonalData({ onContinue, onBack }) {
           </div>
           <div style={{ position: "relative" }}>
             <PrefixDropDown
+              icon={TelegramIcon}
               valueSelected={data.tgNumberPrefix}
               onChange={(v) =>
                 setData({ ...data, tgNumberPrefix: v.target.value })
@@ -168,7 +172,7 @@ export default function CreateAdvPersonalData({ onContinue, onBack }) {
             />
             <input
               className="main-form"
-              style={{ paddingLeft: "64px" }}
+              style={{ paddingLeft: "100px" }}
               type="tel"
               placeholder="123456789"
               value={data.tgNumber}

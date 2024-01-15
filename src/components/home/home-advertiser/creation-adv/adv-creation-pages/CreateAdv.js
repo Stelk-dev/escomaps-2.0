@@ -5,6 +5,8 @@ import CreateAdvPersonalData from "./CreateAdvPersonalData";
 import CreateAdvLocation from "./CreateAdvLocation";
 import CreateAdvServices from "./CreateAdvServices";
 import CreateAdvSocials from "./CreateAdvSocials";
+import CreateAdvBio from "./CreateAdvBio";
+import CreateAdvPhotos from "./CreateAdvPhotos";
 
 export default function CreateAdv() {
   const [index, setIndex] = useState(0);
@@ -38,6 +40,12 @@ export default function CreateAdv() {
         break;
       case 3:
         navigate("add-socials");
+        break;
+      case 4:
+        navigate("add-photos");
+        break;
+      case 5:
+        navigate("add-description");
         break;
       default:
         break;
@@ -117,6 +125,24 @@ export default function CreateAdv() {
                 <CreateAdvSocials
                   onContinue={Continue}
                   onBack={() => Back("add-services")}
+                />
+              }
+            />
+            <Route
+              path="add-photos"
+              element={
+                <CreateAdvPhotos
+                  onContinue={Continue}
+                  onBack={() => Back("add-socials")}
+                />
+              }
+            />
+            <Route
+              path="add-description"
+              element={
+                <CreateAdvBio
+                  onContinue={Continue}
+                  onBack={() => Back("add-photos")}
                 />
               }
             />

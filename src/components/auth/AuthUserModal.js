@@ -50,8 +50,8 @@ function LoginUser(props) {
             name="email"
             placeholder="email@gmail.com"
             value={data.email}
-            onChange={v => HandleFormValue(v)}
-            ></input>
+            onChange={(v) => HandleFormValue(v)}
+          ></input>
           <div style={{ height: 8 }} />
           <input
             type="password"
@@ -60,7 +60,7 @@ function LoginUser(props) {
             name="password"
             placeholder="password"
             value={data.password}
-            onChange={v => HandleFormValue(v)}
+            onChange={(v) => HandleFormValue(v)}
           ></input>
         </form>
         <div style={{ height: 8 }} />
@@ -168,8 +168,8 @@ function SignupUser(props) {
             name="name"
             placeholder="Nickname (4+ caratteri)"
             value={data.name}
-            onChange={v => HandleFormValue(v)}
-            ></input>
+            onChange={(v) => HandleFormValue(v)}
+          ></input>
           <div style={{ height: 8 }} />
           <input
             type="email"
@@ -178,7 +178,7 @@ function SignupUser(props) {
             name="email"
             placeholder="email@gmail.com"
             value={data.email}
-            onChange={v => HandleFormValue(v)}
+            onChange={(v) => HandleFormValue(v)}
           ></input>
           <div style={{ height: 8 }} />
           <input
@@ -188,8 +188,8 @@ function SignupUser(props) {
             name="password"
             placeholder="password"
             value={data.password}
-            onChange={v => HandleFormValue(v)}
-            ></input>
+            onChange={(v) => HandleFormValue(v)}
+          ></input>
         </form>
         <div style={{ height: 8 }} />
 
@@ -269,16 +269,14 @@ function SignupUser(props) {
           fontWeight: "500",
           color: "white",
           backgroundColor: "#B02D23",
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
         onClick={Login}
       >
-        <FaUserSecret style={{marginRight: '8px', fontSize: 18}} />
-        <div>
-          Entra come anonimo
-        </div>
+        <FaUserSecret style={{ marginRight: "8px", fontSize: 18 }} />
+        <div>Entra come anonimo</div>
       </button>
 
       {/* Error message */}
