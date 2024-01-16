@@ -9,7 +9,7 @@ import { UserLocation } from "../../../providers/UserLocation";
 export default function AdvItem({
   preselectedADV = null,
   advId,
-  showDistance = true,
+  isFromAdvertiser = false,
 }) {
   const [adv, setAdv] = useState({
     idADV: null,
@@ -76,7 +76,6 @@ export default function AdvItem({
   useEffect(() => {
     if (preselectedADV === null)
       GetData(advertisementsKey, advId).then((resp) => {
-        console.log(resp);
         setAdv(resp);
       });
     else setAdv(preselectedADV);
@@ -164,7 +163,7 @@ export default function AdvItem({
             </h5>
 
             {/* Distance */}
-            {showDistance && userPosition.hasPermission && (
+            {!isFromAdvertiser && userPosition.hasPermission ? (
               <p style={{ fontSize: "11px", color: "grey" }}>
                 {GetDistance({
                   advLatitude: adv.locationData.lat,
@@ -172,6 +171,8 @@ export default function AdvItem({
                 })}{" "}
                 km da te
               </p>
+            ) : (
+              <></>
             )}
           </div>
         </div>

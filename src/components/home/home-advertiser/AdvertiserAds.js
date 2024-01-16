@@ -63,7 +63,7 @@ export default function AdvertiserAds() {
         ) : (
           <div className="grid-container">
             {user.adsIds.map((e, i) => (
-              <AdvItem advId={e} key={e} showDistance={false} />
+              <AdvItem advId={e} key={e} isFromAdvertiser={true} />
             ))}
           </div>
         )}

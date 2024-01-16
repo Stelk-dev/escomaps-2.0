@@ -13,12 +13,12 @@ const CreationAdvAtom = atom({
     waNumber: null,
     tgNumberPrefix: null,
     tgNumber: null,
-    location: {
+    locationData: {
       address: null,
       canGoToHome: null,
       canReceive: null,
-      lat: null,
-      lon: null,
+      lat: 0,
+      lon: 0,
       locationPublic: null,
     },
     categories: [],

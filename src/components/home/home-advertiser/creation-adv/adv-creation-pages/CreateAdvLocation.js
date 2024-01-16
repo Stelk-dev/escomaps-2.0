@@ -8,15 +8,15 @@ import { Checkbox, CircularProgress } from "@mui/material";
 
 export default function CreateAdvLocation({ onContinue, onBack }) {
   const [advData] = useRecoilState(CreationAdvAtom);
-  const [address, setAddress] = useState(advData.location.address ?? "");
+  const [address, setAddress] = useState(advData.locationData.address ?? "");
   const [locationPublic, setLocationPublic] = useState(
-    advData.location.locationPublic ?? false
+    advData.locationData.locationPublic ?? false
   );
   const [canGoToHome, setCanGoToHome] = useState(
-    advData.location.canGoToHome ?? true
+    advData.locationData.canGoToHome ?? true
   );
   const [canReceive, setCanReceive] = useState(
-    advData.location.canReceive ?? true
+    advData.locationData.canReceive ?? true
   );
   const [loadingLocation] = useState(true);
 
@@ -173,16 +173,17 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
         onContinue={(e) => {
           e.preventDefault();
           onContinue({
-            location: {
+            locationData: {
               address: address,
               canGoToHome: canGoToHome,
               canReceive: canReceive,
-              lat: null,
-              lon: null,
+              lat: 0,
+              lon: 0,
               locationPublic: locationPublic,
             },
           });
         }}
+        isDisabled={address.length === 0}
         onBack={onBack}
       />
     </div>
