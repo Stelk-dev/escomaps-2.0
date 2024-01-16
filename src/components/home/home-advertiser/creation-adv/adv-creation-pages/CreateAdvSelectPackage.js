@@ -11,7 +11,9 @@ export default function CreateAdvSelectPackage({ onContinue }) {
       <div
         className="package-box-create-adv"
         onClick={() =>
-          onContinue({ totCredits: totCredits, hoursLeft: hoursLeft })
+          onContinue({
+            packageSelected: { totCredits: totCredits, hoursLeft: hoursLeft },
+          })
         }
       >
         <div

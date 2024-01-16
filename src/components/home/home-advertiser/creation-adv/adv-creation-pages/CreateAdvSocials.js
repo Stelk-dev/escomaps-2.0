@@ -1,18 +1,15 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 import InstagramIcon from "../../../../../assets/social-icons/instagram.svg";
 import OnlyFansIcon from "../../../../../assets/social-icons/onlyfans.svg";
 import FacebookIcon from "../../../../../assets/social-icons/facebook.svg";
 import TikTokIcon from "../../../../../assets/social-icons/tiktok.svg";
 
-export default function CreateAdvSocials({ onContinue, onBack }) {
-  const instagramRef = useRef("");
-  const onlyfansRef = useRef("");
-  const facebookRef = useRef("");
-  const tikTokRef = useRef("");
+export default function CreateAdvSocials({ advData, onContinue, onBack }) {
+  const SocialForm = ({ icon, placeholder, prevalue }) => {
+    const [value, setValue] = useState(prevalue);
 
-  const SocialForm = ({ icon, placeholder, controllerRef }) => {
-    return (
+    const input = (
       <div
         key={placeholder}
         style={{
@@ -38,11 +35,35 @@ export default function CreateAdvSocials({ onContinue, onBack }) {
           placeholder={placeholder}
           className="main-form"
           style={{ paddingLeft: "68px" }}
-          ref={controllerRef}
+          value={value}
+          onChange={(v) => setValue(v.target.value)}
         />
       </div>
     );
+
+    return [value, input];
   };
+
+  const [instagram, instagramInput] = SocialForm({
+    icon: InstagramIcon,
+    placeholder: "instagram_username",
+    prevalue: advData.instagram,
+  });
+  const [onlyfans, onlyfansInput] = SocialForm({
+    icon: OnlyFansIcon,
+    placeholder: "onlyfans_username",
+    prevalue: advData.onlyfans,
+  });
+  const [facebook, facebookInput] = SocialForm({
+    icon: FacebookIcon,
+    placeholder: "facebook_username",
+    prevalue: advData.instagram,
+  });
+  const [tiktok, tiktokInput] = SocialForm({
+    icon: TikTokIcon,
+    placeholder: "tiktok_username",
+    prevalue: advData.instagram,
+  });
 
   return (
     <div>
@@ -55,36 +76,20 @@ export default function CreateAdvSocials({ onContinue, onBack }) {
       <br />
 
       <form>
-        <SocialForm
-          icon={InstagramIcon}
-          placeholder={"insta_username"}
-          controllerRef={instagramRef}
-        />
-        <SocialForm
-          icon={OnlyFansIcon}
-          placeholder={"onlyfans_username"}
-          controllerRef={onlyfansRef}
-        />
-        <SocialForm
-          icon={FacebookIcon}
-          placeholder={"facebook_username"}
-          controllerRef={facebookRef}
-        />
-        <SocialForm
-          icon={TikTokIcon}
-          placeholder={"tiktok_username"}
-          controllerRef={tikTokRef}
-        />
+        {instagramInput}
+        {onlyfansInput}
+        {facebookInput}
+        {tiktokInput}
       </form>
 
       <CreationAdvBottomBar
         onContinue={(e) => {
           e.preventDefault();
           onContinue({
-            instagram: instagramRef.current.value,
-            onlyfans: onlyfansRef.current.value,
-            facebook: facebookRef.current.value,
-            tiktok: tikTokRef.current.value,
+            instagram: instagram,
+            onlyfans: onlyfans,
+            facebook: facebook,
+            tiktok: tiktok,
           });
         }}
         onBack={onBack}

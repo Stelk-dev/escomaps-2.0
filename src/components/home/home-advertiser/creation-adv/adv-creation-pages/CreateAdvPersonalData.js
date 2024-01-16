@@ -6,18 +6,18 @@ import { CurrentUserAdvertiser } from "../../../../../providers/AdvertiserUserDa
 import WhatsappIcon from "../../../../../assets/social-icons/whatsapp.svg";
 import TelegramIcon from "../../../../../assets/social-icons/telegram.svg";
 
-export default function CreateAdvPersonalData({ onContinue, onBack }) {
+export default function CreateAdvPersonalData({ advData, onContinue, onBack }) {
   const [user] = useRecoilState(CurrentUserAdvertiser);
   const [data, setData] = useState({
-    name: user.name ?? "",
-    age: (user.age ?? "").toString(),
-    gender: user.gender ?? 1,
-    phoneNumberPrefix: user.prefix,
-    phoneNumber: user.phoneNumber,
-    waNumberPrefix: user.prefix,
-    waNumber: "",
-    tgNumberPrefix: user.prefix,
-    tgNumber: "",
+    name: advData.name ?? user.name ?? "",
+    age: advData.age ?? (user.age ?? "").toString(),
+    gender: advData.gender ?? user.gender ?? 1,
+    phoneNumberPrefix: advData.phoneNumberPrefix ?? user.prefix,
+    phoneNumber: advData.phoneNumber ?? user.phoneNumber,
+    waNumberPrefix: advData.waNumberPrefix ?? user.prefix,
+    waNumber: advData.waNumber ?? "",
+    tgNumberPrefix: advData.prefix ?? user.prefix,
+    tgNumber: advData.tgNumber ?? "",
   });
 
   const GenderBox = ({ title, index, isLast = false }) => {

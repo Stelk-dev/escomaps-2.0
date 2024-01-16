@@ -202,7 +202,7 @@ export default function Sidebar(props) {
           >
             {/* Logo */}
             <Link
-              to="/"
+              to={PathForSignup() === null ? "/advertiser/ads" : "/"}
               style={{ textDecoration: "none", height: 30 }}
               onClick={props.onSidebarClose}
             >

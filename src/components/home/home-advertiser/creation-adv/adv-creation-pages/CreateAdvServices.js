@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 import { Categories, Services } from "../../../../../constants/ValueConstants";
 
-export default function CreateAdvServices({ onContinue, onBack }) {
+export default function CreateAdvServices({ advData, onContinue, onBack }) {
   const [data, setData] = useState({
-    categories: [],
-    services: [],
+    categories: advData.categories,
+    services: advData.services,
   });
 
   const BoxSelectable = ({ title, isSelected = false, onTap }) => {

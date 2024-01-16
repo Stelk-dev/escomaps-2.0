@@ -67,6 +67,7 @@ function App() {
   const showMenuIcon = () =>
     loc.pathname === "/" ||
     loc.pathname.includes("/advertiser") ||
+    loc.pathname.includes("/create-adv") ||
     loc.pathname === "/search" ||
     loc.pathname === "/buy-credits" ||
     loc.pathname.includes("/adv-detail") ||

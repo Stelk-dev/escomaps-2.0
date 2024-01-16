@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import CreateAdvSelectPackage from "./CreateAdvSelectPackage";
 import CreateAdvPersonalData from "./CreateAdvPersonalData";
 import CreateAdvLocation from "./CreateAdvLocation";
@@ -7,10 +13,62 @@ import CreateAdvServices from "./CreateAdvServices";
 import CreateAdvSocials from "./CreateAdvSocials";
 import CreateAdvBio from "./CreateAdvBio";
 import CreateAdvPhotos from "./CreateAdvPhotos";
+import ReviewAdv from "./ReviewAdv";
 
 export default function CreateAdv() {
-  const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+  const loc = useLocation();
+  const [advData, setAdvData] = useState({
+    packageSelected: { totCredits: null, hoursLeft: null },
+    name: null,
+    age: null,
+    gender: null,
+    phoneNumberPrefix: null,
+    phoneNumber: null,
+    waNumberPrefix: null,
+    waNumber: null,
+    tgNumberPrefix: null,
+    tgNumber: null,
+    location: {
+      address: null,
+      canGoToHome: null,
+      canReceive: null,
+      lat: null,
+      lon: null,
+      locationPublic: null,
+    },
+    categories: [],
+    services: [],
+    instagram: null,
+    onlyfans: null,
+    facebook: null,
+    tiktok: null,
+    photos: [],
+    title: null,
+    description: null,
+    datePublished: null,
+    lastDateOfBoostActivated: null,
+    dateExpire: null,
+    idAdv: null,
+    idAdvertiser: null,
+    isDisabled: false,
+  });
+
+  const pathsAdvCreation = [
+    "select-package",
+    "add-personal-data",
+    "add-location",
+    "add-services",
+    "add-socials",
+    "add-photos",
+    "add-description",
+    "review-adv",
+  ];
+
+  const CurrentIndex = () => {
+    const p = loc.pathname.replace("/create-adv/", "");
+    return pathsAdvCreation.indexOf(p);
+  };
 
   const ProgressBarBox = ({ i, isLastOne = false }) => {
     return (
@@ -18,7 +76,11 @@ export default function CreateAdv() {
         style={{
           borderRadius: "2px",
           backgroundColor:
-            index > i ? "#BA68C8" : index === i ? "#4e2f55" : "#333333AA",
+            CurrentIndex() > i
+              ? "#BA68C8"
+              : CurrentIndex() === i
+              ? "#4e2f55"
+              : "#333333AA",
           flex: "1",
           height: "14px",
           marginRight: isLastOne ? "" : "8px",
@@ -28,35 +90,12 @@ export default function CreateAdv() {
   };
 
   const Continue = (data) => {
-    switch (index) {
-      case 0:
-        navigate("add-personal-data");
-        break;
-      case 1:
-        navigate("add-location");
-        break;
-      case 2:
-        navigate("add-services");
-        break;
-      case 3:
-        navigate("add-socials");
-        break;
-      case 4:
-        navigate("add-photos");
-        break;
-      case 5:
-        navigate("add-description");
-        break;
-      default:
-        break;
-    }
-
-    setIndex((v) => v + 1);
+    setAdvData({ ...advData, ...data });
+    navigate(pathsAdvCreation[CurrentIndex() + 1]);
   };
 
-  const Back = (path) => {
-    navigate(path);
-    setIndex((v) => v - 1);
+  const Back = () => {
+    navigate(pathsAdvCreation[CurrentIndex() - 1]);
   };
 
   return (
@@ -72,13 +111,11 @@ export default function CreateAdv() {
         <div
           style={{ display: "flex", padding: "0px 20px", marginBottom: "32px" }}
         >
-          <ProgressBarBox i={0} />
-          <ProgressBarBox i={1} />
-          <ProgressBarBox i={2} />
-          <ProgressBarBox i={3} />
-          <ProgressBarBox i={4} />
-          <ProgressBarBox i={5} />
-          <ProgressBarBox i={6} isLastOne={true} />
+          {Array.from({ length: pathsAdvCreation.length - 1 }).map(
+            (_i, index) => (
+              <ProgressBarBox i={index} key={index} isLastOne={index === 6} />
+            )
+          )}
         </div>
 
         {/* Routes */}
@@ -96,8 +133,9 @@ export default function CreateAdv() {
               path="add-personal-data"
               element={
                 <CreateAdvPersonalData
+                  advData={advData}
                   onContinue={Continue}
-                  onBack={() => Back("select-package")}
+                  onBack={Back}
                 />
               }
             />
@@ -105,8 +143,9 @@ export default function CreateAdv() {
               path="add-location"
               element={
                 <CreateAdvLocation
+                  advData={advData}
                   onContinue={Continue}
-                  onBack={() => Back("add-personal-data")}
+                  onBack={Back}
                 />
               }
             />
@@ -114,8 +153,9 @@ export default function CreateAdv() {
               path="add-services"
               element={
                 <CreateAdvServices
+                  advData={advData}
                   onContinue={Continue}
-                  onBack={() => Back("add-location")}
+                  onBack={Back}
                 />
               }
             />
@@ -123,8 +163,9 @@ export default function CreateAdv() {
               path="add-socials"
               element={
                 <CreateAdvSocials
+                  advData={advData}
                   onContinue={Continue}
-                  onBack={() => Back("add-services")}
+                  onBack={Back}
                 />
               }
             />
@@ -132,8 +173,9 @@ export default function CreateAdv() {
               path="add-photos"
               element={
                 <CreateAdvPhotos
+                  advData={advData}
                   onContinue={Continue}
-                  onBack={() => Back("add-socials")}
+                  onBack={Back}
                 />
               }
             />
@@ -141,8 +183,19 @@ export default function CreateAdv() {
               path="add-description"
               element={
                 <CreateAdvBio
+                  advData={advData}
                   onContinue={Continue}
-                  onBack={() => Back("add-photos")}
+                  onBack={Back}
+                />
+              }
+            />
+            <Route
+              path="review-adv"
+              element={
+                <ReviewAdv
+                  advData={advData}
+                  onContinue={Continue}
+                  onBack={Back}
                 />
               }
             />

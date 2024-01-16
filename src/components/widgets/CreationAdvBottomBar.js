@@ -3,6 +3,7 @@ import React from "react";
 export default function CreationAdvBottomBar({
   onContinue,
   isDisabled,
+  isPubblish = false,
   onBack,
 }) {
   return (
@@ -32,7 +33,7 @@ export default function CreationAdvBottomBar({
           alignItems: "center",
         }}
       >
-        Continua
+        {isPubblish ? "Pubblica" : "Continua"}
       </button>
       <button
         onClick={onBack}
