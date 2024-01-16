@@ -55,8 +55,8 @@ export default function VerifyIdentity() {
           }}
           style={{
             borderRadius: "100%",
-            width: "32px",
-            height: "32px",
+            padding: "2px",
+            cursor: "pointer",
             border: "2px solid black",
             backgroundColor: "white",
             position: "absolute",
@@ -157,14 +157,14 @@ export default function VerifyIdentity() {
             }}
             type="submit"
             style={{
+              backgroundColor: "#007DFF",
               marginTop: "14px",
               width: "100%",
               border: "none",
-              padding: "12px",
-              borderRadius: "4px",
+              padding: "8px",
+              borderRadius: "8px",
               fontWeight: "500",
               color: "white",
-              backgroundColor: "#B02D23",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",

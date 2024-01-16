@@ -16,7 +16,6 @@ export default function DeleteAccount() {
         </h1>
         <div
           style={{
-            marginTop: "12px",
             color: "#FFFFFF",
             fontWeight: "200",
             fontSize: "16px",
