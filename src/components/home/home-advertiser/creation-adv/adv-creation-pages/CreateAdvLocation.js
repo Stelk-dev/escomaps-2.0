@@ -18,7 +18,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   const [canReceive, setCanReceive] = useState(
     advData.location.canReceive ?? true
   );
-  const [loadingLocation, setLoadingLocation] = useState(true);
+  const [loadingLocation] = useState(true);
 
   const BoxHideShowPosition = ({
     icon,
