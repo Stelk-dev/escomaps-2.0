@@ -12,8 +12,8 @@ export default function CreateAdvPhotos({ onContinue, onBack }) {
         style={{
           marginRight: "20px",
           marginBottom: "20px",
-          height: "200px",
-          width: "150px",
+          height: "220px",
+          width: "139px",
           float: "left",
           backgroundColor: "grey",
           border: "2px solid #AAAAAA",
@@ -60,10 +60,10 @@ export default function CreateAdvPhotos({ onContinue, onBack }) {
     reader.readAsDataURL(file);
     reader.onloadend = function (e) {
       setPhotos([...photos, reader.result]);
-    }.bind(this);
+    };
   }
 
-  const UploadDisabled = () => photos.length === 6;
+  const UploadDisabled = () => photos.length === 8;
 
   return (
     <div

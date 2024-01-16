@@ -47,7 +47,9 @@ function App() {
     setShowSidebar(!showSidebar);
   };
 
-  const hideAnimationAppBar = () => loc.pathname.includes("/adv-detail");
+  const hideAnimationAppBar = () =>
+    loc.pathname.includes("/adv-detail") ||
+    loc.pathname.includes("/create-adv");
 
   const showBottomBar = () =>
     loc.pathname === "/" ||
