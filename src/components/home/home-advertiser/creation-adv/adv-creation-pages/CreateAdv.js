@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Navigate,
   Route,
@@ -14,45 +14,14 @@ import CreateAdvSocials from "./CreateAdvSocials";
 import CreateAdvBio from "./CreateAdvBio";
 import CreateAdvPhotos from "./CreateAdvPhotos";
 import ReviewAdv from "./ReviewAdv";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
 
 export default function CreateAdv() {
   const navigate = useNavigate();
   const loc = useLocation();
-  const [advData, setAdvData] = useState({
-    packageSelected: { totCredits: null, hoursLeft: null },
-    name: null,
-    age: null,
-    gender: null,
-    phoneNumberPrefix: null,
-    phoneNumber: null,
-    waNumberPrefix: null,
-    waNumber: null,
-    tgNumberPrefix: null,
-    tgNumber: null,
-    location: {
-      address: null,
-      canGoToHome: null,
-      canReceive: null,
-      lat: null,
-      lon: null,
-      locationPublic: null,
-    },
-    categories: [],
-    services: [],
-    instagram: null,
-    onlyfans: null,
-    facebook: null,
-    tiktok: null,
-    photos: [],
-    title: null,
-    description: null,
-    datePublished: null,
-    lastDateOfBoostActivated: null,
-    dateExpire: null,
-    idAdv: null,
-    idAdvertiser: null,
-    isDisabled: false,
-  });
+  const [advData, setAdvData] = useRecoilState(CreationAdvAtom);
+  const reset = useResetRecoilState(CreationAdvAtom);
 
   const pathsAdvCreation = [
     "select-package",
@@ -98,6 +67,14 @@ export default function CreateAdv() {
     navigate(pathsAdvCreation[CurrentIndex() - 1]);
   };
 
+  useEffect(() => {
+    navigate("/create-adv/");
+    reset();
+
+    return () => {};
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className="main-div">
       <div
@@ -132,21 +109,13 @@ export default function CreateAdv() {
             <Route
               path="add-personal-data"
               element={
-                <CreateAdvPersonalData
-                  advData={advData}
-                  onContinue={Continue}
-                  onBack={Back}
-                />
+                <CreateAdvPersonalData onContinue={Continue} onBack={Back} />
               }
             />
             <Route
               path="add-location"
               element={
-                <CreateAdvLocation
-                  advData={advData}
-                  onContinue={Continue}
-                  onBack={Back}
-                />
+                <CreateAdvLocation onContinue={Continue} onBack={Back} />
               }
             />
             <Route
@@ -191,13 +160,7 @@ export default function CreateAdv() {
             />
             <Route
               path="review-adv"
-              element={
-                <ReviewAdv
-                  advData={advData}
-                  onContinue={Continue}
-                  onBack={Back}
-                />
-              }
+              element={<ReviewAdv onContinue={Continue} onBack={Back} />}
             />
           </Routes>
         </div>

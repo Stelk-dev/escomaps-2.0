@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 import { MdCloudUpload } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
+import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
+import { useRecoilState } from "recoil";
 
-export default function CreateAdvPhotos({ advData, onContinue, onBack }) {
+export default function CreateAdvPhotos({ onContinue, onBack }) {
+  const [advData] = useRecoilState(CreationAdvAtom);
   const [photos, setPhotos] = useState(advData.photos);
 
   const ImageBox = ({ path, index }) => {

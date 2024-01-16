@@ -4,8 +4,12 @@ import InstagramIcon from "../../../../../assets/social-icons/instagram.svg";
 import OnlyFansIcon from "../../../../../assets/social-icons/onlyfans.svg";
 import FacebookIcon from "../../../../../assets/social-icons/facebook.svg";
 import TikTokIcon from "../../../../../assets/social-icons/tiktok.svg";
+import { useRecoilState } from "recoil";
+import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
 
-export default function CreateAdvSocials({ advData, onContinue, onBack }) {
+export default function CreateAdvSocials({ onContinue, onBack }) {
+  const [advData] = useRecoilState(CreationAdvAtom);
+
   const SocialForm = ({ icon, placeholder, prevalue }) => {
     const [value, setValue] = useState(prevalue);
 

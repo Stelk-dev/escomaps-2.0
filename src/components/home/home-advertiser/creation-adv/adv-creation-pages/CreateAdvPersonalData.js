@@ -5,8 +5,11 @@ import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../../../../providers/AdvertiserUserData";
 import WhatsappIcon from "../../../../../assets/social-icons/whatsapp.svg";
 import TelegramIcon from "../../../../../assets/social-icons/telegram.svg";
+import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
 
-export default function CreateAdvPersonalData({ advData, onContinue, onBack }) {
+export default function CreateAdvPersonalData({ onContinue, onBack }) {
+  const [advData] = useRecoilState(CreationAdvAtom);
+
   const [user] = useRecoilState(CurrentUserAdvertiser);
   const [data, setData] = useState({
     name: advData.name ?? user.name ?? "",

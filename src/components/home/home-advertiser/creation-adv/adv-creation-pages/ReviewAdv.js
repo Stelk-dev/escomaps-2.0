@@ -1,7 +1,11 @@
 import React from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
+import { useRecoilState } from "recoil";
+import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
 
-export default function ReviewAdv({ advData, onContinue, onBack }) {
+export default function ReviewAdv({ onContinue, onBack }) {
+  const [advData] = useRecoilState(CreationAdvAtom);
+
   return (
     <div>
       <h1 style={{ textAlign: "center", fontWeight: "600", fontSize: "32px" }}>
@@ -12,6 +16,10 @@ export default function ReviewAdv({ advData, onContinue, onBack }) {
         pubblicarlo. Ecco come apparirà sulla home:
       </div>
       <br />
+
+      <div>
+        {advData.name} {advData.instagram}
+      </div>
 
       <CreationAdvBottomBar
         onContinue={(e) => {

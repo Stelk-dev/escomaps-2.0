@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import CreationAdvBottomBar from "../../../../widgets/CreationAdvBottomBar";
 import { Categories, Services } from "../../../../../constants/ValueConstants";
+import { useRecoilState } from "recoil";
+import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
 
-export default function CreateAdvServices({ advData, onContinue, onBack }) {
+export default function CreateAdvServices({ onContinue, onBack }) {
+  const [advData] = useRecoilState(CreationAdvAtom);
+
   const [data, setData] = useState({
-    categories: advData.categories,
-    services: advData.services,
+    categories: advData.categories ?? [],
+    services: advData.services ?? [],
   });
 
   const BoxSelectable = ({ title, isSelected = false, onTap }) => {
