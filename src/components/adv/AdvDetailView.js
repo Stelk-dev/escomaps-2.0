@@ -456,27 +456,33 @@ export default function AdvDetailView({
           </div>
 
           {/* Social list */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <h3
-              style={{
-                fontWeight: "bold",
-                fontSize: "14px",
-                marginBottom: "8px",
-              }}
-            >
-              Link social:
-            </h3>
-            {/* Type of coming */}
-            <div
-              style={{
-                marginTop: "8px",
-              }}
-            >
-              {SocialList().map((e) => (
-                <SocialBox socialName={e.link} socialTitle={e.social} />
-              ))}
+          {SocialList().length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <h3
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                  marginBottom: "8px",
+                }}
+              >
+                Link social:
+              </h3>
+              {/* Type of coming */}
+              <div
+                style={{
+                  marginTop: "8px",
+                }}
+              >
+                {SocialList().map((e) => (
+                  <SocialBox
+                    socialName={e.link}
+                    socialTitle={e.social}
+                    key={e.social}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Extra space */}

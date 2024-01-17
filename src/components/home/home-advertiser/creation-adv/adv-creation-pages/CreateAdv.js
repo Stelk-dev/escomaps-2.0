@@ -16,6 +16,7 @@ import CreateAdvPhotos from "./CreateAdvPhotos";
 import ReviewAdv from "./ReviewAdv";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
+import SuccessScreen from "../../../widgets/SuccessScreen";
 
 export default function CreateAdv() {
   const navigate = useNavigate();
@@ -159,6 +160,15 @@ export default function CreateAdv() {
               }
             />
             <Route path="review-adv" element={<ReviewAdv onBack={Back} />} />
+            <Route
+              path="upload-success"
+              element={
+                <SuccessScreen
+                  title={"Annuncio pubblicato!"}
+                  isAdvCreation={true}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>

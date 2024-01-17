@@ -18,7 +18,7 @@ export default function AdvertiserAds() {
   return (
     <div
       style={{
-        marginTop: "60px",
+        margin: "60px 0px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

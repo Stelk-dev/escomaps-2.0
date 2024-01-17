@@ -1,11 +1,10 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function SuccessScreen({ title, isBuyFlow }) {
+export default function SuccessScreen({ title, isBuyFlow, isAdvCreation }) {
   const navigate = useNavigate();
 
   let location = useLocation();
-  console.log();
 
   return (
     <div className="main-div" style={{ height: "100vh" }}>
@@ -30,6 +29,14 @@ export default function SuccessScreen({ title, isBuyFlow }) {
                 {location.state.totalCredits} 💎 crediti
               </strong>{" "}
               è stato processato correttamente
+            </div>
+          )}
+          {isAdvCreation && (
+            <div style={{ color: "white", textAlign: "center" }}>
+              Il tuo annuncio{" "}
+              <strong style={{ fontWeight: "bold", color: "#BA68C8" }}>
+                è ora visibile a tutti!
+              </strong>
             </div>
           )}
 

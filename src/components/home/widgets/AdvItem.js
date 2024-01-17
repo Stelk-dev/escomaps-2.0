@@ -70,6 +70,7 @@ export default function AdvItem({
 
     return distance;
   };
+  const ShowDistance = () => !isFromAdvertiser && userPosition.hasPermission;
 
   useEffect(() => {
     if (preselectedADV === null)
@@ -145,12 +146,14 @@ export default function AdvItem({
             <IoMdTransgender />
           )}
         </div>
+
+        {/* Data */}
         <div key={adv.uidAdvertiser} className="grid-item">
-          {/* Image */}
           <img
             src={adv.photos[0]}
             className="grid-item-image"
             alt="escort-label"
+            style={{ height: !ShowDistance() && "85%" }}
           />
 
           {/* Description */}
@@ -161,7 +164,7 @@ export default function AdvItem({
             </h5>
 
             {/* Distance */}
-            {!isFromAdvertiser && userPosition.hasPermission ? (
+            {ShowDistance() && (
               <p style={{ fontSize: "11px", color: "grey" }}>
                 {GetDistance({
                   advLatitude: adv.locationData.lat,
@@ -169,8 +172,6 @@ export default function AdvItem({
                 })}{" "}
                 km da te
               </p>
-            ) : (
-              <></>
             )}
           </div>
         </div>

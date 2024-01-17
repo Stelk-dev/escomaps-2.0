@@ -49,6 +49,7 @@ function App() {
 
   const hideAnimationAppBar = () =>
     loc.pathname.includes("/adv-detail") ||
+    loc.pathname === "/advertiser/ads" ||
     loc.pathname.includes("/create-adv");
 
   const showBottomBar = () =>

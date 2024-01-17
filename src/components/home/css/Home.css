@@ -16,7 +16,6 @@
 .grid-item-image {
     background-color: grey;
     border-radius: 8px;
-    flex: 1;
     width: 100%;
     object-fit: cover;
     height: 80%;
@@ -24,8 +23,8 @@
 
 .grid-item-description {
     padding: 6px 0px 0px 2px;
-    border-radius: 0px 0px 8px 8px;
     height: 20%;
+    border-radius: 0px 0px 8px 8px;
 }
 
 .floating-action-button{
@@ -39,7 +38,7 @@
     right: 20px;
     bottom: 80px;
     border: none;
-    position: absolute;
+    position: fixed;
     font-size: 28px;
 }
 
