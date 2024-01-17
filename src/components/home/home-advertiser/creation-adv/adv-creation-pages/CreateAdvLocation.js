@@ -10,7 +10,7 @@ import MapView from "../../../../widgets/views/MapView";
 
 export default function CreateAdvLocation({ onContinue, onBack }) {
   const [advData] = useRecoilState(CreationAdvAtom);
-  const [latLng, setLatLng] = useState([]);
+  const [latLng, setLatLng] = useState([44.6185515, 10.2920119]);
   const [address, setAddress] = useState(advData.locationData.address ?? "");
   const [locationPublic, setLocationPublic] = useState(
     advData.locationData.locationPublic ?? false
@@ -21,7 +21,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   const [canReceiveAtHome, setcanReceiveAtHome] = useState(
     advData.locationData.canReceiveAtHome ?? true
   );
-  const [loadingLocation, setLoadingLocation] = useState(true);
+  const [loadingLocation, setLoadingLocation] = useState(false);
 
   const BoxHideShowPosition = ({
     icon,
@@ -97,6 +97,8 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
       (p) => {
         console.log("Success: " + p);
         setLatLng([p.coords.latitude, p.coords.longitude]);
+
+        // TODOs: Get address from latitude and longitude
         setLoadingLocation(false);
       },
       (e) => {
@@ -149,7 +151,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
         </div>
       ) : (
         <div style={{ marginBottom: "8px" }}>
-          <MapView latLng={latLng} isPositionPublic={true} />
+          <MapView latLng={latLng} isPositionPublic={locationPublic} />
         </div>
       )}
 

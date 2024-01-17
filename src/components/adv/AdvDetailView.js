@@ -188,7 +188,7 @@ export default function AdvDetailView({
           isFromEditOrCreation
             ? {
                 position: "absolute",
-                width: "98%",
+                width: "99%",
                 maxWidth: "496px",
                 bottom: 2,
                 borderRadius: "0px 0px 16px 16px",
