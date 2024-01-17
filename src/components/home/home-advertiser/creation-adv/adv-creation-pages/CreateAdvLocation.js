@@ -218,7 +218,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
             },
           });
         }}
-        isDisabled={address.length === 0 || latLng.length == 0}
+        isDisabled={address.length === 0 || latLng.length === 0}
         onBack={onBack}
       />
     </div>
