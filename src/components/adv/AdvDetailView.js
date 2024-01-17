@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 // import { useLocation } from "react-router-dom";
-import { BsHeart } from "react-icons/bs";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+
 import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
 import "./css/AdvDetailView.css";
 import CategoryBox from "../widgets/boxes/CategoryBox";
@@ -12,12 +13,16 @@ import { Tabs, TabList, Tab } from "@mui/joy";
 import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
+import SocialBox from "../widgets/boxes/SocialBox";
 
 export default function AdvDetailView({
   defaultAdvValue = null,
   defaultDistanceValue = null,
   isFromEditOrCreation = false,
 }) {
+  // Tab list ref
+  const tabsRef = useRef([]);
+
   const [advertiser] = useRecoilState(CurrentUserAdvertiser);
 
   const loc = useLocation();
@@ -30,7 +35,7 @@ export default function AdvDetailView({
   const photos = adv.photos;
   const categories = adv.categories;
   const services = adv.services;
-  const typeOfMoving = () => {
+  const TypeOfMoving = () => {
     const canReceive = adv.locationData.canReceiveAtHome;
     const canGo = adv.locationData.canGoToHomes;
     var values = ["Ricevo a casa", "Vengo in casa"];
@@ -39,6 +44,24 @@ export default function AdvDetailView({
     else if (!canReceive || !canGo) values = values.slice(1);
 
     return values;
+  };
+
+  const SocialList = () => {
+    const socials = [];
+
+    if (adv.instagram !== null && adv.instagram.length > 0)
+      socials.push({ social: "Instagram", link: adv.instagram });
+
+    if (adv.onlyfans !== null && adv.onlyfans.length > 0)
+      socials.push({ social: "OnlyFans", link: adv.onlyfans });
+
+    if (adv.facebook !== null && adv.facebook.length > 0)
+      socials.push({ social: "Facebook", link: adv.facebook });
+
+    if (adv.tiktok !== null && adv.tiktok.length > 0)
+      socials.push({ social: "TikTok", link: adv.tiktok });
+
+    return socials;
   };
 
   const waNumber = adv.whatsapp;
@@ -56,6 +79,11 @@ export default function AdvDetailView({
           width: "60px",
           height: "50px",
           margin: "0px 3px",
+          cursor: "pointer",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          tabsRef.current[index].scrollIntoView();
         }}
       >
         <img
@@ -95,8 +123,10 @@ export default function AdvDetailView({
           isFromEditOrCreation
             ? {
                 position: "absolute",
-                maxWidth: "500px",
+                width: "98%",
+                maxWidth: "496px",
                 borderRadius: "16px 16px 0px 0px",
+                top: 2,
               }
             : { marginTop: "58px" }
         }
@@ -132,12 +162,22 @@ export default function AdvDetailView({
         </div>
 
         {/* Favourite */}
-        {!isAdvFromAdvertiser() &&
-          (isFromEditOrCreation ? (
-            <BsHeart style={{ color: "white", fontSize: "24px" }} />
-          ) : (
-            <BsHeart style={{ color: "white", fontSize: "24px" }} />
-          ))}
+        {!isAdvFromAdvertiser() && (
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              if (isFromEditOrCreation) return;
+
+              // Save to favourite
+            }}
+          >
+            {isFromEditOrCreation ? (
+              <FaHeart style={{ color: "white", fontSize: "24px" }} />
+            ) : (
+              <FaRegHeart style={{ color: "white", fontSize: "24px" }} />
+            )}
+          </div>
+        )}
       </div>
       {/* Header bar */}
 
@@ -148,7 +188,9 @@ export default function AdvDetailView({
           isFromEditOrCreation
             ? {
                 position: "absolute",
-                maxWidth: "500px",
+                width: "98%",
+                maxWidth: "496px",
+                bottom: 2,
                 borderRadius: "0px 0px 16px 16px",
               }
             : {}
@@ -242,7 +284,25 @@ export default function AdvDetailView({
                     border: "none",
                     height: "500px",
                   }}
+                  ref={(el) => (tabsRef.current[index] = el)}
                 >
+                  {/* Left scroller */}
+                  <div
+                    style={{
+                      height: "100%",
+                      width: "50%",
+                      left: 0,
+                      position: "absolute",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (index - 1 < 0) return;
+
+                      tabsRef.current[index - 1].scrollIntoView();
+                    }}
+                  />
+
+                  {/* Image */}
                   <img
                     src={e}
                     key={index}
@@ -251,6 +311,23 @@ export default function AdvDetailView({
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
+                    }}
+                  />
+
+                  {/* Right scroller */}
+                  <div
+                    style={{
+                      height: "100%",
+                      width: "50%",
+                      right: 0,
+                      position: "absolute",
+                      cursor: "pointer",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (index + 1 > tabsRef.current.length - 1) return;
+
+                      tabsRef.current[index + 1].scrollIntoView();
                     }}
                   />
                 </Tab>
@@ -273,28 +350,28 @@ export default function AdvDetailView({
         </div>
 
         {/* Detail ADV */}
-        <div style={{ padding: "20px 14px" }}>
+        <div style={{ margin: "20px 14px" }}>
           {/* Description */}
           <div
             style={{
               borderRadius: "8px",
               backgroundColor: "#2C2D2C",
               border: "1px #434244 solid",
-              padding: "10px",
+              padding: "14px",
+              marginBottom: "20px",
             }}
           >
             <h3 style={{ fontSize: "16px", fontWeight: "bold" }}>
               {adv.title}
             </h3>
-            <p style={{ fontSize: "14px", marginTop: "14px" }}>
+            <div style={{ fontSize: "14px", marginTop: "14px" }}>
               {adv.description}
-            </p>
+            </div>
           </div>
           {/* Description */}
-          <br />
 
           {/* Categories */}
-          <div>
+          <div style={{ marginBottom: "20px" }}>
             <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>Categorie:</h3>
 
             {/* List categories */}
@@ -307,32 +384,42 @@ export default function AdvDetailView({
               }}
             >
               {categories.map((c) => (
-                <CategoryBox name={c.name} key={c.index} />
+                <CategoryBox name={c} key={c} />
               ))}
             </div>
           </div>
           {/* Categories */}
 
-          <br />
-
           {/* Services */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>Servizi:</h3>
+          {services.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: "20px",
+              }}
+            >
+              <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>Servizi:</h3>
 
-            {/* List services */}
-            <div style={{ marginTop: "8px" }}>
-              {services.map((s) => (
-                <CategoryBox name={s.name} key={s.index} />
-              ))}
+              {/* List services */}
+              <div style={{ marginTop: "8px" }}>
+                {services.map((s) => (
+                  <CategoryBox name={s} key={s} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           {/* Services */}
-
-          <br />
 
           {/* Map */}
           <div>
-            <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>
+            <h3
+              style={{
+                fontWeight: "bold",
+                fontSize: "14px",
+                marginBottom: "8px",
+              }}
+            >
               Dove risiedo:
             </h3>
             {/* Webview */}
@@ -347,7 +434,7 @@ export default function AdvDetailView({
               defaultValue={adv.locationData.address}
               style={{
                 height: "45px",
-                marginTop: "4px",
+                marginTop: "8px",
                 color: "white",
                 pointerEvents: "none",
               }}
@@ -355,18 +442,45 @@ export default function AdvDetailView({
             />
 
             {/* Type of coming */}
-            <div style={{ display: "flex", marginTop: "8px" }}>
-              {typeOfMoving().map((e, index) => (
-                <div style={{ marginRight: "8px" }} key={index}>
-                  <CategoryBox name={e} />
-                </div>
+            <div
+              style={{
+                display: "flex",
+                marginTop: "8px",
+                marginBottom: "20px",
+              }}
+            >
+              {TypeOfMoving().map((e) => (
+                <CategoryBox name={e} key={e} />
+              ))}
+            </div>
+          </div>
+
+          {/* Social list */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <h3
+              style={{
+                fontWeight: "bold",
+                fontSize: "14px",
+                marginBottom: "8px",
+              }}
+            >
+              Link social:
+            </h3>
+            {/* Type of coming */}
+            <div
+              style={{
+                marginTop: "8px",
+              }}
+            >
+              {SocialList().map((e) => (
+                <SocialBox socialName={e.link} socialTitle={e.social} />
               ))}
             </div>
           </div>
         </div>
 
         {/* Extra space */}
-        <div style={{ height: "100px" }} />
+        <div style={{ height: "80px" }} />
       </div>
     </div>
   );

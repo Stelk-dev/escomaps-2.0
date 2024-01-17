@@ -12,11 +12,11 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   const [locationPublic, setLocationPublic] = useState(
     advData.locationData.locationPublic ?? false
   );
-  const [canGoToHome, setCanGoToHome] = useState(
-    advData.locationData.canGoToHome ?? true
+  const [canGoToHomes, setCanGoToHomes] = useState(
+    advData.locationData.canGoToHomes ?? true
   );
-  const [canReceive, setCanReceive] = useState(
-    advData.locationData.canReceive ?? true
+  const [canReceiveAtHome, setcanReceiveAtHome] = useState(
+    advData.locationData.canReceiveAtHome ?? true
   );
   const [loadingLocation] = useState(true);
 
@@ -121,6 +121,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
 
       {/* Form location */}
       <input
+        type="text"
         className="main-form"
         placeholder="Via Santo Stefano"
         value={address}
@@ -156,16 +157,16 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
           subtitle={
             "Con questa opzione attiva comunichi nell'annuncio che puoi ricevere nella tua abitazione"
           }
-          value={canReceive}
-          onClick={() => setCanReceive(!canReceive)}
+          value={canReceiveAtHome}
+          onClick={() => setcanReceiveAtHome(!canReceiveAtHome)}
         />
         <RowCheckBox
           title={"Mi sposto:"}
           subtitle={
             "Con questa opzione attiva comunichi nell'annuncio che puoi visitare in casa o in Hotel"
           }
-          value={canGoToHome}
-          onClick={() => setCanGoToHome(!canGoToHome)}
+          value={canGoToHomes}
+          onClick={() => setCanGoToHomes(!canGoToHomes)}
         />
       </div>
 
@@ -175,8 +176,8 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
           onContinue({
             locationData: {
               address: address,
-              canGoToHome: canGoToHome,
-              canReceive: canReceive,
+              canGoToHomes: canGoToHomes,
+              canReceiveAtHome: canReceiveAtHome,
               lat: 0,
               lon: 0,
               locationPublic: locationPublic,

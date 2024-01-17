@@ -61,12 +61,12 @@ export default function CreateAdvSocials({ onContinue, onBack }) {
   const [facebook, facebookInput] = SocialForm({
     icon: FacebookIcon,
     placeholder: "facebook_username",
-    prevalue: advData.instagram ?? "",
+    prevalue: advData.facebook ?? "",
   });
   const [tiktok, tiktokInput] = SocialForm({
     icon: TikTokIcon,
     placeholder: "tiktok_username",
-    prevalue: advData.instagram ?? "",
+    prevalue: advData.tiktok ?? "",
   });
 
   return (

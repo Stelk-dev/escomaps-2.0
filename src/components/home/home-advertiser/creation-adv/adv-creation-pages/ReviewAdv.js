@@ -29,7 +29,7 @@ export default function ReviewAdv({ onContinue, onBack }) {
           style={{
             width: "100%",
             maxWidth: "500px",
-            height: "600px",
+            height: "650px",
             border: "2px solid white",
             borderRadius: "16px",
             overflowY: "auto",
