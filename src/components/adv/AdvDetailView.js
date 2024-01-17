@@ -108,7 +108,7 @@ export default function AdvDetailView({
   };
 
   const isAdvFromAdvertiser = () =>
-    advertiser.adsIds?.includes(adv.idADV) ?? false;
+    advertiser.adsIds?.includes(adv.idAdv) ?? false;
 
   useEffect(() => {
     window.scrollTo(0, 0);

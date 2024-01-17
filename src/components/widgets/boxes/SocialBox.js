@@ -31,8 +31,6 @@ export default function SocialBox({ socialTitle, socialName }) {
 
   const OpenLink = () => {
     var url = "";
-    console.log(socialTitle);
-    console.log(socialName);
 
     switch (socialTitle) {
       case "Instagram":

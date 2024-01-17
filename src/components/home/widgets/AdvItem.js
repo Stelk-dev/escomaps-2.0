@@ -12,7 +12,7 @@ export default function AdvItem({
   isFromAdvertiser = false,
 }) {
   const [adv, setAdv] = useState({
-    idADV: null,
+    idAdv: null,
     uidAdvertiser: "",
     name: "",
     age: "",
@@ -74,7 +74,7 @@ export default function AdvItem({
     return () => {};
   }, [advId, preselectedADV]);
 
-  return adv.idADV === null ? (
+  return adv.idAdv === null ? (
     <div
       style={{
         backgroundColor: "grey",
@@ -90,9 +90,9 @@ export default function AdvItem({
     </div>
   ) : (
     <Link
-      key={adv.idADV}
+      key={adv.idAdv}
       to={{
-        pathname: "/adv-detail/" + adv.idADV,
+        pathname: "/adv-detail/" + adv.idAdv,
       }}
       state={{ adv: adv }}
       style={{

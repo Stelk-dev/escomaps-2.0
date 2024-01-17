@@ -29,7 +29,7 @@ export default function AdsList({ ads, loading }) {
       {/* Grid view list */}
       <div className="grid-container">
         {ads.map((a) => {
-          return <AdvItem preselectedADV={a} key={a.idADV} />;
+          return <AdvItem preselectedADV={a} key={a.idAdv} />;
         })}
       </div>
     </div>
