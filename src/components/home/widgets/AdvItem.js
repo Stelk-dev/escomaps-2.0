@@ -34,14 +34,6 @@ export default function AdvItem({
     lastDateOfBoostActivated: null,
   });
 
-  const getAge = (birthDate) => {
-    const date1 = new Date(birthDate);
-    const date2 = new Date();
-
-    const diffYears = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24 * 365));
-    return diffYears;
-  };
-
   const [userPosition] = useRecoilState(UserLocation);
   const GetDistance = ({ advLatitude, advLongitude }) => {
     const calculateDistance = () => {
@@ -160,7 +152,7 @@ export default function AdvItem({
           <div className="grid-item-description">
             {/* Data */}
             <h5 style={{ fontSize: "16px", marginBottom: "2px" }}>
-              {adv.name}, {getAge(adv.birthDate)}
+              {adv.name}, {adv.age}
             </h5>
 
             {/* Distance */}

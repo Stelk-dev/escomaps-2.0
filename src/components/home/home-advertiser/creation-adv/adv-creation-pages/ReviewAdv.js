@@ -12,33 +12,16 @@ import {
   UpdateAdvertiserData,
 } from "../../../../../providers/AdvertiserUserData";
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
+import {
+  GetURLFromStorage,
+  UploadToStorage,
+} from "../../../../../services/Storage";
 
 export default function ReviewAdv({ onBack }) {
   const [advertiser, setAdvertiser] = useRecoilState(CurrentUserAdvertiser);
   const [advData] = useRecoilState(CreationAdvAtom);
   const [loadingUpload, setLoadingUpload] = useState(false);
-
-  const hashCode = (str) => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash |= 0; // Convert to 32bit integer
-    }
-
-    // Convert the hash to a string (in a base such as 16 for compactness)
-    let hashStr = Math.abs(hash).toString(16);
-
-    // Ensure the hash string is 9 characters long
-    while (hashStr.length < 9) {
-      hashStr = "0" + hashStr; // Pad with zeros if too short
-    }
-    if (hashStr.length > 9) {
-      hashStr = hashStr.substring(0, 9); // Truncate if too long
-    }
-
-    return hashStr;
-  };
 
   const navigate = useNavigate();
 
@@ -63,11 +46,23 @@ export default function ReviewAdv({ onBack }) {
     const timeStampExpire =
       nowDate.getTime() + advData.packageSelected.hoursLeft * 3600000;
 
-    const idAdv = hashCode(timeStampUpload.toString());
+    // Upload images:
+    const idAdv = v4();
+    const urlPhotos = [];
+    for (let i = 0; i < advData.photos.length; i++) {
+      const element = advData.photos[i];
+      const path =
+        advertiser.uid + "/" + idAdv + "/" + i.toString() + "_photo.jpeg";
+      await UploadToStorage(path, element);
+      const url = await GetURLFromStorage(path);
+      urlPhotos.push(url);
+    }
 
     await UploadAdvToDatabase(idAdv, {
       ...advData,
       idAdv: idAdv,
+      photos: urlPhotos,
+      uidAdvertiser: advertiser.uid,
       datePublished: new Timestamp(timeStampUpload / 1000, 0),
       dateExpire: new Timestamp(timeStampExpire / 1000, 0),
     });
