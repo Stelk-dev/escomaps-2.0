@@ -11,7 +11,9 @@ import { DatabaseFirestore } from "../Firebase";
 const advertisementsKey = "advertisements";
 const advertisersKey = "advertisers";
 
-const getAds = getDocs(collection(DatabaseFirestore, advertisementsKey));
+async function GetDocs(idCollection) {
+  return await getDocs(collection(DatabaseFirestore, idCollection));
+}
 
 async function GetData(idCollection, idDoc) {
   const d = await getDoc(doc(DatabaseFirestore, idCollection, idDoc));
@@ -29,7 +31,7 @@ async function UpdateData(idCollection, idDoc, dataJson) {
 }
 
 export {
-  getAds,
+  GetDocs,
   advertisementsKey,
   advertisersKey,
   GetData,

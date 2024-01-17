@@ -11,8 +11,8 @@ import {
 } from "../../providers/UserLocation";
 import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
-import { getAds } from "../../services/Database";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
+import { GetAds } from "../../providers/AdsProvider";
 
 const HeaderSection = () => {
   const [loading, setLoading] = useState(false);
@@ -137,7 +137,7 @@ export default function HomeAds() {
 
   // Init ads
   useEffect(() => {
-    getAds.then((e) => {
+    GetAds.then((e) => {
       const data = e.docs.map((a) => a.data());
       setAds(data);
       setLoading(false);

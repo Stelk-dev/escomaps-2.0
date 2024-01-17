@@ -158,10 +158,7 @@ export default function CreateAdv() {
                 />
               }
             />
-            <Route
-              path="review-adv"
-              element={<ReviewAdv onContinue={Continue} onBack={Back} />}
-            />
+            <Route path="review-adv" element={<ReviewAdv onBack={Back} />} />
           </Routes>
         </div>
       </div>

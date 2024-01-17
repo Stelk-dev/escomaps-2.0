@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { SetData, UpdateData, advertisementsKey } from "../services/Database";
 
 const CreationAdvAtom = atom({
   key: "CreationAdvAtom",
@@ -31,12 +32,19 @@ const CreationAdvAtom = atom({
     title: null,
     description: null,
     datePublished: null,
-    lastDateOfBoostActivated: null,
     dateExpire: null,
     idAdv: null,
-    idAdvertiser: null,
+    uidAdvertiser: null,
     isDisabled: false,
   },
 });
 
-export { CreationAdvAtom };
+async function UploadAdvToDatabase(idAdv, adv) {
+  return await SetData(advertisementsKey, idAdv, adv);
+}
+
+async function UpdateAdv(newAdv) {
+  return await UpdateData(advertisementsKey, newAdv.idAdv, newAdv);
+}
+
+export { CreationAdvAtom, UploadAdvToDatabase, UpdateAdv };

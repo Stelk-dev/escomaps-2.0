@@ -1,9 +1,11 @@
+import { CircularProgress } from "@mui/material";
 import React from "react";
 
 export default function CreationAdvBottomBar({
   onContinue,
   isDisabled,
   isPubblish = false,
+  isLoading = false,
   onBack,
 }) {
   return (
@@ -19,21 +21,27 @@ export default function CreationAdvBottomBar({
       <button
         onClick={onContinue}
         type="submit"
-        disabled={isDisabled}
+        disabled={isLoading || isDisabled}
         style={{
           width: "100%",
           border: "none",
           padding: "12px",
           borderRadius: "4px",
           fontWeight: "500",
-          color: !isDisabled ? "white" : "#FFFFFF66",
-          backgroundColor: !isDisabled ? "#B02D23" : "#FFFFFF33",
+          color: !isDisabled && !isLoading ? "white" : "#FFFFFF66",
+          backgroundColor: !isDisabled && !isLoading ? "#B02D23" : "#FFFFFF33",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {isPubblish ? "Pubblica" : "Continua"}
+        {isLoading ? (
+          <CircularProgress style={{ color: "white" }} size={24} />
+        ) : isPubblish ? (
+          "Pubblica"
+        ) : (
+          "Continua"
+        )}
       </button>
       <button
         onClick={onBack}
