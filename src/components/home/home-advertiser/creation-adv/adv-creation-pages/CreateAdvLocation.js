@@ -5,9 +5,12 @@ import { CreationAdvAtom } from "../../../../../providers/CreationAdv";
 import { MdGpsFixed } from "react-icons/md";
 import { FaMap } from "react-icons/fa";
 import { Checkbox, CircularProgress } from "@mui/material";
+import { GetUserPosition } from "../../../../../providers/UserLocation";
+import MapView from "../../../../widgets/views/MapView";
 
 export default function CreateAdvLocation({ onContinue, onBack }) {
   const [advData] = useRecoilState(CreationAdvAtom);
+  const [latLng, setLatLng] = useState([]);
   const [address, setAddress] = useState(advData.locationData.address ?? "");
   const [locationPublic, setLocationPublic] = useState(
     advData.locationData.locationPublic ?? false
@@ -18,7 +21,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   const [canReceiveAtHome, setcanReceiveAtHome] = useState(
     advData.locationData.canReceiveAtHome ?? true
   );
-  const [loadingLocation] = useState(true);
+  const [loadingLocation, setLoadingLocation] = useState(true);
 
   const BoxHideShowPosition = ({
     icon,
@@ -85,9 +88,23 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   };
 
   useEffect(() => {
-    // Call get position
+    GetLocation();
     return () => {};
   }, []);
+
+  const GetLocation = () => {
+    GetUserPosition(
+      (p) => {
+        console.log("Success: " + p);
+        setLatLng([p.coords.latitude, p.coords.longitude]);
+        setLoadingLocation(false);
+      },
+      (e) => {
+        console.log("Error: " + e);
+        setLoadingLocation(false);
+      }
+    );
+  };
 
   return (
     <div>
@@ -100,24 +117,41 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
       <br />
 
       {/* Map */}
-      <div
-        style={{
-          backgroundColor: "#333333",
-          border: "1px solid #9c9d9c",
-          borderRadius: "8px",
-          height: "270px",
-          marginBottom: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {loadingLocation ? (
-          <CircularProgress style={{ color: "white" }} />
-        ) : (
-          <div></div>
-        )}
-      </div>
+      {loadingLocation || latLng.length === 0 ? (
+        <div
+          style={{
+            height: "260px",
+            marginBottom: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "1px solid #9c9d9c",
+            borderRadius: "8px",
+            backgroundColor: "#333333",
+          }}
+        >
+          {loadingLocation ? (
+            <CircularProgress style={{ color: "white" }} />
+          ) : (
+            latLng.length === 0 && (
+              <div
+                style={{
+                  cursor: "pointer",
+                  fontStyle: "italic",
+                  textDecoration: "underline",
+                }}
+                onClick={GetLocation}
+              >
+                Abilita i permessi per usare la tua posizione corrente
+              </div>
+            )
+          )}
+        </div>
+      ) : (
+        <div style={{ marginBottom: "8px" }}>
+          <MapView latLng={latLng} isPositionPublic={true} />
+        </div>
+      )}
 
       {/* Form location */}
       <input
@@ -178,13 +212,13 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
               address: address,
               canGoToHomes: canGoToHomes,
               canReceiveAtHome: canReceiveAtHome,
-              lat: 0,
-              lon: 0,
+              lat: latLng[0],
+              lon: latLng[1],
               locationPublic: locationPublic,
             },
           });
         }}
-        isDisabled={address.length === 0}
+        isDisabled={address.length === 0 || latLng.length == 0}
         onBack={onBack}
       />
     </div>
