@@ -116,6 +116,7 @@ export default function AdvDetailView({
 
   return (
     <div>
+      {/* TODOs: Show header not above the image but on bottom of images */}
       {/* Header bar */}
       <div
         id="header-bar"
@@ -341,6 +342,7 @@ export default function AdvDetailView({
             style={{
               flexDirection: "row",
               marginTop: "8px",
+              padding: "0px 12px",
             }}
           >
             {photos.map((e, index) => (

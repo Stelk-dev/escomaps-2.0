@@ -155,6 +155,7 @@ export default function AdvItem({
               {adv.name}, {adv.age}
             </h5>
 
+            {/* TODOs: Show expire date */}
             {/* Distance */}
             {ShowDistance() && (
               <p style={{ fontSize: "11px", color: "grey" }}>
