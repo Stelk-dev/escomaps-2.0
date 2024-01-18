@@ -184,7 +184,7 @@ export default function Sidebar(props) {
         <div
           style={{
             width: "68vw",
-            backgroundColor: "#0d0c0c",
+            backgroundColor: "black",
             height: "100vh",
             padding: "0px 8px",
             display: "flex",

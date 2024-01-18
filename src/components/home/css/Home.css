@@ -2,7 +2,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 8px;
+    grid-gap: 12px 8px;
     padding: 0px 16px;
     width: 100vw;
 }
@@ -10,7 +10,7 @@
 .grid-item {
     display: flex;
     flex-direction: column;
-    height: 280px;
+    height: 300px;
 }
 
 .grid-item-image {
