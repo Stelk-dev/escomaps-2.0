@@ -14,10 +14,10 @@ import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
 import SocialBox from "../widgets/boxes/SocialBox";
+import { GetDistanceFromAdv, UserLocation } from "../../providers/UserLocation";
 
 export default function AdvDetailView({
   defaultAdvValue = null,
-  defaultDistanceValue = null,
   isFromEditOrCreation = false,
 }) {
   // Tab list ref
@@ -28,7 +28,16 @@ export default function AdvDetailView({
 
   const loc = useLocation();
   const adv = defaultAdvValue ?? loc.state.adv;
-  const distanceFromUser = defaultDistanceValue ?? loc.state.distanceFromUser;
+
+  const [location] = useRecoilState(UserLocation);
+  const DistanceFromUser = () => {
+    return GetDistanceFromAdv({
+      userLatitude: location.latitude,
+      userLongitude: location.longitude,
+      advLatitude: adv.locationData.lat,
+      advLongitude: adv.locationData.lon,
+    });
+  };
 
   const [indexPhoto, setIndexPhoto] = useState(0);
 
@@ -361,7 +370,7 @@ export default function AdvDetailView({
                     marginLeft: "1px",
                   }}
                 >
-                  {distanceFromUser} km da te
+                  {DistanceFromUser()} km da te
                 </h2>
               )}
             </div>

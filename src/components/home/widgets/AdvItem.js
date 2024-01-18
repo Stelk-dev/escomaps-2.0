@@ -4,7 +4,10 @@ import { GetData, advertisementsKey } from "../../../services/Database";
 import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
 import { CircularProgress } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { UserLocation } from "../../../providers/UserLocation";
+import {
+  GetDistanceFromAdv,
+  UserLocation,
+} from "../../../providers/UserLocation";
 
 export default function AdvItem({
   preselectedADV = null,
@@ -35,33 +38,6 @@ export default function AdvItem({
   });
 
   const [userPosition] = useRecoilState(UserLocation);
-  const GetDistance = ({ advLatitude, advLongitude }) => {
-    const calculateDistance = () => {
-      const lat1 = userPosition.latitude;
-      const lon1 = userPosition.longitude;
-      const lat2 = advLatitude;
-      const lon2 = advLongitude;
-      const dLat = deg2rad(lat2 - lat1); // deg2rad below
-      const dLon = deg2rad(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) *
-          Math.cos(deg2rad(lat2)) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      const distance = 6371 * c; // Distance in km
-      return distance;
-    };
-
-    const deg2rad = (deg) => {
-      return deg * (Math.PI / 180);
-    };
-
-    const distance = calculateDistance(advLatitude, advLongitude).toFixed(2);
-
-    return distance;
-  };
   const ShowDistance = () => !isFromAdvertiser && userPosition.hasPermission;
 
   useEffect(() => {
@@ -159,7 +135,9 @@ export default function AdvItem({
             {/* Distance */}
             {ShowDistance() && (
               <p style={{ fontSize: "11px", color: "grey" }}>
-                {GetDistance({
+                {GetDistanceFromAdv({
+                  userLatitude: userPosition.latitude,
+                  userLongitude: userPosition.longitude,
                   advLatitude: adv.locationData.lat,
                   advLongitude: adv.locationData.lon,
                 })}{" "}
