@@ -24,6 +24,7 @@ export default function AdvDetailView({
   const tabsRef = useRef([]);
 
   const [advertiser] = useRecoilState(CurrentUserAdvertiser);
+  const [favourite, setFavourite] = useState(false);
 
   const loc = useLocation();
   const adv = defaultAdvValue ?? loc.state.adv;
@@ -64,8 +65,8 @@ export default function AdvDetailView({
     return socials;
   };
 
-  const waNumber = adv.whatsapp;
-  const tgNumber = adv.telegram;
+  const waNumber = adv.waNumberPrefix + adv.waNumber;
+  const tgNumber = adv.tgNumberPrefix + adv.tgNumber;
 
   function CarouselPhotoElement({ image, index }) {
     return (
@@ -83,7 +84,11 @@ export default function AdvDetailView({
         }}
         onClick={(e) => {
           e.preventDefault();
-          tabsRef.current[index].scrollIntoView();
+          tabsRef.current[index].scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "start",
+          });
         }}
       >
         <img
@@ -115,73 +120,7 @@ export default function AdvDetailView({
   }, []);
 
   return (
-    <div>
-      {/* TODOs: Show header not above the image but on bottom of images */}
-      {/* Header bar */}
-      <div
-        id="header-bar"
-        style={
-          isFromEditOrCreation
-            ? {
-                position: "absolute",
-                width: "98%",
-                maxWidth: "496px",
-                borderRadius: "16px 16px 0px 0px",
-                top: 2,
-              }
-            : { marginTop: "58px" }
-        }
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          {/* Sex symbol */}
-          {adv.gender === 0 ? (
-            <IoMdMale className="sex-symbol-icon" />
-          ) : adv.gender === 1 ? (
-            <IoMdFemale className="sex-symbol-icon" />
-          ) : (
-            <IoMdTransgender className="sex-symbol-icon" />
-          )}
-          <div style={{ marginRight: "8px" }} />
-
-          <div>
-            <h1 style={{ fontSize: "18px", fontWeight: "600" }}>
-              {adv.name}, {age}
-            </h1>
-            {!isAdvFromAdvertiser() && (
-              <h2
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "400",
-                  color: "grey",
-                  marginLeft: "1px",
-                }}
-              >
-                {distanceFromUser} km da te
-              </h2>
-            )}
-          </div>
-        </div>
-
-        {/* Favourite */}
-        {!isAdvFromAdvertiser() && (
-          <div
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              if (isFromEditOrCreation) return;
-
-              // Save to favourite
-            }}
-          >
-            {isFromEditOrCreation ? (
-              <FaHeart style={{ color: "white", fontSize: "24px" }} />
-            ) : (
-              <FaRegHeart style={{ color: "white", fontSize: "24px" }} />
-            )}
-          </div>
-        )}
-      </div>
-      {/* Header bar */}
-
+    <div style={{ marginTop: isFromEditOrCreation ? "" : "68px" }}>
       {/* Chat icons */}
       <div
         id="bottom-bar"
@@ -205,7 +144,7 @@ export default function AdvDetailView({
             onClick={() => {
               if (isAdvFromAdvertiser()) return;
               if (isFromEditOrCreation) return;
-              window.open("https://wa.me/+39" + waNumber, "_blank");
+              window.open("https://wa.me/" + waNumber, "_blank");
             }}
           >
             <FaWhatsapp />
@@ -247,7 +186,7 @@ export default function AdvDetailView({
               if (isAdvFromAdvertiser()) return;
               if (isFromEditOrCreation) return;
 
-              window.open("https://t.me/+39" + tgNumber, "_blank");
+              window.open("https://t.me/" + tgNumber, "_blank");
             }}
           >
             <FaTelegramPlane />
@@ -256,7 +195,7 @@ export default function AdvDetailView({
       </div>
 
       {/* Black space */}
-      <div style={{ height: "72px", backgroundColor: "black" }} />
+      {/* <div style={{ height: "72px", backgroundColor: "black" }} /> */}
 
       {/* All information */}
       <div>
@@ -287,6 +226,34 @@ export default function AdvDetailView({
                   }}
                   ref={(el) => (tabsRef.current[index] = el)}
                 >
+                  {/* Favourite */}
+                  {!isAdvFromAdvertiser() && (
+                    <div
+                      style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        bottom: 0,
+                        right: 0,
+                        padding: "16px",
+                        zIndex: "1",
+                      }}
+                      onClick={() => {
+                        if (isFromEditOrCreation) return;
+                        setFavourite(!favourite);
+
+                        // Save to favourite
+                      }}
+                    >
+                      {isFromEditOrCreation ? (
+                        <FaHeart className="favourite-icon" />
+                      ) : favourite ? (
+                        <FaHeart className="favourite-icon" />
+                      ) : (
+                        <FaRegHeart className="favourite-icon" />
+                      )}
+                    </div>
+                  )}
+
                   {/* Left scroller */}
                   <div
                     style={{
@@ -297,9 +264,16 @@ export default function AdvDetailView({
                     }}
                     onClick={(e) => {
                       e.preventDefault();
-                      if (index - 1 < 0) return;
 
-                      tabsRef.current[index - 1].scrollIntoView();
+                      var indexToScroll = index - 1;
+                      if (indexToScroll < 0)
+                        indexToScroll = tabsRef.current.length - 1;
+
+                      tabsRef.current[indexToScroll].scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                        inline: "start",
+                      });
                     }}
                   />
 
@@ -311,7 +285,8 @@ export default function AdvDetailView({
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover",
+                      objectFit: "contain",
+                      backgroundColor: "#111111",
                     }}
                   />
 
@@ -326,9 +301,16 @@ export default function AdvDetailView({
                     }}
                     onClick={(e) => {
                       e.preventDefault();
-                      if (index + 1 > tabsRef.current.length - 1) return;
 
-                      tabsRef.current[index + 1].scrollIntoView();
+                      var indexToScroll = index + 1;
+                      if (index + 1 > tabsRef.current.length - 1)
+                        indexToScroll = 0;
+
+                      tabsRef.current[indexToScroll].scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                        inline: "start",
+                      });
                     }}
                   />
                 </Tab>
@@ -353,6 +335,46 @@ export default function AdvDetailView({
 
         {/* Detail ADV */}
         <div style={{ margin: "20px 14px" }}>
+          {/* Name, age, sex */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderRadius: "8px",
+              backgroundColor: "#2C2D2C",
+              border: "1px #434244 solid",
+              padding: "14px",
+              marginBottom: "12px",
+            }}
+          >
+            <div>
+              <h1 style={{ fontSize: "18px", fontWeight: "600" }}>
+                {adv.name}, {age}
+              </h1>
+              {!isAdvFromAdvertiser() && (
+                <h2
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "400",
+                    color: "grey",
+                    marginLeft: "1px",
+                  }}
+                >
+                  {distanceFromUser} km da te
+                </h2>
+              )}
+            </div>
+
+            {adv.gender === 0 ? (
+              <IoMdMale className="sex-symbol-icon" />
+            ) : adv.gender === 1 ? (
+              <IoMdFemale className="sex-symbol-icon" />
+            ) : (
+              <IoMdTransgender className="sex-symbol-icon" />
+            )}
+          </div>
+
           {/* Description */}
           <div
             style={{
