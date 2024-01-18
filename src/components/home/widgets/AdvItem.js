@@ -34,11 +34,42 @@ export default function AdvItem({
     description: "",
     isDisabled: false,
     datePublished: null,
+    dateExpire: null,
     lastDateOfBoostActivated: null,
   });
 
   const [userPosition] = useRecoilState(UserLocation);
   const ShowDistance = () => !isFromAdvertiser && userPosition.hasPermission;
+
+  const ExpireDate = () => {
+    const date = new Date(adv.dateExpire.seconds * 1000);
+    const monthNames = [
+      "Gennaio",
+      "Febbraio",
+      "Marzo",
+      "Aprile",
+      "Maggio",
+      "Giugno",
+      "Luglio",
+      "Agosto",
+      "Settembre",
+      "Ottobre",
+      "Novembre",
+      "Dicembre",
+    ];
+    let monthIndex = date.getMonth();
+    let monthName = monthNames[monthIndex];
+
+    return (
+      date.getDate() +
+      " " +
+      monthName +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes()
+    );
+  };
 
   useEffect(() => {
     if (preselectedADV === null)
@@ -121,7 +152,7 @@ export default function AdvItem({
             src={adv.photos[0]}
             className="grid-item-image"
             alt="escort-label"
-            style={{ height: !ShowDistance() && "85%" }}
+            style={{ height: !ShowDistance() && "80%" }}
           />
 
           {/* Description */}
@@ -133,7 +164,7 @@ export default function AdvItem({
 
             {/* TODOs: Show expire date */}
             {/* Distance */}
-            {ShowDistance() && (
+            {ShowDistance() ? (
               <p style={{ fontSize: "11px", color: "grey" }}>
                 {GetDistanceFromAdv({
                   userLatitude: userPosition.latitude,
@@ -142,6 +173,12 @@ export default function AdvItem({
                   advLongitude: adv.locationData.lon,
                 })}{" "}
                 km da te
+              </p>
+            ) : (
+              <p style={{ fontSize: "11px", color: "grey" }}>
+                Data di scadenza:
+                <br />
+                {ExpireDate()}
               </p>
             )}
           </div>
