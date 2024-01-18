@@ -29,6 +29,7 @@
 
 .floating-action-button{
     background-color: #BA68C8;
+    box-shadow: 0px 0px 10px 2px black;
     padding: 16px;
     border-radius: 100%;
     color: white;
