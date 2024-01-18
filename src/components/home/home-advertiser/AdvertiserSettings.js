@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
 import { IoIosArrowForward } from "react-icons/io";
-import { GrMoney } from "react-icons/gr";
 import { FaUserEdit } from "react-icons/fa";
 import { FaExpeditedssl } from "react-icons/fa6";
 import { FaUsersSlash } from "react-icons/fa6";
 import { IoNotificationsCircle } from "react-icons/io5";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 
 export default function AdvertiserSettings() {
   const [, setUser] = useRecoilState(CurrentUserAdvertiser);
@@ -17,10 +17,20 @@ export default function AdvertiserSettings() {
   const SettingBox = ({ leftIcon, name, onPressed }) => {
     return (
       <button className="setting-box-button" onClick={onPressed}>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           {leftIcon && (
             <div
-              style={{ marginRight: "8px", fontSize: "18px", width: "24px" }}
+              style={{
+                marginRight: "8px",
+                fontSize: "22px",
+                display: "flex",
+              }}
             >
               {leftIcon}
             </div>
@@ -54,7 +64,7 @@ export default function AdvertiserSettings() {
       }}
     >
       <SettingBox
-        leftIcon={<GrMoney />}
+        leftIcon={<RiMoneyDollarCircleFill color="yellow" />}
         name={"Invita e ricevi 300 crediti subito"}
       />
       <Divider />
