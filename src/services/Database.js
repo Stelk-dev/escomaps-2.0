@@ -10,6 +10,7 @@ import { DatabaseFirestore } from "../Firebase";
 
 const advertisementsKey = "advertisements";
 const advertisersKey = "advertisers";
+const usersKey = "users";
 
 async function GetDocs(idCollection) {
   return await getDocs(collection(DatabaseFirestore, idCollection));
@@ -34,6 +35,7 @@ export {
   GetDocs,
   advertisementsKey,
   advertisersKey,
+  usersKey,
   GetData,
   SetData,
   UpdateData,

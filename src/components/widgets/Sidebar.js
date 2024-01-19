@@ -11,7 +11,7 @@ import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
 import AuthUserModal from "../auth/UserLoginSignup";
 import { MdPrivacyTip } from "react-icons/md";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
 import {
   CreditsToShow,
@@ -19,6 +19,8 @@ import {
 } from "../../providers/AdvertiserUserData";
 import { FaCircleUser } from "react-icons/fa6";
 import { FiShoppingCart } from "react-icons/fi";
+import { CurrentUser } from "../../providers/ClientUserData";
+import { SignOut } from "../../services/Authentication";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
@@ -53,10 +55,12 @@ export default function Sidebar(props) {
     );
   }
 
+  const [client] = useRecoilState(CurrentUser);
+  const reset = useResetRecoilState(CurrentUser);
   const [user] = useRecoilState(CurrentUserAdvertiser);
   const credits = useRecoilValue(CreditsToShow);
 
-  function PathForSignup() {
+  function PathForSignupAdvertiser() {
     if (user.email.length === 0) return "/signup-advertiser";
 
     if (!user.emailVerified) return "/signup-advertiser-verify-email";
@@ -72,7 +76,7 @@ export default function Sidebar(props) {
     return (
       <div>
         <Link
-          to={PathForSignup()}
+          to={PathForSignupAdvertiser()}
           style={{ textDecoration: "none", height: 30 }}
         >
           <button
@@ -103,7 +107,7 @@ export default function Sidebar(props) {
     );
   };
 
-  const UserBox = () => {
+  const AdvertiserBox = () => {
     return (
       <div
         style={{
@@ -173,6 +177,34 @@ export default function Sidebar(props) {
     );
   };
 
+  const UserBox = () => {
+    return (
+      <div style={{ color: "white" }}>
+        <div>User: {client.name}</div>
+        <button
+          onClick={() => {
+            SignOut().then((v) => {
+              reset();
+              props.onSidebarClose();
+            });
+          }}
+        >
+          Esci
+        </button>
+      </div>
+    );
+  };
+
+  function HeaderSideBar() {
+    // Client user header
+    if (client.uid.length > 0) return <UserBox />;
+
+    // Advertiser user finished signup
+    if (PathForSignupAdvertiser() === null) return <AdvertiserBox />;
+
+    return <LoginSignup />;
+  }
+
   return (
     <div>
       <SwipeableDrawer
@@ -202,7 +234,11 @@ export default function Sidebar(props) {
           >
             {/* Logo */}
             <Link
-              to={PathForSignup() === null ? "/advertiser/ads" : "/"}
+              to={
+                client.uid.length > 0 || PathForSignupAdvertiser() != null
+                  ? "/"
+                  : "/advertiser/ads"
+              }
               style={{ textDecoration: "none", height: 30 }}
               onClick={props.onSidebarClose}
             >
@@ -222,7 +258,7 @@ export default function Sidebar(props) {
           <br />
 
           {/* User tab Login & signup */}
-          {PathForSignup() === null ? <UserBox /> : <LoginSignup />}
+          {HeaderSideBar()}
           <br />
 
           <div

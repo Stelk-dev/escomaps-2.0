@@ -2,18 +2,65 @@ import { Auth } from "../Firebase";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInAnonymously,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { SetAdvertiserData } from "../providers/AdvertiserUserData";
+import { SetUserData } from "../providers/ClientUserData";
 
-async function CreateUser(email, password) {
-  return await createUserWithEmailAndPassword(Auth, email, password)
+async function CreateAnonymousUser() {
+  return await signInAnonymously(Auth)
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user;
-      SendVerificationEmail(user);
 
+      const newData = {
+        ...{
+          uid: "",
+          name: "Anonymous-" + Math.floor(Math.random() * 10001).toString(),
+          email: "",
+          favouritesAds: [],
+        },
+        uid: user.uid,
+      };
+      SetUserData(user.uid, newData);
+      return newData;
+    })
+    .catch(() => {
+      return "Purtroppo non accettiamo più utenti anonimi. Ma puoi ancora registrarti usando email e password";
+    });
+}
+
+async function CreateUser(
+  email,
+  password,
+  nameUser = null,
+) {
+  console.log(nameUser);
+  return await createUserWithEmailAndPassword(Auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+
+      // Signed up user flow
+      if (nameUser != null) {
+        const newData = {
+          ...{
+            uid: "",
+            name: "",
+            email: "",
+            favouritesAds: [],
+          },
+          uid: user.uid,
+          name: nameUser,
+          email: email,
+        };
+        SetUserData(user.uid, newData);
+        return newData;
+      }
+
+      // Signed up advertiser flow
+      SendVerificationEmail(user);
       const newData = {
         ...{
           uid: "",
@@ -72,4 +119,4 @@ async function SignOut() {
     });
 }
 
-export { CreateUser, SignOut, LoginUser };
+export { CreateAnonymousUser, CreateUser, SignOut, LoginUser };

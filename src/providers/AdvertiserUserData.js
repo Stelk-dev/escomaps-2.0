@@ -6,7 +6,7 @@ import {
   advertisersKey,
 } from "../services/Database";
 
-// Provider for saving location
+// Provider for advertiser
 const CurrentUserAdvertiser = atom({
   key: "CurrentUserAdvertiser",
   default: {

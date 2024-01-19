@@ -8,10 +8,10 @@ export default function AdsList({ ads, loading }) {
       {/* Loading */}
       {loading && (
         <div className="grid-container">
-          {Array.from({ length: 9 }).map((i) => (
+          {Array.from({ length: 9 }).map((i, key) => (
             <div
               className="grid-item"
-              key={i}
+              key={key}
               style={{
                 backgroundColor: "grey",
                 borderRadius: "8px",

@@ -32,8 +32,10 @@ import DeleteAccount from "./components/home/home-advertiser/settings/DeleteAcco
 import BuyCredits from "./components/home/home-advertiser/creation-adv/BuyCredits";
 import SuccessScreen from "./components/home/widgets/SuccessScreen";
 import CreateAdv from "./components/home/home-advertiser/creation-adv/adv-creation-pages/CreateAdv";
+import { CurrentUser, GetUserData } from "./providers/ClientUserData";
 
 function App() {
+  const [currentClientUser, setcurrentClientUser] = useRecoilState(CurrentUser);
   const [currentUserAdvertiser, setcurrentUserAdvertiser] = useRecoilState(
     CurrentUserAdvertiser
   );
@@ -81,16 +83,28 @@ function App() {
 
   // Init user from DB
   useEffect(() => {
-    Auth.onAuthStateChanged((user) => {
+    Auth.onAuthStateChanged(async (user) => {
       console.log("[onAuthStateChanged] Uid: " + user?.uid);
 
-      if (user?.uid != null && currentUserAdvertiser.email.length === 0)
-        GetAdvertiserData(user?.uid).then((v) => {
-          if (v != null) setcurrentUserAdvertiser(v);
+      if (user?.uid != null) {
+        // Get advertiser / set advertiser (if empty value)
+        if (currentUserAdvertiser.name.length === 0) {
+          const _advertiser = await GetAdvertiserData(user?.uid);
+          if (_advertiser != null) {
+            setcurrentUserAdvertiser(_advertiser);
+            if (_advertiser.identityVerified && loc.pathname === "/")
+              navigate("/advertiser/ads");
+          }
+        }
 
-          if (v.identityVerified && loc.pathname === "/")
-            navigate("/advertiser/ads");
-        });
+        // Get user / set user (if empty value)
+        if (currentClientUser.name.length === 0) {
+          const _user = await GetUserData(user?.uid);
+          if (_user != null) {
+            setcurrentClientUser(_user);
+          }
+        }
+      }
     });
     // eslint-disable-next-line
   }, []);

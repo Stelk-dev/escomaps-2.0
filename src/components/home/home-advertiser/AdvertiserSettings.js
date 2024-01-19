@@ -1,7 +1,7 @@
 import React from "react";
 import { SignOut } from "../../../services/Authentication";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useResetRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaUserEdit } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { IoNotificationsCircle } from "react-icons/io5";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 
 export default function AdvertiserSettings() {
-  const [, setUser] = useRecoilState(CurrentUserAdvertiser);
+  const reset = useResetRecoilState(CurrentUserAdvertiser);
   const navigate = useNavigate();
 
   const SettingBox = ({ leftIcon, name, onPressed }) => {
@@ -82,20 +82,7 @@ export default function AdvertiserSettings() {
         name={"Esci"}
         onPressed={() => {
           SignOut();
-          setUser({
-            uid: "",
-            name: "",
-            lastName: "",
-            age: "",
-            email: "",
-            prefix: "",
-            phoneNumber: "",
-            adsIds: [],
-            credits: 0,
-            isOnline: false,
-            identityVerified: false,
-            emailVerified: false,
-          });
+          reset();
 
           navigate("/");
         }}

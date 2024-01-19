@@ -1,14 +1,24 @@
-import { Modal } from "@mui/material";
+import { CircularProgress, Modal } from "@mui/material";
 import React, { useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import "./css/AuthUser.css";
 import { Link } from "react-router-dom";
 import { FaUserSecret } from "react-icons/fa";
+import {
+  CreateAnonymousUser,
+  CreateUser,
+  LoginUser,
+} from "../../services/Authentication";
+import { useRecoilState } from "recoil";
+import { CurrentUser, GetUserData } from "../../providers/ClientUserData";
 
 // Make 2 function one for login and one for registration
 // In the main function add a bool to show login or signup
 
-function LoginUser(props) {
+function LoginUserModal(props) {
+  const [, setClientUser] = useRecoilState(CurrentUser);
+  const [loadingLogin, setLoadingLogin] = useState(false);
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -24,8 +34,28 @@ function LoginUser(props) {
     data.email.length > 8 && data.password.length >= 8;
 
   const Login = () => {
-    // TODO: Continue
-    setError("Password incorretta");
+    setLoadingLogin(true);
+
+    LoginUser(data.email, data.password).then((v) => {
+      setLoadingLogin(false);
+
+      if (typeof v === "string") {
+        setError(v);
+        return;
+      }
+
+      GetUserData(v.uid).then((userData) => {
+        if (userData === null) {
+          setError(
+            "Sembra che il tuo account sia stato bannato. Contatta il servizio clienti per ulteriori spiegazioni"
+          );
+          return;
+        }
+
+        setClientUser(userData);
+        props.onClose();
+      });
+    });
   };
 
   return (
@@ -83,11 +113,18 @@ function LoginUser(props) {
           fontWeight: "500",
           color: isButtonActive() ? "white" : "#FFFFFF66",
           backgroundColor: isButtonActive() ? "#B02D23" : "#FFFFFF33",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        disabled={!isButtonActive()}
+        disabled={loadingLogin || !isButtonActive()}
         onClick={Login}
       >
-        Accedi
+        {loadingLogin ? (
+          <CircularProgress size={24} style={{ color: "white" }} />
+        ) : (
+          "Accedi"
+        )}
       </button>
 
       {/* Error message */}
@@ -120,13 +157,17 @@ function LoginUser(props) {
   );
 }
 
-function SignupUser(props) {
+function SignupUserModal(props) {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
     acceptTOS: false,
   });
+
+  const [, setUser] = useRecoilState(CurrentUser);
+  const [loadingSignupAnonymous, setLoadingSignupAnonymous] = useState(false);
+  const [loadingSignup, setLoadingSignup] = useState(false);
 
   function HandleFormValue(e) {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -140,9 +181,37 @@ function SignupUser(props) {
     data.password.length >= 8 &&
     data.acceptTOS;
 
-  const Login = () => {
-    // TODO: Continue
-    setError("Password incorretta");
+  const Signup = () => {
+    setLoadingSignup(true);
+
+    CreateUser(data.email, data.password, data.name).then((v) => {
+      setLoadingSignup(false);
+
+      // Error
+      if (typeof v === "string") {
+        setError(v);
+        return;
+      }
+
+      setUser(v);
+      props.onClose();
+    });
+  };
+
+  const SignupAsAnonymous = () => {
+    setLoadingSignupAnonymous(true);
+    CreateAnonymousUser().then((v) => {
+      setLoadingSignupAnonymous(false);
+
+      // Error
+      if (typeof v === "string") {
+        setError(v);
+        return;
+      }
+
+      setUser(v);
+      props.onClose();
+    });
   };
 
   return (
@@ -240,11 +309,18 @@ function SignupUser(props) {
           fontWeight: "500",
           color: isButtonActive() ? "white" : "#FFFFFF66",
           backgroundColor: isButtonActive() ? "#B02D23" : "#FFFFFF33",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        disabled={!isButtonActive()}
-        onClick={Login}
+        disabled={loadingSignup || !isButtonActive()}
+        onClick={Signup}
       >
-        Entra
+        {loadingSignup ? (
+          <CircularProgress size={24} style={{ color: "white" }} />
+        ) : (
+          "Entra"
+        )}
       </button>
       <div
         className="center-class"
@@ -273,10 +349,17 @@ function SignupUser(props) {
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClick={Login}
+        onClick={SignupAsAnonymous}
+        disabled={loadingSignupAnonymous}
       >
-        <FaUserSecret style={{ marginRight: "8px", fontSize: 18 }} />
-        <div>Entra come anonimo</div>
+        {loadingSignupAnonymous ? (
+          <CircularProgress size={24} style={{ color: "white" }} />
+        ) : (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <FaUserSecret style={{ marginRight: "8px", fontSize: 18 }} />
+            <div>Entra come anonimo</div>
+          </div>
+        )}
       </button>
 
       {/* Error message */}
@@ -339,9 +422,15 @@ export default function AuthUserModal(props) {
         {/* Main home */}
         <div style={{ padding: "32px 0px" }}>
           {showLogin ? (
-            <LoginUser changeFlow={() => setShowLogin(false)} />
+            <LoginUserModal
+              changeFlow={() => setShowLogin(false)}
+              onClose={props.onClose}
+            />
           ) : (
-            <SignupUser changeFlow={() => setShowLogin(true)} />
+            <SignupUserModal
+              changeFlow={() => setShowLogin(true)}
+              onClose={props.onClose}
+            />
           )}
         </div>
       </div>
