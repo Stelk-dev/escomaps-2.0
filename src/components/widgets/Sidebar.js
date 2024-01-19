@@ -9,7 +9,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlineLanguage, MdContactSupport } from "react-icons/md";
 import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
-import AuthUserModal from "../auth/AuthUserModal";
+import AuthUserModal from "../auth/UserLoginSignup";
 import { MdPrivacyTip } from "react-icons/md";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";

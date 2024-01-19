@@ -5,7 +5,7 @@ import "./css/AuthUser.css";
 import { Link } from "react-router-dom";
 import { FaUserSecret } from "react-icons/fa";
 
-// TODO: Make 2 function one for login and one for registration
+// Make 2 function one for login and one for registration
 // In the main function add a bool to show login or signup
 
 function LoginUser(props) {
