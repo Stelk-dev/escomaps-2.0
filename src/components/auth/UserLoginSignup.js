@@ -151,8 +151,8 @@ function SignupUser(props) {
       <div className="center-class">
         <h1 style={{ fontSize: 24 }}>Registrati ora come utente</h1>
         <div style={{ color: "grey", marginTop: 8, textAlign: "center" }}>
-          Crea un nuovo account Escomaps per iniziare ad usare funzionalità in
-          app!
+          Crea un nuovo account Escomaps per iniziare ad usare ogni funzionalità
+          in app!
         </div>
       </div>
 
@@ -315,7 +315,10 @@ export default function AuthUserModal(props) {
   return (
     <Modal
       open={props.open}
-      onClose={props.onClose}
+      onClose={() => {
+        setShowLogin(true);
+        props.onClose();
+      }}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       className="center-class"
