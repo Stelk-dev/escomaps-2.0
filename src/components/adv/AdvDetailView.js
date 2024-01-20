@@ -209,9 +209,8 @@ export default function AdvDetailView({
 
       {/* All information */}
       <div>
-        {/* Images */}
+        {/* Images carousel */}
         <div>
-          {/* Images carousel */}
           <Tabs aria-label="Scrollable tabs" defaultValue={0}>
             <TabList
               sx={{
@@ -236,50 +235,6 @@ export default function AdvDetailView({
                   }}
                   ref={(el) => (tabsRef.current[index] = el)}
                 >
-                  {/* Favourite */}
-                  {!isAdvFromAdvertiser() && (
-                    <div
-                      style={{
-                        cursor: "pointer",
-                        position: "absolute",
-                        bottom: 0,
-                        right: 0,
-                        padding: "16px",
-                        zIndex: "1",
-                      }}
-                      onClick={() => {
-                        if (isFromEditOrCreation) return;
-
-                        if (clientUser.uid.length === 0) {
-                          setshowLoginUserModal(true);
-                          return;
-                        }
-
-                        // Save to favourite
-                        var fvAds = clientUser.favouritesAds;
-                        if (clientUser.favouritesAds.includes(adv.idAdv))
-                          fvAds = fvAds.filter((v) => v !== adv.idAdv);
-                        else fvAds = [...clientUser.favouritesAds, adv.idAdv];
-
-                        setClientUser({
-                          ...clientUser,
-                          favouritesAds: fvAds,
-                        });
-                        UpdateUserData(clientUser.uid, {
-                          favouritesAds: fvAds,
-                        });
-                      }}
-                    >
-                      {isFromEditOrCreation ? (
-                        <FaHeart className="favourite-icon" />
-                      ) : clientUser.favouritesAds.includes(adv.idAdv) ? (
-                        <FaHeart className="favourite-icon" />
-                      ) : (
-                        <FaRegHeart className="favourite-icon" />
-                      )}
-                    </div>
-                  )}
-
                   {/* Left scroller */}
                   <div
                     style={{
@@ -342,6 +297,50 @@ export default function AdvDetailView({
                 </Tab>
               ))}
             </TabList>
+
+            {/* Favourite */}
+            {!isAdvFromAdvertiser() && (
+              <div
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  padding: "16px",
+                  zIndex: "1",
+                }}
+                onClick={() => {
+                  if (isFromEditOrCreation) return;
+
+                  if (clientUser.uid.length === 0) {
+                    setshowLoginUserModal(true);
+                    return;
+                  }
+
+                  // Save to favourite
+                  var fvAds = clientUser.favouritesAds;
+                  if (clientUser.favouritesAds.includes(adv.idAdv))
+                    fvAds = fvAds.filter((v) => v !== adv.idAdv);
+                  else fvAds = [...clientUser.favouritesAds, adv.idAdv];
+
+                  setClientUser({
+                    ...clientUser,
+                    favouritesAds: fvAds,
+                  });
+                  UpdateUserData(clientUser.uid, {
+                    favouritesAds: fvAds,
+                  });
+                }}
+              >
+                {isFromEditOrCreation ? (
+                  <FaHeart className="favourite-icon" />
+                ) : clientUser.favouritesAds.includes(adv.idAdv) ? (
+                  <FaHeart className="favourite-icon" />
+                ) : (
+                  <FaRegHeart className="favourite-icon" />
+                )}
+              </div>
+            )}
           </Tabs>
 
           {/* Images list */}
