@@ -8,7 +8,7 @@ import Sidebar from "./components/widgets/Sidebar";
 import SignupAdvertiser from "./components/auth/signup/SignupAdvertiser";
 import LoginAdvertiser from "./components/auth/LoginAdvertiser";
 import BottomBar from "./components/widgets/BottomBar";
-import Chat from "./components/home/home-user/Chat";
+import ChatUser from "./components/home/home-user/ChatUser";
 import Favourites from "./components/home/home-user/Favourites";
 import SearchAds from "./components/home/SearchAds";
 import Faq from "./components/widgets/sidebar-pages/Faq";
@@ -81,6 +81,7 @@ function App() {
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user" ||
     loc.pathname === "/faq" ||
+    loc.pathname === "/forgot-credentials" ||
     loc.pathname === "/contact-us" ||
     loc.pathname === "/terms-and-conditions" ||
     loc.pathname === "/privacy-policy";
@@ -155,7 +156,7 @@ function App() {
           path="/settings-user/add-account"
           element={<AddEmailAndPassword />}
         />
-        <Route path="/chats-user" element={<Chat />} />
+        <Route path="/chats-user" element={<ChatUser />} />
         <Route path="/favourites-user" element={<Favourites />} />
 
         {/* Advertiser page */}

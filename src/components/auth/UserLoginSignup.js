@@ -96,7 +96,11 @@ function LoginUserModal(props) {
         <div style={{ height: 8 }} />
 
         {/* Forgot email/password */}
-        <Link to="" className="link-style" style={{ fontSize: 12 }}>
+        <Link
+          to="/forgot-credentials"
+          className="link-style"
+          style={{ fontSize: 12 }}
+        >
           Non ricordi email o password? Clicca qui
         </Link>
       </div>

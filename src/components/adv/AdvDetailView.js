@@ -15,6 +15,8 @@ import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
 import SocialBox from "../widgets/boxes/SocialBox";
 import { GetDistanceFromAdv, UserLocation } from "../../providers/UserLocation";
+import AuthUserModal from "../auth/UserLoginSignup";
+import { CurrentUser, UpdateUserData } from "../../providers/ClientUserData";
 
 export default function AdvDetailView({
   defaultAdvValue = null,
@@ -23,8 +25,9 @@ export default function AdvDetailView({
   // Tab list ref
   const tabsRef = useRef([]);
 
+  const [clientUser, setClientUser] = useRecoilState(CurrentUser);
   const [advertiser] = useRecoilState(CurrentUserAdvertiser);
-  const [favourite, setFavourite] = useState(false);
+  const [showLoginUserModal, setshowLoginUserModal] = useState(false);
 
   const loc = useLocation();
   const adv = defaultAdvValue ?? loc.state.adv;
@@ -125,6 +128,7 @@ export default function AdvDetailView({
     advertiser.adsIds?.includes(adv.idAdv) ?? false;
 
   useEffect(() => {
+    // Get adv data if adv is null
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
 
@@ -203,9 +207,6 @@ export default function AdvDetailView({
         )}
       </div>
 
-      {/* Black space */}
-      {/* <div style={{ height: "72px", backgroundColor: "black" }} /> */}
-
       {/* All information */}
       <div>
         {/* Images */}
@@ -248,14 +249,30 @@ export default function AdvDetailView({
                       }}
                       onClick={() => {
                         if (isFromEditOrCreation) return;
-                        setFavourite(!favourite);
+
+                        if (clientUser.uid.length === 0) {
+                          setshowLoginUserModal(true);
+                          return;
+                        }
 
                         // Save to favourite
+                        var fvAds = clientUser.favouritesAds;
+                        if (clientUser.favouritesAds.includes(adv.idAdv))
+                          fvAds = fvAds.filter((v) => v !== adv.idAdv);
+                        else fvAds = [...clientUser.favouritesAds, adv.idAdv];
+
+                        setClientUser({
+                          ...clientUser,
+                          favouritesAds: fvAds,
+                        });
+                        UpdateUserData(clientUser.uid, {
+                          favouritesAds: fvAds,
+                        });
                       }}
                     >
                       {isFromEditOrCreation ? (
                         <FaHeart className="favourite-icon" />
-                      ) : favourite ? (
+                      ) : clientUser.favouritesAds.includes(adv.idAdv) ? (
                         <FaHeart className="favourite-icon" />
                       ) : (
                         <FaRegHeart className="favourite-icon" />
@@ -521,6 +538,12 @@ export default function AdvDetailView({
         {/* Extra space */}
         <div style={{ height: "80px" }} />
       </div>
+
+      {/* Signup/Login user */}
+      <AuthUserModal
+        open={showLoginUserModal}
+        onClose={() => setshowLoginUserModal(false)}
+      />
     </div>
   );
 }
