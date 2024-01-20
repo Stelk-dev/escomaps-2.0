@@ -83,11 +83,11 @@ export default function AdvItem({
 
   return adv.idAdv === null ? (
     <div
+      className="grid-item"
       style={{
         backgroundColor: "grey",
         borderRadius: "8px",
-        width: "100%",
-        height: "230px",
+        width: "250px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

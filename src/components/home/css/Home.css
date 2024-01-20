@@ -1,16 +1,17 @@
 /* Grid style */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 12px 8px;
     padding: 0px 16px;
     width: 100vw;
+    max-width: 1300px;
 }
 
 .grid-item {
     display: flex;
     flex-direction: column;
-    height: 300px;
+    height: 400px;
 }
 
 .grid-item-image {
@@ -18,12 +19,12 @@
     border-radius: 8px;
     width: 100%;
     object-fit: cover;
-    height: 80%;
+    height: 90%;
 }
 
 .grid-item-description {
     padding: 6px 0px 0px 2px;
-    height: 20%;
+    height: 10%;
     border-radius: 0px 0px 8px 8px;
 }
 
@@ -61,4 +62,52 @@
 
 .setting-box-button:hover{
     background-color: #252425CC;
+}
+
+@media only screen and (max-width: 700px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-item{
+        height: 450px;
+    }
+
+    .grid-item-description{
+        height: 10%;
+    }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid-item{
+        height: 450px;
+    }
+
+    .grid-item-description{
+        height: 10%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .grid-item{
+        height: 450px;
+    }
+
+    .grid-item-description{
+        height: 10%;
+    }
 }

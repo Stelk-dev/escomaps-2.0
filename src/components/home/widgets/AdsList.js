@@ -4,7 +4,13 @@ import AdvItem from "./AdvItem";
 
 export default function AdsList({ ads, loading }) {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {/* Loading */}
       {loading && (
         <div className="grid-container">

@@ -10,36 +10,49 @@ export default function SearchAds() {
   const query = searchParams.get("q");
 
   return (
-    <div style={{ padding: "0px 12px" }}>
-      <div style={{ height: "140px" }} />
-
-      {/* Titles */}
-      <div>
-        <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
-          {query.substring(0, 1).toUpperCase() + query.substring(1)}
-        </h1>
-        <div style={{ color: "grey", fontSize: "14px" }}>
-          Vuoi cercare in una zona diversa?{" "}
-          <a href="google.com" style={{ color: "red" }}>
-            clicca qui
-          </a>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          marginTop: "80px",
+          padding: "0px 12px",
+          maxWidth: "1300px",
+        }}
+      >
+        {/* Titles */}
+        <div>
+          <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
+            {query.substring(0, 1).toUpperCase() + query.substring(1)}
+          </h1>
+          <div style={{ color: "grey", fontSize: "14px" }}>
+            Vuoi cercare in una zona diversa?{" "}
+            <a href="google.com" style={{ color: "red" }}>
+              clicca qui
+            </a>
+          </div>
         </div>
+
+        <div style={{ height: "8px" }} />
+
+        {/* Filter button */}
+        <button id="filter-button" onClick={() => {}}>
+          <BsFilter style={{ marginRight: "6px", fontSize: "24px" }} />
+          <div style={{ fontSize: "14px" }}>Filtri</div>
+        </button>
+
+        <br />
+
+        {/* Ads list */}
+        <AdsList ads={[]} />
+
+        <div style={{ height: "40px" }} />
       </div>
-
-      <div style={{ height: "8px" }} />
-
-      {/* Filter button */}
-      <button id="filter-button" onClick={() => {}}>
-        <BsFilter style={{ marginRight: "6px", fontSize: "24px" }} />
-        <div style={{ fontSize: "14px" }}>Filtri</div>
-      </button>
-
-      <br />
-
-      {/* Ads list */}
-      <AdsList ads={[]} />
-
-      <div style={{ height: "40px" }} />
     </div>
   );
 }

@@ -8,17 +8,23 @@ export default function Favourites() {
   const [user] = useRecoilState(CurrentUser);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {user.favouritesAds.length === 0 ? (
         <div
           style={{
-            height: "90vh",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            marginTop: "50px",
+            height: "90vh",
             color: "grey",
             fontStyle: "italic",
-            textAlign: "center",
             padding: "24px",
           }}
         >
@@ -34,6 +40,7 @@ export default function Favourites() {
         <div
           style={{
             margin: "100px 0px",
+            maxWidth: "1300px",
           }}
         >
           <div
@@ -46,7 +53,9 @@ export default function Favourites() {
             <FaHeart fontSize={20} style={{ marginRight: "8px" }} />
             <h4>I tuoi annunci preferiti:</h4>
           </div>
-          <div className="grid-container">
+
+          {/* Grid view list */}
+          <div className="grid-container" style={{ width: "100%" }}>
             {user.favouritesAds.map((e, i) => (
               <AdvItem advId={e} key={e} />
             ))}
