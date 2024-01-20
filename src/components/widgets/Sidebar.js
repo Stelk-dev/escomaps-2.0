@@ -11,7 +11,7 @@ import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
 import AuthUserModal from "../auth/UserLoginSignup";
 import { MdPrivacyTip } from "react-icons/md";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
 import {
   CreditsToShow,
@@ -20,7 +20,7 @@ import {
 import { FaCircleUser } from "react-icons/fa6";
 import { FiShoppingCart } from "react-icons/fi";
 import { CurrentUser } from "../../providers/ClientUserData";
-import { SignOut } from "../../services/Authentication";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export default function Sidebar(props) {
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
@@ -56,7 +56,6 @@ export default function Sidebar(props) {
   }
 
   const [client] = useRecoilState(CurrentUser);
-  const reset = useResetRecoilState(CurrentUser);
   const [user] = useRecoilState(CurrentUserAdvertiser);
   const credits = useRecoilValue(CreditsToShow);
 
@@ -179,17 +178,43 @@ export default function Sidebar(props) {
 
   const UserBox = () => {
     return (
-      <div style={{ color: "white" }}>
-        <div>User: {client.name}</div>
-        <button
-          onClick={() => {
-            SignOut().then((v) => {
-              reset();
-              props.onSidebarClose();
-            });
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+        }}
+      >
+        {/* User icon */}
+        <FaCircleUser color="white" size={54} />
+
+        <div
+          style={{
+            margin: "8px 0px",
+            fontSize: "18px",
+            fontWeight: "600",
           }}
         >
-          Esci
+          #{client.name}
+        </div>
+
+        {/* Buttons */}
+        <button
+          className="main-buttons"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => {
+            navigate("/settings-user");
+            props.onSidebarClose();
+          }}
+        >
+          <IoSettingsOutline className="buttons-icons" />
+          <div className="buttons-text">Impostazioni</div>
         </button>
       </div>
     );

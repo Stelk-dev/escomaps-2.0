@@ -39,7 +39,7 @@ export default function AdvItem({
   });
 
   const [userPosition] = useRecoilState(UserLocation);
-  const ShowDistance = () => !isFromAdvertiser && userPosition.hasPermission;
+  const ShowDistance = () => !isFromAdvertiser;
 
   const ExpireDate = () => {
     const date = new Date(adv.dateExpire.seconds * 1000);
@@ -162,17 +162,17 @@ export default function AdvItem({
               {adv.name}, {adv.age}
             </h5>
 
-            {/* TODOs: Show expire date */}
             {/* Distance */}
             {ShowDistance() ? (
               <p style={{ fontSize: "11px", color: "grey" }}>
-                {GetDistanceFromAdv({
-                  userLatitude: userPosition.latitude,
-                  userLongitude: userPosition.longitude,
-                  advLatitude: adv.locationData.lat,
-                  advLongitude: adv.locationData.lon,
-                })}{" "}
-                km da te
+                {userPosition.hasPermission
+                  ? GetDistanceFromAdv({
+                      userLatitude: userPosition.latitude,
+                      userLongitude: userPosition.longitude,
+                      advLatitude: adv.locationData.lat,
+                      advLongitude: adv.locationData.lon,
+                    }).toString() + " km da te"
+                  : ""}
               </p>
             ) : (
               <p style={{ fontSize: "11px", color: "grey" }}>

@@ -33,6 +33,9 @@ import BuyCredits from "./components/home/home-advertiser/creation-adv/BuyCredit
 import SuccessScreen from "./components/home/widgets/SuccessScreen";
 import CreateAdv from "./components/home/home-advertiser/creation-adv/adv-creation-pages/CreateAdv";
 import { CurrentUser, GetUserData } from "./providers/ClientUserData";
+import SettingsUser from "./components/home/home-user/settings/SettingsUser";
+import EditUserInformation from "./components/home/home-user/settings/EditUserInformation";
+import AddEmailAndPassword from "./components/home/home-user/settings/AddEmailAndPassword";
 
 function App() {
   const [currentClientUser, setcurrentClientUser] = useRecoilState(CurrentUser);
@@ -74,6 +77,7 @@ function App() {
     loc.pathname === "/search" ||
     loc.pathname === "/buy-credits" ||
     loc.pathname.includes("/adv-detail") ||
+    loc.pathname.includes("/settings-user") ||
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user" ||
     loc.pathname === "/faq" ||
@@ -142,6 +146,15 @@ function App() {
         <Route path="/adv-detail/:id" element={<AdvDetailView />} />
 
         {/* User page */}
+        <Route path="/settings-user" element={<SettingsUser />} />
+        <Route
+          path="/settings-user/edit-information"
+          element={<EditUserInformation />}
+        />
+        <Route
+          path="/settings-user/add-account"
+          element={<AddEmailAndPassword />}
+        />
         <Route path="/chats-user" element={<Chat />} />
         <Route path="/favourites-user" element={<Favourites />} />
 

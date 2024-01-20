@@ -1,17 +1,15 @@
 import React from "react";
-import { SignOut } from "../../../services/Authentication";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { CurrentUser } from "../../../../providers/ClientUserData";
 import { useNavigate } from "react-router-dom";
-import { useResetRecoilState } from "recoil";
-import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
-import { IoIosArrowForward } from "react-icons/io";
 import { FaUserEdit } from "react-icons/fa";
-import { FaExpeditedssl } from "react-icons/fa6";
-import { FaUsersSlash } from "react-icons/fa6";
-import { IoNotificationsCircle } from "react-icons/io5";
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { MdOutlineAlternateEmail } from "react-icons/md";
+import { SignOut } from "../../../../services/Authentication";
+import { IoIosArrowForward } from "react-icons/io";
 
-export default function AdvertiserSettings() {
-  const reset = useResetRecoilState(CurrentUserAdvertiser);
+export default function SettingsUser() {
+  const [user] = useRecoilState(CurrentUser);
+  const reset = useResetRecoilState(CurrentUser);
   const navigate = useNavigate();
 
   const SettingBox = ({ leftIcon, name, onPressed, showArrow = true }) => {
@@ -64,19 +62,17 @@ export default function AdvertiserSettings() {
       }}
     >
       <SettingBox
-        leftIcon={<RiMoneyDollarCircleFill color="yellow" />}
-        name={"Invita e ricevi 300 crediti subito"}
-      />
-      <Divider />
-      <SettingBox
         leftIcon={<FaUserEdit />}
         name={"Modifica informazioni personali"}
+        onPressed={() => navigate("/settings-user/edit-information")}
       />
-      <SettingBox leftIcon={<FaExpeditedssl />} name={"Email e password"} />
-      <Divider />
-      <SettingBox leftIcon={<FaUsersSlash />} name={"Utenti bloccati"} />
-      <Divider />
-      <SettingBox leftIcon={<IoNotificationsCircle />} name={"Notifiche"} />
+      {user.email.length === 0 && (
+        <SettingBox
+          leftIcon={<MdOutlineAlternateEmail />}
+          name={"Aggiungi email o password"}
+          onPressed={() => navigate("/settings-user/add-account")}
+        />
+      )}
       <Divider />
       <SettingBox
         name={"Esci"}
@@ -85,13 +81,6 @@ export default function AdvertiserSettings() {
           reset();
 
           navigate("/");
-        }}
-        showArrow={false}
-      />
-      <SettingBox
-        name={"Elimina account"}
-        onPressed={() => {
-          navigate("/advertiser/settings/delete-account");
         }}
         showArrow={false}
       />
