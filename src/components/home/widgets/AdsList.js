@@ -20,7 +20,6 @@ export default function AdsList({ ads, loading }) {
               key={key}
               style={{
                 backgroundColor: "grey",
-                borderRadius: "8px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

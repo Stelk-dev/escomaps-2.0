@@ -1,3 +1,22 @@
+.bottom-bar{
+    position: fixed;
+    bottom: 0;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.bottom-bar{
+    position: fixed;
+    bottom: 0;
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 900px) {
+    .bottom-bar{
+        visibility: visible;
+    }
+}
+
 .bottom-element{
     display: flex;
     flex: 1;

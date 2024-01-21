@@ -139,6 +139,8 @@ function App() {
       {/* Bottom bar advertiser */}
       {showAdvertiserBottomBar() && <BottomBar isAdvertiser={true} />}
 
+      {/* Footer */}
+
       {/* Routes */}
       <Routes>
         {/* Main home */}

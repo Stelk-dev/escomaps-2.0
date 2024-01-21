@@ -1,31 +1,69 @@
-/* Grid style */
-.grid-container {
+.grid-container{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 12px 8px;
-    padding: 0px 16px;
-    width: 100vw;
-    max-width: 1300px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px 10px;
+    padding: 12px 12px;
 }
 
-.grid-item {
+.grid-item{
+    background-color: white;
+    border: 1px solid #3c3c3c;
+    height: 380px;
+    width: 100%;
+    max-width: 250px;
     display: flex;
     flex-direction: column;
-    height: 400px;
+    position: relative;
 }
 
-.grid-item-image {
-    background-color: grey;
-    border-radius: 8px;
-    width: 100%;
-    object-fit: cover;
-    height: 90%;
+.grid-arrow-icon{
+    visibility: hidden;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFFBB;
+    padding: 0px 12px;
+    font-size: 32px;
 }
 
-.grid-item-description {
-    padding: 6px 0px 0px 2px;
-    height: 10%;
-    border-radius: 0px 0px 8px 8px;
+.grid-item:hover .grid-arrow-icon{
+    visibility: visible;
+}
+
+.grid-item-image{
+    flex: 1;
+    height: 80%;
+    position: relative;
+}
+
+.grid-item-description{
+    background-color: #2c2c2c;
+    padding: 12px;
+    height: 60px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 700px) {
+    .grid-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 900px) {
+    .grid-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+@media only screen and (min-width: 900px) and (max-width: 1200px) {
+    .grid-container{
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .floating-action-button{
@@ -62,52 +100,4 @@
 
 .setting-box-button:hover{
     background-color: #252425CC;
-}
-
-@media only screen and (max-width: 700px) {
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media only screen and (min-width: 700px) and (max-width: 900px) {
-    .grid-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .grid-item{
-        height: 450px;
-    }
-
-    .grid-item-description{
-        height: 10%;
-    }
-}
-
-@media only screen and (min-width: 900px) and (max-width: 1200px) {
-    .grid-container {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .grid-item{
-        height: 450px;
-    }
-
-    .grid-item-description{
-        height: 10%;
-    }
-}
-
-@media only screen and (min-width: 1200px) {
-    .grid-container {
-        grid-template-columns: repeat(5, 1fr);
-    }
-
-    .grid-item{
-        height: 450px;
-    }
-
-    .grid-item-description{
-        height: 10%;
-    }
 }

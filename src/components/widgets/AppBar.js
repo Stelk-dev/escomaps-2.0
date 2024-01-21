@@ -28,7 +28,7 @@ const DefaultAppBar = ({
       <button
         style={{
           height: "100%",
-          width: "40px",
+          width: "60px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -62,7 +62,7 @@ const DefaultAppBar = ({
       <button
         style={{
           height: "100%",
-          width: "40px",
+          width: "60px",
           marginRight: "8px",
           display: "flex",
           justifyContent: "center",

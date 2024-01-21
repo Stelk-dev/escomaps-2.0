@@ -107,12 +107,7 @@ export default function BottomBar({ isAdvertiser }) {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-      }}
-    >
+    <div className="bottom-bar">
       <ElementsBottomBar />
     </div>
   );

@@ -13,6 +13,7 @@ import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
 import { GetAds } from "../../providers/AdsProvider";
+import Footer from "../widgets/Footer";
 
 const HeaderSection = () => {
   const [loading, setLoading] = useState(false);
@@ -149,13 +150,14 @@ export default function HomeAds() {
   return (
     <div
       style={{
-        margin: "100px 0px",
+        marginTop: "100px",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <div style={{ maxWidth: "1300px" }}>
+      <div style={{ maxWidth: "1300px", marginBottom: "40px" }}>
         {/* Title */}
         <HeaderSection />
         <div style={{ height: 36 }} />
@@ -291,6 +293,8 @@ export default function HomeAds() {
         {/* Disclaimer */}
         <DisclaimerBox />
       </div>
+
+      <Footer />
     </div>
   );
 }
