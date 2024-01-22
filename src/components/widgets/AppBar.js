@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./css/Appbar.css";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
-import { query } from "firebase/firestore";
 
 const DefaultAppBar = ({
   showSidebar,
