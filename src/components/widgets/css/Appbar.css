@@ -7,11 +7,22 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     position: fixed;
     z-index: 2;
     height: 60px;
     width: 100vw;
+}
+
+#cancel-button{
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+    margin: 0px 10px;
+}
+
+#cancel-button:hover{
+    background-color: #FFFFFF22;
 }
 
 .desktop-app-bar{

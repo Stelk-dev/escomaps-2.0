@@ -13,6 +13,7 @@ import { CurrentUser } from "../../providers/ClientUserData";
 import { FaCircleUser } from "react-icons/fa6";
 import { IoIosArrowDown, IoMdAddCircleOutline } from "react-icons/io";
 import AccountBox from "./boxes/AccountBox";
+import { MdClear } from "react-icons/md";
 
 const DefaultAppBar = ({
   showSidebar,
@@ -245,7 +246,6 @@ const DefaultAppBar = ({
               cursor: "pointer",
               border: "none",
               backgroundColor: "transparent",
-              marginLeft: "8px",
             }}
             onClick={showSidebar}
           >
@@ -264,7 +264,6 @@ const DefaultAppBar = ({
             style={{
               height: "100%",
               width: "60px",
-              marginRight: "8px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
