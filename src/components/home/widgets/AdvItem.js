@@ -8,6 +8,7 @@ import {
   GetDistanceFromAdv,
   UserLocation,
 } from "../../../providers/UserLocation";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 export default function AdvItem({
   preselectedADV = null,
@@ -38,7 +39,7 @@ export default function AdvItem({
     lastDateOfBoostActivated: null,
   });
 
-  const [indexPhoto] = useState(0);
+  const [indexPhoto, setIndexPhoto] = useState(0);
   const [userPosition] = useRecoilState(UserLocation);
   const ShowDistance = () => !isFromAdvertiser;
 
@@ -86,6 +87,7 @@ export default function AdvItem({
     <div
       className="grid-item"
       style={{
+        width: "250px",
         backgroundColor: "grey",
         display: "flex",
         alignItems: "center",
@@ -106,7 +108,14 @@ export default function AdvItem({
         textDecoration: "none",
       }}
     >
-      <div style={{ position: "relative" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+        }}
+      >
         {/* Sex symbol */}
         <div
           style={{
@@ -140,87 +149,177 @@ export default function AdvItem({
         </div>
 
         {/* Adv item */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div className="grid-item">
-            <div className="grid-item-image">
-              {/* Arrows
-              <div
-                className="grid-arrow-icon"
-                style={{
-                  left: 0,
-                  background: "linear-gradient(to right, #00000066, #FFFFFF00)",
+        <div className="grid-item">
+          <div className="grid-item-title" style={{ position: "relative" }}>
+            <div
+              className="grid-arrow-icon"
+              style={{
+                left: 0,
+                background: "linear-gradient(to right, #00000066, #FFFFFF00)",
+              }}
+            >
+              <FaArrowCircleLeft
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIndexPhoto(
+                    indexPhoto === 0 ? adv.photos.length - 1 : indexPhoto - 1
+                  );
                 }}
-              >
-                <FaArrowCircleLeft
-                  onClick={() =>
-                    setIndexPhoto(
-                      indexPhoto === 0 ? adv.photos.length - 1 : indexPhoto - 1
-                    )
-                  }
-                />
-              </div>
-              <div
-                className="grid-arrow-icon"
-                style={{
-                  right: 0,
-                  background: "linear-gradient(to left, #00000066, #FFFFFF00)",
+              />
+            </div>
+            <div
+              className="grid-arrow-icon"
+              style={{
+                right: 0,
+                background: "linear-gradient(to left, #00000066, #FFFFFF00)",
+              }}
+            >
+              <FaArrowCircleRight
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIndexPhoto(
+                    indexPhoto === adv.photos.length - 1 ? 0 : indexPhoto + 1
+                  );
                 }}
-              >
-                <FaArrowCircleRight
-                  onClick={() =>
-                    setIndexPhoto(
-                      indexPhoto === adv.photos.length - 1 ? 0 : indexPhoto + 1
-                    )
-                  }
-                />
-              </div> */}
-
-              {/* Image */}
-              <img
-                src={adv.photos[indexPhoto]}
-                alt="escort-label"
-                width={"100%"}
-                height={"100%"}
-                style={{ objectFit: "cover" }}
               />
             </div>
 
-            {/* Name, age */}
-            <div className="grid-item-description">
-              {/* Data */}
-              <h5 style={{ fontSize: "18px" }}>
-                {adv.name}, {adv.age}
-              </h5>
+            {/* Image */}
+            <img
+              src={adv.photos[indexPhoto]}
+              alt="escort-label"
+              width={"100%"}
+              height={"100%"}
+              style={{ objectFit: "cover" }}
+            />
+          </div>
 
-              {/* Distance */}
-              {ShowDistance() ? (
-                <div style={{ fontSize: "12px", color: "grey" }}>
-                  {userPosition.hasPermission
-                    ? GetDistanceFromAdv({
-                        userLatitude: userPosition.latitude,
-                        userLongitude: userPosition.longitude,
-                        advLatitude: adv.locationData.lat,
-                        advLongitude: adv.locationData.lon,
-                      }).toString() + " km da te"
-                    : ""}
-                </div>
-              ) : (
-                <div style={{ fontSize: "11px", color: "grey" }}>
-                  Data di scadenza:
-                  <br />
-                  {ExpireDate()}
-                </div>
-              )}
+          {/* Description */}
+          <div className="grid-item-description">
+            {/* Name, age */}
+            <div>
+              {adv.name}, {adv.age}
             </div>
+
+            {/* Distance */}
+            {ShowDistance() ? (
+              <div style={{ fontSize: "12px", color: "grey" }}>
+                {userPosition.hasPermission
+                  ? GetDistanceFromAdv({
+                      userLatitude: userPosition.latitude,
+                      userLongitude: userPosition.longitude,
+                      advLatitude: adv.locationData.lat,
+                      advLongitude: adv.locationData.lon,
+                    }).toString() + " km da te"
+                  : ""}
+              </div>
+            ) : (
+              <div style={{ fontSize: "11px", color: "grey" }}>
+                Data di scadenza:
+                <br />
+                {ExpireDate()}
+              </div>
+            )}
           </div>
         </div>
       </div>
     </Link>
   );
 }
+
+//
+// {
+//   /* <Link
+// >
+//   <div style={{ position: "relative" }}>
+//     {/* Sex symbol */
+// }
+
+// {
+//   /* Adv item */
+// }
+// <div
+//   style={{
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   }}
+// >
+//   <div className="grid-item">
+// <div className="grid-item-image">
+// {
+/* Arrows
+          <div
+            className="grid-arrow-icon"
+            style={{
+              left: 0,
+              background: "linear-gradient(to right, #00000066, #FFFFFF00)",
+            }}
+          >
+            <FaArrowCircleLeft
+              onClick={() =>
+                setIndexPhoto(
+                  indexPhoto === 0 ? adv.photos.length - 1 : indexPhoto - 1
+                )
+              }
+            />
+          </div>
+          <div
+            className="grid-arrow-icon"
+            style={{
+              right: 0,
+              background: "linear-gradient(to left, #00000066, #FFFFFF00)",
+            }}
+          >
+            <FaArrowCircleRight
+              onClick={() =>
+                setIndexPhoto(
+                  indexPhoto === adv.photos.length - 1 ? 0 : indexPhoto + 1
+                )
+              }
+            />
+          </div> */
+// }
+
+// {
+//   /* Image */
+// }
+//       <img
+//         src={adv.photos[indexPhoto]}
+//         alt="escort-label"
+//         width={"100%"}
+//         height={"100%"}
+//         style={{ objectFit: "cover" }}
+//       />
+//     </div>
+
+//     {/* Name, age */}
+//     <div className="grid-item-description">
+//       {/* Data */}
+//       <h5 style={{ fontSize: "18px" }}>
+//         {adv.name}, {adv.age}
+//       </h5>
+
+//       {/* Distance */}
+//       {ShowDistance() ? (
+//         <div style={{ fontSize: "12px", color: "grey" }}>
+//           {userPosition.hasPermission
+//             ? GetDistanceFromAdv({
+//                 userLatitude: userPosition.latitude,
+//                 userLongitude: userPosition.longitude,
+//                 advLatitude: adv.locationData.lat,
+//                 advLongitude: adv.locationData.lon,
+//               }).toString() + " km da te"
+//             : ""}
+//         </div>
+//       ) : (
+//         <div style={{ fontSize: "11px", color: "grey" }}>
+//           Data di scadenza:
+//           <br />
+//           {ExpireDate()}
+//         </div>
+//       )}
+//     </div>
+//   </div>
+// </div>
+// </div>

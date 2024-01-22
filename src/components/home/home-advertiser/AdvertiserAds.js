@@ -22,7 +22,7 @@ export default function AdvertiserAds() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "32px 16px",
+        padding: "32px 0px",
       }}
     >
       <h1 style={{ fontWeight: "600", fontSize: "24px", textAlign: "center" }}>

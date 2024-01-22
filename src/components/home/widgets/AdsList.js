@@ -6,9 +6,8 @@ export default function AdsList({ ads, loading }) {
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        width: "100%",
+        maxWidth: "1300px",
       }}
     >
       {/* Loading */}
