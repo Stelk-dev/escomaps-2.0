@@ -6,14 +6,17 @@ import { Link, useNavigate } from "react-router-dom";
 import "./css/Appbar.css";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
+import { query } from "firebase/firestore";
 
 const DefaultAppBar = ({
   showSidebar,
   showMenuIcon,
   showSearchIcon,
   onSearchClick,
+  onSearchDesktopSubmit,
   visible,
 }) => {
+  const [querySearch, setQuerySearch] = useState();
   const [user] = useRecoilState(CurrentUserAdvertiser);
 
   const LogoBox = () => {
@@ -62,12 +65,49 @@ const DefaultAppBar = ({
             <div style={{ marginLeft: "16px", marginRight: "32px" }}>
               Posizione: Parma
             </div>
-            <div style={{ marginRight: "32px" }}>Cerca: donna</div>
+            <div style={{ marginRight: "32px" }}>Trova: donna</div>
 
-            <div
-              style={{ flex: 1, backgroundColor: "brown", margin: "0px 64px" }}
-            >
-              Search bar
+            <div style={{ flex: 1, marginRight: "32px" }}>
+              <form
+                style={{ flex: 1, position: "relative" }}
+                action="."
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onSearchDesktopSubmit(querySearch);
+
+                  setQuerySearch("");
+                }}
+              >
+                <input
+                  className="main-form"
+                  type="search"
+                  id="search"
+                  placeholder="Cerca per nome, telefono, città..."
+                  autoFocus={true}
+                  style={{ height: "45px", paddingRight: "50px" }}
+                  value={querySearch}
+                  onChange={(v) => setQuerySearch(v.currentTarget.value)}
+                />
+                <AiOutlineSearch
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSearchDesktopSubmit(querySearch);
+
+                    setQuerySearch("");
+                  }}
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    borderRadius: "0px 6px 6px 0px",
+                    width: "44px",
+                    padding: "12px",
+                    position: "absolute",
+                    right: "1px",
+                    top: "1px",
+                    height: "97%",
+                  }}
+                />
+              </form>
             </div>
 
             <div style={{ display: "flex" }}>
@@ -144,60 +184,6 @@ const DefaultAppBar = ({
   );
 };
 
-function SearchBar({ onSearchCancel }) {
-  const navigate = useNavigate();
-  const query = useRef(null);
-
-  // Search function
-  function HandleSubmit(e) {
-    e.preventDefault();
-    if (query === null) return;
-
-    navigate("/search?q=" + query.current.value);
-    onSearchCancel();
-  }
-
-  return (
-    <div className="main-app-bar" style={{ padding: "0px 14px" }}>
-      {/* Search form */}
-      <form
-        onSubmit={HandleSubmit}
-        style={{ flex: 1, position: "relative" }}
-        action="."
-      >
-        <input
-          ref={query}
-          className="main-form"
-          type="search"
-          id="search"
-          placeholder="Cerca per nome, telefono, città..."
-          autoFocus={true}
-          style={{ height: "45px", paddingRight: "50px" }}
-        />
-        <AiOutlineSearch
-          onClick={HandleSubmit}
-          style={{
-            backgroundColor: "white",
-            color: "black",
-            borderRadius: "0px 6px 6px 0px",
-            width: "44px",
-            padding: "12px",
-            position: "absolute",
-            right: "1px",
-            top: "1px",
-            height: "97%",
-          }}
-        />
-      </form>
-
-      {/* Cancel button */}
-      <button id="cancel-button" onClick={onSearchCancel}>
-        Cancella
-      </button>
-    </div>
-  );
-}
-
 export default function AppBar(props) {
   // Animation
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
@@ -205,6 +191,8 @@ export default function AppBar(props) {
 
   // Show search bar
   const [showSearchBar, setShowSearchBar] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Hide app bar animation
@@ -222,6 +210,59 @@ export default function AppBar(props) {
     };
   }, [props.hideAnimation, prevScrollPos, visible]);
 
+  function SearchBar({ onSearchCancel }) {
+    const query = useRef(null);
+
+    // Search function
+    function HandleSubmit(e) {
+      e.preventDefault();
+      if (query === null) return;
+
+      navigate("/search?q=" + query.current.value);
+      onSearchCancel();
+    }
+
+    return (
+      <div className="main-app-bar" style={{ padding: "0px 14px" }}>
+        {/* Search form */}
+        <form
+          onSubmit={HandleSubmit}
+          style={{ flex: 1, position: "relative" }}
+          action="."
+        >
+          <input
+            ref={query}
+            className="main-form"
+            type="search"
+            id="search"
+            placeholder="Cerca per nome, telefono, città..."
+            autoFocus={true}
+            style={{ height: "45px", paddingRight: "50px" }}
+          />
+          <AiOutlineSearch
+            onClick={HandleSubmit}
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              borderRadius: "0px 6px 6px 0px",
+              width: "44px",
+              padding: "12px",
+              position: "absolute",
+              right: "1px",
+              top: "1px",
+              height: "97%",
+            }}
+          />
+        </form>
+
+        {/* Cancel button */}
+        <button id="cancel-button" onClick={onSearchCancel}>
+          Cancella
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Search bar or default app bar */}
@@ -234,6 +275,11 @@ export default function AppBar(props) {
           showSidebar={props.showSidebar}
           showSearchIcon={props.showSearchIcon}
           onSearchClick={() => setShowSearchBar(true)}
+          onSearchDesktopSubmit={(query) => {
+            if (query === null) return;
+
+            navigate("/search?q=" + query);
+          }}
         />
       )}
     </div>

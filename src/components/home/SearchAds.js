@@ -23,6 +23,7 @@ export default function SearchAds() {
           marginTop: "80px",
           padding: "0px 12px",
           maxWidth: "1300px",
+          width: "100%",
         }}
       >
         {/* Titles */}
