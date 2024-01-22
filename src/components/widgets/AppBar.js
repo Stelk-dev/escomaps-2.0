@@ -13,7 +13,6 @@ import { CurrentUser } from "../../providers/ClientUserData";
 import { FaCircleUser } from "react-icons/fa6";
 import { IoIosArrowDown, IoMdAddCircleOutline } from "react-icons/io";
 import AccountBox from "./boxes/AccountBox";
-import { MdClear } from "react-icons/md";
 
 const DefaultAppBar = ({
   showSidebar,
