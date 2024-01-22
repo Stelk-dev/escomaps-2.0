@@ -16,37 +16,8 @@ const DefaultAppBar = ({
 }) => {
   const [user] = useRecoilState(CurrentUserAdvertiser);
 
-  return (
-    <div
-      className="main-app-bar"
-      style={{
-        top: visible ? 0 : -100,
-        transition: "top 0.3s",
-      }}
-    >
-      {/* Menu */}
-      <button
-        style={{
-          height: "100%",
-          width: "60px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-          border: "none",
-          backgroundColor: "transparent",
-          marginLeft: "8px",
-        }}
-        onClick={showSidebar}
-      >
-        {showMenuIcon ? (
-          <CgMenu style={{ color: "white", fontSize: 22 }} />
-        ) : (
-          <div></div>
-        )}
-      </button>
-
-      {/* Logo */}
+  const LogoBox = () => {
+    return (
       <Link
         to={user.identityVerified === true ? "/advertiser/ads" : "/"}
         style={{ textDecoration: "none", height: 30 }}
@@ -57,30 +28,118 @@ const DefaultAppBar = ({
           alt="logo_escort"
         />
       </Link>
+    );
+  };
 
-      {/* Search icon */}
-      <button
-        style={{
-          height: "100%",
-          width: "60px",
-          marginRight: "8px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-          border: "none",
-          backgroundColor: "transparent",
-        }}
-        onClick={onSearchClick}
-      >
-        {showSearchIcon ? (
-          <div>
-            <AiOutlineSearch style={{ color: "white", fontSize: 22 }} />
+  return (
+    <div
+      className="main-app-bar"
+      style={{
+        top: visible ? 0 : -100,
+        transition: "top 0.3s",
+      }}
+    >
+      {/* App bar */}
+      <div className="desktop-app-bar">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "white",
+            height: "100%",
+            padding: "0px 12px",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <LogoBox />
+            <div style={{ marginLeft: "16px", marginRight: "32px" }}>
+              Posizione: Parma
+            </div>
+            <div style={{ marginRight: "32px" }}>Cerca: donna</div>
+
+            <div
+              style={{ flex: 1, backgroundColor: "brown", margin: "0px 64px" }}
+            >
+              Search bar
+            </div>
+
+            <div style={{ display: "flex" }}>
+              <button>Pubblica</button>
+              <div style={{ width: "12px" }} />
+              <button>Registrati</button>
+            </div>
           </div>
-        ) : (
-          <div></div>
-        )}
-      </button>
+        </div>
+      </div>
+
+      {/* Mobile app bar */}
+      <div className="mobile-app-bar">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "100%",
+            padding: "0px 12px",
+          }}
+        >
+          {/* Menu Icon */}
+          <button
+            style={{
+              height: "100%",
+              width: "60px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              border: "none",
+              backgroundColor: "transparent",
+              marginLeft: "8px",
+            }}
+            onClick={showSidebar}
+          >
+            {showMenuIcon ? (
+              <CgMenu style={{ color: "white", fontSize: 22 }} />
+            ) : (
+              <div></div>
+            )}
+          </button>
+
+          {/* Logo */}
+          <LogoBox />
+
+          {/* Search icon */}
+          <button
+            style={{
+              height: "100%",
+              width: "60px",
+              marginRight: "8px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              border: "none",
+              backgroundColor: "transparent",
+            }}
+            onClick={onSearchClick}
+          >
+            {showSearchIcon ? (
+              <div>
+                <AiOutlineSearch style={{ color: "white", fontSize: 22 }} />
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
