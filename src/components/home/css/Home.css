@@ -1,25 +1,25 @@
 .grid-container{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px 10px;
+    gap: 10px;
     padding: 12px 12px;
 }
 
 .grid-item{
     background-color: white;
-    border: 1px solid #3c3c3c;
-    height: 380px;
+    border: 1px solid white;
+    height: 350px;
     width: 100%;
     max-width: 250px;
     display: flex;
     flex-direction: column;
-    position: relative;
 }
 
 .grid-arrow-icon{
     visibility: hidden;
     position: absolute;
     height: 100%;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,23 +28,26 @@
     font-size: 32px;
 }
 
+.grid-item:hover{
+    cursor: pointer;
+}
+
 .grid-item:hover .grid-arrow-icon{
     visibility: visible;
 }
 
-.grid-item-image{
-    flex: 1;
+.grid-item-title{
+    flex: 9;
     height: 80%;
-    position: relative;
 }
 
 .grid-item-description{
-    background-color: #2c2c2c;
+    background-color: grey;
     padding: 12px;
-    height: 60px;
-    justify-content: center;
+    height: 36px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 @media only screen and (max-width: 700px) {
