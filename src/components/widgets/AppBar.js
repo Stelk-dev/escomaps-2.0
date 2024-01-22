@@ -1,22 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CgMenu } from "react-icons/cg";
+import { CgMenu, CgProfile } from "react-icons/cg";
 import { AiOutlineSearch } from "react-icons/ai";
 import img from "../../assets/escomaps_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/Appbar.css";
-import { useRecoilState } from "recoil";
-import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  CreditsToShow,
+  CurrentUserAdvertiser,
+} from "../../providers/AdvertiserUserData";
+import { CurrentUser } from "../../providers/ClientUserData";
+import { FaCircleUser } from "react-icons/fa6";
+import { IoIosArrowDown, IoMdAddCircleOutline } from "react-icons/io";
+import AccountBox from "./boxes/AccountBox";
 
 const DefaultAppBar = ({
   showSidebar,
   showMenuIcon,
   showSearchIcon,
   onSearchClick,
-  onSearchDesktopSubmit,
   visible,
 }) => {
-  const [querySearch, setQuerySearch] = useState();
+  const [querySearch, setQuerySearch] = useState("");
+  const [client] = useRecoilState(CurrentUser);
   const [user] = useRecoilState(CurrentUserAdvertiser);
+  const credits = useRecoilValue(CreditsToShow);
+  const navigate = useNavigate();
 
   const LogoBox = () => {
     return (
@@ -30,6 +39,86 @@ const DefaultAppBar = ({
           alt="logo_escort"
         />
       </Link>
+    );
+  };
+
+  const AuthDesktopBox = () => {
+    // Client logged
+    if (client.uid.length > 0)
+      return (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {/* Name */}
+          <div style={{ fontWeight: "bold", fontSize: "15px" }}>
+            {client.name}
+          </div>
+
+          {/* Show dropdown */}
+          <FaCircleUser color="white" size={32} style={{ cursor: "pointer" }} />
+        </div>
+      );
+
+    // Advertiser logged
+    if (user.uid.length > 0)
+      return (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {/* Name + Credits */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {/* Name */}
+            <div style={{ fontWeight: "bold", fontSize: "15px" }}>
+              {user.name}
+            </div>
+
+            {/* Credits */}
+            <Link
+              to="/buy-credits"
+              className="credits-title"
+              onClick={() => navigate("/advertiser/ads")}
+            >
+              <div>
+                Crediti:{" "}
+                <strong style={{ fontWeight: "bold", color: "#BA68C8" }}>
+                  {credits}
+                </strong>
+              </div>
+            </Link>
+          </div>
+
+          {/* Show dropdown */}
+          <AccountBox />
+        </div>
+      );
+
+    // No ones logged
+    return (
+      <div style={{ display: "flex" }}>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <button
+            className="desktop-buttons"
+            onClick={() => {}}
+            style={{
+              backgroundColor: "#9A031E",
+              border: "1px solid #B02D23",
+            }}
+          >
+            <IoMdAddCircleOutline className="buttons-icons" />
+            <div style={{ fontSize: "14px", marginLeft: "6px" }}>Pubblica</div>
+          </button>
+        </Link>
+
+        <div style={{ width: "12px" }} />
+
+        <button className="desktop-buttons" onClick={() => {}}>
+          <CgProfile className="buttons-icons" />
+          <div style={{ fontSize: "14px", marginLeft: "6px" }}>Registrati</div>
+        </button>
+      </div>
     );
   };
 
@@ -61,19 +150,38 @@ const DefaultAppBar = ({
             }}
           >
             <LogoBox />
-            <div style={{ marginLeft: "16px", marginRight: "32px" }}>
-              Posizione: Parma
+            <div className="dropdown-box" style={{ margin: "0px 16px" }}>
+              <div>Posizione:</div>
+              <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Parma</div>
+              <IoIosArrowDown
+                fontSize={16}
+                style={{
+                  display: "flex",
+                  marginLeft: "4px",
+                }}
+              />
             </div>
-            <div style={{ marginRight: "32px" }}>Trova: donna</div>
+            <div className="dropdown-box">
+              <div>Trova:</div>
+              <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Donna</div>
+              <IoIosArrowDown
+                fontSize={16}
+                style={{
+                  display: "flex",
+                  marginLeft: "4px",
+                }}
+              />
+            </div>
 
-            <div style={{ flex: 1, marginRight: "32px" }}>
+            <div style={{ flex: 1, margin: "0px 24px" }}>
               <form
                 style={{ flex: 1, position: "relative" }}
                 action="."
                 onSubmit={(e) => {
                   e.preventDefault();
-                  onSearchDesktopSubmit(querySearch);
 
+                  if (querySearch === "") return;
+                  navigate("/search?q=" + querySearch);
                   setQuerySearch("");
                 }}
               >
@@ -81,8 +189,7 @@ const DefaultAppBar = ({
                   className="main-form"
                   type="search"
                   id="search"
-                  placeholder="Cerca per nome, telefono, città..."
-                  autoFocus={true}
+                  placeholder="Cerca per nome, telefono, città o servizi"
                   style={{ height: "45px", paddingRight: "50px" }}
                   value={querySearch}
                   onChange={(v) => setQuerySearch(v.currentTarget.value)}
@@ -90,8 +197,9 @@ const DefaultAppBar = ({
                 <AiOutlineSearch
                   onClick={(e) => {
                     e.preventDefault();
-                    onSearchDesktopSubmit(querySearch);
 
+                    if (querySearch === "") return;
+                    navigate("/search?q=" + querySearch);
                     setQuerySearch("");
                   }}
                   style={{
@@ -109,11 +217,8 @@ const DefaultAppBar = ({
               </form>
             </div>
 
-            <div style={{ display: "flex" }}>
-              <button>Pubblica</button>
-              <div style={{ width: "12px" }} />
-              <button>Registrati</button>
-            </div>
+            {/* Auth buttons */}
+            <AuthDesktopBox />
           </div>
         </div>
       </div>
@@ -234,7 +339,7 @@ export default function AppBar(props) {
             className="main-form"
             type="search"
             id="search"
-            placeholder="Cerca per nome, telefono, città..."
+            placeholder="Cerca per nome, telefono, città o servizi"
             autoFocus={true}
             style={{ height: "45px", paddingRight: "50px" }}
           />
@@ -274,11 +379,6 @@ export default function AppBar(props) {
           showSidebar={props.showSidebar}
           showSearchIcon={props.showSearchIcon}
           onSearchClick={() => setShowSearchBar(true)}
-          onSearchDesktopSubmit={(query) => {
-            if (query === null) return;
-
-            navigate("/search?q=" + query);
-          }}
         />
       )}
     </div>
