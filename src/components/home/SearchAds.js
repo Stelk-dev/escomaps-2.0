@@ -20,9 +20,9 @@ export default function SearchAds() {
     >
       <div
         style={{
-          marginTop: "80px",
-          padding: "0px 12px",
-          maxWidth: "1300px",
+          marginTop: "120px",
+          padding: "0px 16px",
+          maxWidth: "1320px",
           width: "100%",
         }}
       >

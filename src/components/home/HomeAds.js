@@ -150,7 +150,7 @@ export default function HomeAds() {
   return (
     <div
       style={{
-        marginTop: "100px",
+        marginTop: "120px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

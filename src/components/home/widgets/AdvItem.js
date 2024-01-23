@@ -131,20 +131,14 @@ export default function AdvItem({
             boxShadow: "0px 0px 10px 1px #111111",
             borderRadius: "100%",
             zIndex: "1",
-            color:
-              adv.gender === 0
-                ? "lightblue"
-                : adv.gender === 1
-                ? "pink"
-                : "red",
           }}
         >
           {adv.gender === 0 ? (
-            <IoMdMale />
+            <IoMdMale color="lightblue" />
           ) : adv.gender === 1 ? (
-            <IoMdFemale />
+            <IoMdFemale color="pink" />
           ) : (
-            <IoMdTransgender />
+            <IoMdTransgender color="red" />
           )}
         </div>
 

@@ -13,6 +13,8 @@ import { CurrentUser } from "../../providers/ClientUserData";
 import { IoIosArrowDown, IoMdAddCircleOutline } from "react-icons/io";
 import AccountBox from "./boxes/AccountBox";
 import AuthUserModal from "../auth/UserLoginSignup";
+import SexFilterDropDown from "./boxes/SexFilterDropDown";
+import SelectCityLocationModal from "../home/widgets/SelectCityLocationModal";
 
 const DefaultAppBar = ({
   showSidebar,
@@ -21,6 +23,7 @@ const DefaultAppBar = ({
   onSearchClick,
   visible,
 }) => {
+  const [showLocationModal, setShowLocationModal] = useState(false);
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
   const [querySearch, setQuerySearch] = useState("");
   const [client] = useRecoilState(CurrentUser);
@@ -164,32 +167,18 @@ const DefaultAppBar = ({
             }}
           >
             <LogoBox />
-            <div className="dropdown-box" style={{ margin: "0px 8px" }}>
-              <div>Posizione:</div>
-              <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Parma</div>
-              <IoIosArrowDown
-                fontSize={16}
-                style={{
-                  display: "flex",
-                  marginLeft: "4px",
-                }}
-              />
-            </div>
-            <div className="dropdown-box">
-              <div>Trova:</div>
-              <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Donna</div>
-              <IoIosArrowDown
-                fontSize={16}
-                style={{
-                  display: "flex",
-                  marginLeft: "4px",
-                }}
-              />
-            </div>
 
-            <div style={{ flex: 1, margin: "0px 8px" }}>
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0px 32px",
+              }}
+            >
               <form
-                style={{ flex: 1, position: "relative" }}
+                style={{ flex: 1, position: "relative", maxWidth: "600px" }}
                 action="."
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -225,6 +214,26 @@ const DefaultAppBar = ({
             <AuthDesktopBox />
           </div>
         </div>
+
+        {/* Sub app bar bar */}
+        {/* <div style={{ display: "flex", backgroundColor: "#1b1b1b" }}>
+          <div
+            className="dropdown-box"
+            style={{ margin: "0px 8px" }}
+            onClick={() => setShowLocationModal(true)}
+          >
+            <div>In:</div>
+            <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Parma</div>
+            <IoIosArrowDown
+              fontSize={16}
+              style={{
+                display: "flex",
+                marginLeft: "4px",
+              }}
+            />
+          </div>
+          <SexFilterDropDown />
+        </div> */}
       </div>
 
       {/* Mobile app bar */}
@@ -291,6 +300,15 @@ const DefaultAppBar = ({
       <AuthUserModal
         open={showLoginUserModal}
         onClose={() => setshowLoginUserModal(false)}
+      />
+
+      {/* Find in city */}
+      <SelectCityLocationModal
+        open={showLocationModal}
+        onSelect={(newPos) => {
+          console.log(newPos);
+        }}
+        onClose={() => setShowLocationModal(false)}
       />
     </div>
   );
