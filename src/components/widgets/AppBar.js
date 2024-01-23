@@ -164,7 +164,7 @@ const DefaultAppBar = ({
             }}
           >
             <LogoBox />
-            <div className="dropdown-box" style={{ margin: "0px 16px" }}>
+            <div className="dropdown-box" style={{ margin: "0px 8px" }}>
               <div>Posizione:</div>
               <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Parma</div>
               <IoIosArrowDown
@@ -187,7 +187,7 @@ const DefaultAppBar = ({
               />
             </div>
 
-            <div style={{ flex: 1, margin: "0px 16px" }}>
+            <div style={{ flex: 1, margin: "0px 8px" }}>
               <form
                 style={{ flex: 1, position: "relative" }}
                 action="."
