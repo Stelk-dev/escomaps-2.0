@@ -157,7 +157,7 @@ export default function HomeAds() {
         alignItems: "center",
       }}
     >
-      <div style={{ maxWidth: "1300px", marginBottom: "40px" }}>
+      <div style={{ maxWidth: "1320px", marginBottom: "40px" }}>
         {/* Title */}
         <HeaderSection />
         <div style={{ height: 36 }} />

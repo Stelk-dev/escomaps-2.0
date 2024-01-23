@@ -100,6 +100,7 @@ function LoginUserModal(props) {
           to="/forgot-credentials"
           className="link-style"
           style={{ fontSize: 12 }}
+          onClick={() => props.onClose()}
         >
           Non ricordi email o password? Clicca qui
         </Link>

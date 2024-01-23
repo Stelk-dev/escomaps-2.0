@@ -10,9 +10,9 @@ import {
   CurrentUserAdvertiser,
 } from "../../providers/AdvertiserUserData";
 import { CurrentUser } from "../../providers/ClientUserData";
-import { FaCircleUser } from "react-icons/fa6";
 import { IoIosArrowDown, IoMdAddCircleOutline } from "react-icons/io";
 import AccountBox from "./boxes/AccountBox";
+import AuthUserModal from "../auth/UserLoginSignup";
 
 const DefaultAppBar = ({
   showSidebar,
@@ -21,6 +21,7 @@ const DefaultAppBar = ({
   onSearchClick,
   visible,
 }) => {
+  const [showLoginUserModal, setshowLoginUserModal] = useState(false);
   const [querySearch, setQuerySearch] = useState("");
   const [client] = useRecoilState(CurrentUser);
   const [user] = useRecoilState(CurrentUserAdvertiser);
@@ -48,12 +49,14 @@ const DefaultAppBar = ({
       return (
         <div style={{ display: "flex", alignItems: "center" }}>
           {/* Name */}
-          <div style={{ fontWeight: "bold", fontSize: "15px" }}>
-            {client.name}
+          <div
+            style={{ fontWeight: "bold", fontSize: "15px", marginRight: "8px" }}
+          >
+            #{client.name}
           </div>
 
           {/* Show dropdown */}
-          <FaCircleUser color="white" size={32} style={{ cursor: "pointer" }} />
+          <AccountBox />
         </div>
       );
 
@@ -71,7 +74,13 @@ const DefaultAppBar = ({
             }}
           >
             {/* Name */}
-            <div style={{ fontWeight: "bold", fontSize: "15px" }}>
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "15px",
+                marginRight: "8px",
+              }}
+            >
               {user.name}
             </div>
 
@@ -101,7 +110,10 @@ const DefaultAppBar = ({
         <Link to={"/"} style={{ textDecoration: "none" }}>
           <button
             className="desktop-buttons"
-            onClick={() => {}}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/signup-advertiser");
+            }}
             style={{
               backgroundColor: "#9A031E",
               border: "1px solid #B02D23",
@@ -114,7 +126,10 @@ const DefaultAppBar = ({
 
         <div style={{ width: "12px" }} />
 
-        <button className="desktop-buttons" onClick={() => {}}>
+        <button
+          className="desktop-buttons"
+          onClick={() => setshowLoginUserModal(true)}
+        >
           <CgProfile className="buttons-icons" />
           <div style={{ fontSize: "14px", marginLeft: "6px" }}>Registrati</div>
         </button>
@@ -188,6 +203,7 @@ const DefaultAppBar = ({
                   className="main-form"
                   type="search"
                   id="search"
+                  style={{ height: "40px" }}
                   placeholder="Cerca per nome, telefono, città o servizi"
                   value={querySearch}
                   onChange={(v) => setQuerySearch(v.currentTarget.value)}
@@ -270,6 +286,12 @@ const DefaultAppBar = ({
           </button>
         </div>
       </div>
+
+      {/* Signup/Login user */}
+      <AuthUserModal
+        open={showLoginUserModal}
+        onClose={() => setshowLoginUserModal(false)}
+      />
     </div>
   );
 };

@@ -7,7 +7,6 @@ export default function AdsList({ ads, loading }) {
     <div
       style={{
         width: "100%",
-        maxWidth: "1300px",
       }}
     >
       {/* Loading */}
