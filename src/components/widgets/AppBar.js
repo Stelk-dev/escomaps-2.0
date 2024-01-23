@@ -139,7 +139,6 @@ const DefaultAppBar = ({
             justifyContent: "center",
             color: "white",
             height: "100%",
-            padding: "0px 12px",
           }}
         >
           <div
@@ -173,7 +172,7 @@ const DefaultAppBar = ({
               />
             </div>
 
-            <div style={{ flex: 1, margin: "0px 24px" }}>
+            <div style={{ flex: 1, margin: "0px 16px" }}>
               <form
                 style={{ flex: 1, position: "relative" }}
                 action="."
@@ -190,7 +189,6 @@ const DefaultAppBar = ({
                   type="search"
                   id="search"
                   placeholder="Cerca per nome, telefono, città o servizi"
-                  style={{ height: "45px", paddingRight: "50px" }}
                   value={querySearch}
                   onChange={(v) => setQuerySearch(v.currentTarget.value)}
                 />
@@ -202,17 +200,7 @@ const DefaultAppBar = ({
                     navigate("/search?q=" + querySearch);
                     setQuerySearch("");
                   }}
-                  style={{
-                    backgroundColor: "white",
-                    color: "black",
-                    borderRadius: "0px 6px 6px 0px",
-                    width: "44px",
-                    padding: "12px",
-                    position: "absolute",
-                    right: "1px",
-                    top: "1px",
-                    height: "97%",
-                  }}
+                  className="search-icon"
                 />
               </form>
             </div>
@@ -339,22 +327,8 @@ export default function AppBar(props) {
             id="search"
             placeholder="Cerca per nome, telefono, città o servizi"
             autoFocus={true}
-            style={{ height: "45px", paddingRight: "50px" }}
           />
-          <AiOutlineSearch
-            onClick={HandleSubmit}
-            style={{
-              backgroundColor: "white",
-              color: "black",
-              borderRadius: "0px 6px 6px 0px",
-              width: "44px",
-              padding: "12px",
-              position: "absolute",
-              right: "1px",
-              top: "1px",
-              height: "97%",
-            }}
-          />
+          <AiOutlineSearch onClick={HandleSubmit} className="search-icon" />
         </form>
 
         {/* Cancel button */}
