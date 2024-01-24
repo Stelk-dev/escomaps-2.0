@@ -48,19 +48,8 @@ export default function SearchAds() {
             {query.substring(0, 1).toUpperCase() + query.substring(1)}
           </h1>
           <div style={{ color: "grey", fontSize: "14px" }}>
-            Vuoi cercare in una zona diversa?{" "}
-            <button
-              style={{
-                border: "none",
-                backgroundColor: "transparent",
-                color: "red",
-                padding: "0px",
-                textDecoration: "underline",
-              }}
-              onClick={() => setShowLocationModal(true)}
-            >
-              {"clicca qui"}
-            </button>
+            Più di <strong style={{ color: "#B02D23" }}>{ads.length}</strong>{" "}
+            risultati
           </div>
         </div>
 
