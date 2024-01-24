@@ -21,6 +21,7 @@ export default function Favourites() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            textAlign: "center",
             marginTop: "50px",
             height: "90vh",
             color: "grey",
