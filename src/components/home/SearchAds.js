@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import AdsList from "./widgets/AdsList";
 import { useLocation } from "react-router-dom";
-import { BsFilter } from "react-icons/bs";
-import "./css/SearchAds.css";
+import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 
 export default function SearchAds() {
   const location = useLocation();
+  const [showLocationModal, setShowLocationModal] = useState(false);
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q");
 
@@ -22,7 +22,7 @@ export default function SearchAds() {
     >
       <div
         style={{
-          marginTop: "120px",
+          marginTop: "80px",
           maxWidth: "1324px",
           width: "100%",
         }}
@@ -30,23 +30,26 @@ export default function SearchAds() {
         {/* Titles */}
         <div>
           <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
-            {query.substring(0, 1).toUpperCase() + query.substring(1)}
+            {query.substring(0, 1).toUpperCase() + query.substring(1)} in Milano
           </h1>
           <div style={{ color: "grey", fontSize: "14px" }}>
             Vuoi cercare in una zona diversa?{" "}
-            <a href="google.com" style={{ color: "red" }}>
-              clicca qui
-            </a>
+            <button
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                color: "red",
+                padding: "0px",
+                textDecoration: "underline",
+              }}
+              onClick={() => setShowLocationModal(true)}
+            >
+              {"clicca qui"}
+            </button>
           </div>
         </div>
 
         <div style={{ height: "8px" }} />
-
-        {/* Filter button */}
-        <button id="filter-button" onClick={() => {}}>
-          <BsFilter style={{ marginRight: "6px", fontSize: "24px" }} />
-          <div style={{ fontSize: "14px" }}>Filtri</div>
-        </button>
 
         <br />
 
@@ -55,6 +58,14 @@ export default function SearchAds() {
 
         <div style={{ height: "40px" }} />
       </div>
+
+      <SelectCityLocationModal
+        open={showLocationModal}
+        onSelect={(newPos) => {
+          console.log(newPos);
+        }}
+        onClose={() => setShowLocationModal(false)}
+      />
     </div>
   );
 }

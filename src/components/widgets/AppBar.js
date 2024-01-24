@@ -202,7 +202,7 @@ const DefaultAppBar = ({
                     type="search"
                     id="search"
                     style={{ height: "40px" }}
-                    placeholder="Cerca per nome, telefono, città o servizi"
+                    placeholder="Cerca in tutta Italia"
                     value={querySearch}
                     onChange={(v) => setQuerySearch(v.currentTarget.value)}
                   />
@@ -399,7 +399,7 @@ export default function AppBar(props) {
             style={{ height: "40px" }}
             type="search"
             id="search"
-            placeholder="Cerca per nome, telefono, città o servizi"
+            placeholder="Cerca in tutta Italia"
             autoFocus={true}
           />
           <AiOutlineSearch onClick={HandleSubmit} className="search-icon" />
