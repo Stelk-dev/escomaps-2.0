@@ -100,14 +100,9 @@ const HeaderSection = () => {
               padding: "0px",
               textDecoration: "underline",
             }}
-            onClick={
-              position.hasPermission
-                ? () => setShowLocationModal(true)
-                : () => getPosition()
-            }
-            disabled={loading}
+            onClick={() => setShowLocationModal(true)}
           >
-            {loading ? "Loading..." : "clicca qui"}
+            {"clicca qui"}
           </button>
         </div>
       </div>
@@ -150,7 +145,8 @@ export default function HomeAds() {
   return (
     <div
       style={{
-        marginTop: "120px",
+        marginTop: "80px",
+        width: "100vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -170,7 +166,7 @@ export default function HomeAds() {
         <div style={{ height: 36 }} />
 
         {/* Filters */}
-        <div>
+        <div style={{ width: "94.5vw", marginBottom: "12px" }}>
           <h4
             style={{
               marginBottom: "10px",
@@ -191,7 +187,6 @@ export default function HomeAds() {
             ))}
           </div>
         </div>
-        <br />
 
         {/* Ads list */}
         <AdsList ads={ads} loading={loading} />

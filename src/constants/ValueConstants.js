@@ -1,5 +1,12 @@
 // In home you can filter for some categories/services
-const FiltersInHome = ["Mistress", "Trans", "Milf", "Pornostar"];
+const FiltersInHome = [
+  "Donna",
+  "Trans",
+  "Mistress",
+  "Milf",
+  "Pornostar",
+  "Uomo",
+];
 
 // When creating an ADV you can select which categories you are
 const Categories = ["Donna", "Uomo", "Pornostar", "Coppia", "Trans"];
