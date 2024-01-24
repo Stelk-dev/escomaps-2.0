@@ -30,15 +30,15 @@ const DefaultAppBar = ({
   const credits = useRecoilValue(CreditsToShow);
   const navigate = useNavigate();
 
-  const LogoBox = ({ height = 36 }) => {
+  const LogoBox = () => {
     return (
       <Link
         to={user.identityVerified === true ? "/advertiser/ads" : "/"}
-        style={{ textDecoration: "none", height: height }}
+        style={{ textDecoration: "none", height: 36 }}
       >
         <img
           src={img}
-          style={{ width: 230, objectFit: "contain" }}
+          style={{ width: 220, objectFit: "contain" }}
           alt="logo_escort"
         />
       </Link>
@@ -302,7 +302,7 @@ const DefaultAppBar = ({
           </button>
 
           {/* Logo */}
-          <LogoBox height={40} />
+          <LogoBox />
 
           {/* Search icon */}
           <button
