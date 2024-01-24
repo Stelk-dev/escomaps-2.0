@@ -10,10 +10,9 @@ import {
   CurrentUserAdvertiser,
 } from "../../providers/AdvertiserUserData";
 import { CurrentUser } from "../../providers/ClientUserData";
-import { IoIosArrowDown, IoMdAddCircleOutline } from "react-icons/io";
+import { IoMdAddCircleOutline } from "react-icons/io";
 import AccountBox from "./boxes/AccountBox";
 import AuthUserModal from "../auth/UserLoginSignup";
-import SexFilterDropDown from "./boxes/SexFilterDropDown";
 import SelectCityLocationModal from "../home/widgets/SelectCityLocationModal";
 
 const DefaultAppBar = ({
@@ -31,15 +30,15 @@ const DefaultAppBar = ({
   const credits = useRecoilValue(CreditsToShow);
   const navigate = useNavigate();
 
-  const LogoBox = () => {
+  const LogoBox = ({ height = 36 }) => {
     return (
       <Link
         to={user.identityVerified === true ? "/advertiser/ads" : "/"}
-        style={{ textDecoration: "none", height: 30 }}
+        style={{ textDecoration: "none", height: height }}
       >
         <img
           src={img}
-          style={{ width: 180, objectFit: "contain" }}
+          style={{ width: 230, objectFit: "contain" }}
           alt="logo_escort"
         />
       </Link>
@@ -155,84 +154,118 @@ const DefaultAppBar = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "white",
+            padding: "0px 10px",
             height: "100%",
           }}
         >
           <div
             style={{
-              width: "100%",
+              color: "white",
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
+              maxWidth: "1324px",
+              width: "100%",
             }}
           >
-            <LogoBox />
-
             <div
               style={{
-                flex: 1,
+                width: "100%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                margin: "0px 32px",
               }}
             >
-              <form
-                style={{ flex: 1, position: "relative", maxWidth: "600px" }}
-                action="."
-                onSubmit={(e) => {
-                  e.preventDefault();
+              <LogoBox />
 
-                  if (querySearch === "") return;
-                  navigate("/search?q=" + querySearch);
-                  setQuerySearch("");
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0px 32px",
                 }}
               >
-                <input
-                  className="main-form"
-                  type="search"
-                  id="search"
-                  style={{ height: "40px" }}
-                  placeholder="Cerca per nome, telefono, città o servizi"
-                  value={querySearch}
-                  onChange={(v) => setQuerySearch(v.currentTarget.value)}
-                />
-                <AiOutlineSearch
-                  onClick={(e) => {
+                <form
+                  style={{ flex: 1, position: "relative", maxWidth: "600px" }}
+                  action="."
+                  onSubmit={(e) => {
                     e.preventDefault();
 
                     if (querySearch === "") return;
                     navigate("/search?q=" + querySearch);
                     setQuerySearch("");
                   }}
-                  className="search-icon"
-                />
-              </form>
-            </div>
+                >
+                  <input
+                    className="main-form"
+                    type="search"
+                    id="search"
+                    style={{ height: "40px" }}
+                    placeholder="Cerca per nome, telefono, città o servizi"
+                    value={querySearch}
+                    onChange={(v) => setQuerySearch(v.currentTarget.value)}
+                  />
+                  <AiOutlineSearch
+                    onClick={(e) => {
+                      e.preventDefault();
 
-            {/* Auth buttons */}
-            <AuthDesktopBox />
+                      if (querySearch === "") return;
+                      navigate("/search?q=" + querySearch);
+                      setQuerySearch("");
+                    }}
+                    className="search-icon"
+                  />
+                </form>
+              </div>
+
+              {/* Auth buttons */}
+              <AuthDesktopBox />
+            </div>
           </div>
         </div>
 
         {/* Sub app bar bar */}
-        {/* <div style={{ display: "flex", backgroundColor: "#1b1b1b" }}>
+        {/* <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#1b1b1b",
+            padding: "6px 10px",
+          }}
+        >
           <div
-            className="dropdown-box"
-            style={{ margin: "0px 8px" }}
-            onClick={() => setShowLocationModal(true)}
+            style={{
+              display: "flex",
+              maxWidth: "1324px",
+              width: "100%",
+            }}
           >
-            <div>In:</div>
-            <div style={{ fontWeight: "bold", marginLeft: "4px" }}>Parma</div>
-            <IoIosArrowDown
-              fontSize={16}
-              style={{
-                display: "flex",
-                marginLeft: "4px",
-              }}
-            />
+            <div
+              className="dropdown-box"
+              style={{ marginRight: "8px" }}
+              onClick={() => setShowLocationModal(true)}
+            >
+              <div>In:</div>
+              <div
+                style={{
+                  fontWeight: "bold",
+                  marginLeft: "4px",
+                }}
+              >
+                Parma
+              </div>
+              <IoIosArrowDown
+                fontSize={12}
+                style={{
+                  display: "flex",
+                  marginLeft: "4px",
+                }}
+              />
+            </div>
+            <SexFilterDropDown />
           </div>
-          <SexFilterDropDown />
         </div> */}
       </div>
 
@@ -244,7 +277,7 @@ const DefaultAppBar = ({
             alignItems: "center",
             justifyContent: "space-between",
             height: "100%",
-            padding: "0px 12px",
+            padding: "0px 0px",
           }}
         >
           {/* Menu Icon */}
@@ -269,7 +302,7 @@ const DefaultAppBar = ({
           </button>
 
           {/* Logo */}
-          <LogoBox />
+          <LogoBox height={40} />
 
           {/* Search icon */}
           <button
@@ -363,6 +396,7 @@ export default function AppBar(props) {
           <input
             ref={query}
             className="main-form"
+            style={{ height: "40px" }}
             type="search"
             id="search"
             placeholder="Cerca per nome, telefono, città o servizi"

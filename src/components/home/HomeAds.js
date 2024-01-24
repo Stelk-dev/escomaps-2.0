@@ -68,7 +68,7 @@ const HeaderSection = () => {
   }, []);
 
   return (
-    <div style={{ padding: "0px 16px" }}>
+    <div>
       <div>
         {/* Title positon */}
         <h1
@@ -157,7 +157,14 @@ export default function HomeAds() {
         alignItems: "center",
       }}
     >
-      <div style={{ maxWidth: "1320px", marginBottom: "40px" }}>
+      <div
+        style={{
+          maxWidth: "1324px",
+          marginBottom: "40px",
+          marginLeft: "12px",
+          marginRight: "12px",
+        }}
+      >
         {/* Title */}
         <HeaderSection />
         <div style={{ height: 36 }} />
@@ -169,7 +176,6 @@ export default function HomeAds() {
               marginBottom: "10px",
               fontWeight: "400",
               fontSize: "16px",
-              padding: "0px 16px",
             }}
           >
             Interessato in:

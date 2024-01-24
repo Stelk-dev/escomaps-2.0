@@ -9,9 +9,8 @@ input[type="search"]::-webkit-search-cancel-button {
     justify-content: center;
     position: fixed;
     z-index: 2;
-    height: 60px;
     width: 100vw;
-    padding: 0px 10px;
+    height: 60px;
 }
 
 #cancel-button{
@@ -27,7 +26,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .desktop-app-bar{
-    max-width: 1380px;
     width: 100%;
     height: 100%;
 }
@@ -51,7 +49,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .dropdown-box{
-    font-size: 13px;
+    font-size: 12px;
     padding: 4px 8px;
     border: 1px solid #666666;
     background-color: #242424;

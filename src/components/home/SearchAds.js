@@ -16,13 +16,14 @@ export default function SearchAds() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        marginLeft: "12px",
+        marginRight: "12px",
       }}
     >
       <div
         style={{
           marginTop: "120px",
-          padding: "0px 16px",
-          maxWidth: "1320px",
+          maxWidth: "1324px",
           width: "100%",
         }}
       >
