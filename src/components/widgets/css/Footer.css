@@ -1,0 +1,31 @@
+.title-footer{
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.link-footer{
+    text-decoration: none;
+    color: grey;
+    font-weight: 500;
+    margin-bottom: 8px;
+    width: max-content;
+}
+
+.link-footer:hover{
+    color: #999999;
+    text-decoration: underline;
+}
+
+.city-link-footer{
+    float: left;
+    color: grey;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 24px;
+    margin-bottom: 8px;
+}
+
+.city-link-footer:hover{
+    color: #999999;
+    text-decoration: underline;
+}

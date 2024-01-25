@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0;
     visibility: hidden;
-    z-index: 2;
+    z-index: 3;
 }
 
 .bottom-bar{
