@@ -338,9 +338,6 @@ const DefaultAppBar = ({
       {/* Find in city */}
       <SelectCityLocationModal
         open={showLocationModal}
-        onSelect={(newPos) => {
-          console.log(newPos);
-        }}
         onClose={() => setShowLocationModal(false)}
       />
     </div>

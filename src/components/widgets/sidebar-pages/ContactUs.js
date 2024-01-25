@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ContactUs() {
   return (
-    <div className="default-information-page">
+    <div className="default-information-page" style={{ height: "80vh" }}>
       <h1>Siamo qui per aiutarti</h1>
       <br />
       <div>
@@ -13,10 +13,10 @@ export default function ContactUs() {
         <a href="mailto:support@escomaps.com" target="_blank" rel="noreferrer">
           support@escomaps.com
         </a>
-        <div>o al numero:</div>
-        <a href="https://wa.me/+39388098323" target="_blank" rel="noreferrer">
+        {/* <div>o al numero:</div> */}
+        {/* <a href="https://wa.me/+39388098323" target="_blank" rel="noreferrer">
           +39 388 098 323
-        </a>
+        </a> */}
       </div>
 
       <div

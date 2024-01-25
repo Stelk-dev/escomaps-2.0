@@ -76,4 +76,23 @@ const Prices = [
     recommended: false,
   },
 ];
-export { FiltersInHome, Categories, Services, Prices };
+
+const Cities = [
+  "Bari",
+  "Bologna",
+  "Catania",
+  "Firenze",
+  "Genova",
+  "Messina",
+  "Milano",
+  "Napoli",
+  "Padova",
+  "Palermo",
+  "Roma",
+  "Torino",
+  "Trieste",
+  "Venezia",
+  "Verona",
+];
+
+export { FiltersInHome, Categories, Services, Prices, Cities };

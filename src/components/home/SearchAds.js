@@ -15,6 +15,8 @@ export default function SearchAds() {
   useEffect(() => {
     console.log("SearchAdsInDatabase");
     SearchAdsInDatabase(query).then((v) => {
+      console.log(v);
+
       if (v.length === 0)
         GetAds.then((oldAds) => {
           const data = oldAds.docs.map((a) => a.data());
@@ -48,7 +50,8 @@ export default function SearchAds() {
             {query.substring(0, 1).toUpperCase() + query.substring(1)}
           </h1>
           <div style={{ color: "grey", fontSize: "14px" }}>
-            Più di <strong style={{ color: "#B02D23" }}>{ads.length}</strong>{" "}
+            Più di{" "}
+            <strong style={{ color: "#B02D23" }}>{ads && ads.length}</strong>{" "}
             risultati
           </div>
         </div>
@@ -73,9 +76,6 @@ export default function SearchAds() {
 
       <SelectCityLocationModal
         open={showLocationModal}
-        onSelect={(newPos) => {
-          console.log(newPos);
-        }}
         onClose={() => setShowLocationModal(false)}
       />
     </div>

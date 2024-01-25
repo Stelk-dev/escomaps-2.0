@@ -36,6 +36,7 @@ import { CurrentUser, GetUserData } from "./providers/ClientUserData";
 import SettingsUser from "./components/home/home-user/settings/SettingsUser";
 import EditUserInformation from "./components/home/home-user/settings/EditUserInformation";
 import AddEmailAndPassword from "./components/home/home-user/settings/AddEmailAndPassword";
+import Footer from "./components/widgets/Footer";
 
 function App() {
   const [currentClientUser, setcurrentClientUser] = useRecoilState(CurrentUser);
@@ -57,6 +58,9 @@ function App() {
     loc.pathname === "/advertiser/ads" ||
     loc.pathname.includes("/create-adv");
 
+  const hideFooter = () =>
+    loc.pathname === "/advertiser/ads" || loc.pathname.includes("/create-adv");
+
   const showBottomBar = () =>
     loc.pathname === "/" ||
     loc.pathname === "/chats-user" ||
@@ -66,12 +70,14 @@ function App() {
 
   const showSearchIcon = () =>
     loc.pathname === "/" ||
+    loc.pathname.includes("/escorts") ||
     loc.pathname === "/advertiser" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname === "/search";
 
   const showMenuIcon = () =>
     loc.pathname === "/" ||
+    loc.pathname.includes("/escorts") ||
     loc.pathname === "/signup-advertiser" ||
     loc.pathname === "/login-advertiser" ||
     loc.pathname.includes("/advertiser") ||
@@ -145,6 +151,7 @@ function App() {
       <Routes>
         {/* Main home */}
         <Route path="/" element={<HomeAds />} />
+        <Route path="/escorts/:city" element={<HomeAds />} />
         <Route path="/search" element={<SearchAds />} />
         <Route path="/adv-detail/:id" element={<AdvDetailView />} />
 
@@ -213,6 +220,9 @@ function App() {
           }
         />
       </Routes>
+
+      {/* Footer */}
+      {!hideFooter() && <Footer />}
     </div>
   );
 }

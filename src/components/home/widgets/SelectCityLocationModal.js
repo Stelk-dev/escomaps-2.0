@@ -1,35 +1,19 @@
 import { Modal } from "@mui/joy";
-import React, { useState } from "react";
+import React from "react";
 import { MdOutlineClear } from "react-icons/md";
 import "./../css/SelectCityLocation.css";
-import { BsSearchHeart } from "react-icons/bs";
+import { Cities } from "../../../constants/ValueConstants";
+import { useNavigate } from "react-router-dom";
 
 // Appear search button when input is filled
-export default function SelectCityLocationModal({ open, onSelect, onClose }) {
-  const [searchInput, setSearchInput] = useState("");
-  const cities = [
-    "Bari",
-    "Bologna",
-    "Catania",
-    "Firenze",
-    "Genova",
-    "Messina",
-    "Milano",
-    "Napoli",
-    "Padova",
-    "Palermo",
-    "Roma",
-    "Torino",
-    "Trieste",
-    "Venezia",
-    "Verona",
-  ];
+export default function SelectCityLocationModal({ open, onClose }) {
+  const navigate = useNavigate();
 
   function handleSubmit(value) {
     if (value === "") return;
 
-    onSelect(value);
-    setSearchInput("");
+    // City pre selected
+    if (Cities.includes(value)) navigate("/escorts/" + value);
     onClose();
   }
 
@@ -75,11 +59,11 @@ export default function SelectCityLocationModal({ open, onSelect, onClose }) {
           }}
         >
           <h1 style={{ fontSize: "18px", marginBottom: "14px" }}>
-            Cerca per zona su Escomaps
+            Seleziona la città dove cercare
           </h1>
 
           {/* Main Input */}
-          <form
+          {/* <form
             onSubmit={(e) => {
               handleSubmit(searchInput);
               e.preventDefault();
@@ -101,7 +85,7 @@ export default function SelectCityLocationModal({ open, onSelect, onClose }) {
               autoFocus={true}
             />
 
-            {/* Search button */}
+            Search button
             <button
               id="search-button"
               type="submit"
@@ -110,11 +94,11 @@ export default function SelectCityLocationModal({ open, onSelect, onClose }) {
               <BsSearchHeart fontSize="18px" />
               <div style={{ marginLeft: "4px", fontSize: "14px" }}>Cerca</div>
             </button>
-          </form>
+          </form> */}
 
           {/* Cities list */}
           <div>
-            {cities.map((e, index) => (
+            {Cities.map((e, index) => (
               <SelectCityElement name={e} key={index} />
             ))}
           </div>

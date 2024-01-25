@@ -13,12 +13,13 @@ import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
 import { GetAds } from "../../providers/AdsProvider";
-import Footer from "../widgets/Footer";
+import { useParams } from "react-router-dom";
 
 const HeaderSection = () => {
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [position, setPosition] = useRecoilState(UserLocation);
+  var { city } = useParams();
 
   async function InitPosition() {
     const r = await HavePositionPermission();
@@ -78,12 +79,8 @@ const HeaderSection = () => {
             marginBottom: "4px",
           }}
         >
-          Escort in{" "}
-          {loading
-            ? "Loading..."
-            : (position?.latitude ?? "lat") +
-              " " +
-              (position?.longitude ?? "lng")}
+          Escort
+          {typeof city !== "string" ? " vicino a te" : " a " + city}
         </h1>
 
         {/* Subtitle */}
@@ -110,9 +107,6 @@ const HeaderSection = () => {
       {/* Select location dialog */}
       <SelectCityLocationModal
         open={showLocationModal}
-        onSelect={(newPos) => {
-          console.log(newPos);
-        }}
         onClose={() => setShowLocationModal(false)}
       />
     </div>
@@ -141,6 +135,16 @@ export default function HomeAds() {
     });
     return;
   }, []);
+
+  const AdsToShow = () => {
+    if (interestedFilters.length === 0) return ads;
+
+    return ads.filter(
+      (e) =>
+        e.categories.filter((c) => interestedFilters.includes(c)).length > 0 ||
+        e.services.filter((c) => interestedFilters.includes(c)).length > 0
+    );
+  };
 
   return (
     <div
@@ -189,7 +193,7 @@ export default function HomeAds() {
         </div>
 
         {/* Ads list */}
-        <AdsList ads={ads} loading={loading} />
+        <AdsList ads={AdsToShow()} loading={loading} />
 
         {/* Divider */}
         <div
@@ -294,8 +298,6 @@ export default function HomeAds() {
         {/* Disclaimer */}
         <DisclaimerBox />
       </div>
-
-      <Footer />
     </div>
   );
 }
