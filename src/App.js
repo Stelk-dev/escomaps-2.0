@@ -59,7 +59,9 @@ function App() {
     loc.pathname.includes("/create-adv");
 
   const hideFooter = () =>
-    loc.pathname === "/advertiser/ads" || loc.pathname.includes("/create-adv");
+    loc.pathname === "/advertiser/ads" ||
+    loc.pathname.includes("/adv-detail") ||
+    loc.pathname.includes("/create-adv");
 
   const showBottomBar = () =>
     loc.pathname === "/" ||

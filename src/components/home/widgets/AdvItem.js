@@ -130,7 +130,7 @@ export default function AdvItem({
             backgroundColor: "black",
             boxShadow: "0px 0px 10px 1px #111111",
             borderRadius: "100%",
-            zIndex: "1",
+            zIndex: "2",
           }}
         >
           {adv.gender === 0 ? (
