@@ -58,6 +58,8 @@ function App() {
     loc.pathname === "/advertiser/ads" ||
     loc.pathname.includes("/create-adv");
 
+  const hideAnimationBottomBar = () => loc.pathname === "/advertiser/ads";
+
   const hideFooter = () =>
     loc.pathname === "/advertiser/ads" ||
     loc.pathname.includes("/adv-detail") ||
@@ -143,7 +145,12 @@ function App() {
 
       {/* Bottom bar */}
       {showBottomBar() && (
-        <BottomBar index={index} setIndex={setIndex} isAdvertiser={false} />
+        <BottomBar
+          index={index}
+          setIndex={setIndex}
+          isAdvertiser={false}
+          hideAnimation={hideAnimationBottomBar()}
+        />
       )}
 
       {/* Bottom bar advertiser */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AiFillHome,
   AiOutlineHome,
@@ -17,7 +17,11 @@ import { PiChatsCircleLight, PiChatsCircleFill } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
 import { IoIosSettings } from "react-icons/io";
 
-export default function BottomBar({ isAdvertiser }) {
+export default function BottomBar({ hideAnimation, isAdvertiser }) {
+  // Animation
+  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+  const [visible, setVisible] = useState(true);
+
   const userLocation = useLocation();
 
   //Element at bottom bar
@@ -106,8 +110,30 @@ export default function BottomBar({ isAdvertiser }) {
     );
   };
 
+  useEffect(() => {
+    // Hide app bar animation
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos <= 0 ? true : prevScrollPos > currentScrollPos);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    if (!hideAnimation) window.addEventListener("scroll", handleScroll);
+    else setVisible(true);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [hideAnimation, prevScrollPos, visible]);
+
   return (
-    <div className="bottom-bar">
+    <div
+      className="bottom-bar"
+      style={{
+        bottom: visible ? 0 : -100,
+        transition: "bottom 0.3s",
+      }}
+    >
       <ElementsBottomBar />
     </div>
   );

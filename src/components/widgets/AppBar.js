@@ -383,7 +383,7 @@ export default function AppBar(props) {
     }
 
     return (
-      <div className="main-app-bar" style={{ padding: "0px 14px" }}>
+      <div className="main-app-bar" style={{ padding: "0px 8px" }}>
         {/* Search form */}
         <form
           onSubmit={HandleSubmit}

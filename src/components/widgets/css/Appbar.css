@@ -18,11 +18,7 @@ input[type="search"]::-webkit-search-cancel-button {
     background-color: transparent;
     color: white;
     font-size: 14px;
-    margin: 0px 10px;
-}
-
-#cancel-button:hover{
-    background-color: #FFFFFF22;
+    margin-left: 8px;
 }
 
 .desktop-app-bar{
