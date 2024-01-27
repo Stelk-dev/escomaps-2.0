@@ -20,6 +20,7 @@ const HeaderSection = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [position, setPosition] = useRecoilState(UserLocation);
   var { city } = useParams();
+  const cityName = city[0].toUpperCase() + city.substring(1);
 
   async function InitPosition() {
     const r = await HavePositionPermission();
@@ -80,7 +81,7 @@ const HeaderSection = () => {
           }}
         >
           Escort
-          {typeof city !== "string" ? " vicino a te" : " a " + city}
+          {typeof city !== "string" ? " vicino a te" : " a " + cityName}
         </h1>
 
         {/* Subtitle */}
@@ -146,6 +147,8 @@ export default function HomeAds() {
     );
   };
 
+  var { city } = useParams();
+  const cityName = city[0].toUpperCase() + city.substring(1);
   return (
     <div
       style={{
@@ -207,7 +210,7 @@ export default function HomeAds() {
         {/* Copy */}
         <div style={{ padding: "16px" }}>
           <h1 style={{ fontSize: "22px" }}>
-            Escort a Milano, annunci personali di uomo cerca donna
+            Escort a {cityName}, annunci personali di uomo cerca donna
           </h1>
           <div style={{ height: "16px" }} />
           <h2
@@ -217,18 +220,18 @@ export default function HomeAds() {
               color: "grey",
             }}
           >
-            <strong style={{ color: "white" }}>Escomaps Milano</strong> ti offre
-            i migliori annunci per uomini che cercano donne. Belle donne
+            <strong style={{ color: "white" }}>Escomaps {cityName}</strong> ti
+            offre i migliori annunci per uomini che cercano donne. Belle donne
             disponibili per incontri e per accompagnarti a riunioni o eventi.
             Trova la donna perfetta in cerca di compagnia per vivere momenti
             speciali nella tua città. In questa pagina puoi trovare un elenco di
-            escort a Milano. Non aspettare, oggi è il momento di godersi un
+            escort a {cityName}. Non aspettare, oggi è il momento di godersi un
             momento speciale. Vuoi compagnia? Basta selezionare uno degli
-            annunci pubblicati in Uomo cerca Donna Milano.
+            annunci pubblicati in Uomo cerca Donna {cityName}.
           </h2>
           <div style={{ height: "32px" }} />
 
-          <h1 style={{ fontSize: "22px" }}>Cerchi una escort a Milano?</h1>
+          <h1 style={{ fontSize: "22px" }}>Cerchi una escort a {cityName}?</h1>
           <div style={{ height: "16px" }} />
           <h2
             style={{
@@ -239,14 +242,14 @@ export default function HomeAds() {
           >
             Escomaps ti proprone{" "}
             <strong>
-              la più ampia raccolta di annunci di incontri di sesso a Milano
+              la più ampia raccolta di annunci di incontri di sesso a {cityName}
             </strong>
             . Pronto a vivere un'esperienza unica e indimenticabile? Il nostro
             sito è il numero uno per la ricerca di annunci uomo cerca donna. Se
             non riesci a trovare ciò che ti piace, prova a inserire il tuo
             annuncio. Troverai ragazze provenienti da diverse aree e quartieri
-            di Milano. Scorri tra gli annunci e trova la escort a Milano più
-            vicina alla tua posizione. Guarda i dettagli dell'annuncio e le
+            di {cityName}. Scorri tra gli annunci e trova la escort a {cityName}{" "}
+            più vicina alla tua posizione. Guarda i dettagli dell'annuncio e le
             immagini di donne in cerca di uomini. Troverai le migliori ragazze
             escort per incontri di puro piacere nella tua città.
           </h2>

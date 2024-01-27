@@ -15,6 +15,7 @@ export default function ContactUs() {
             href="mailto:support@escomaps.com"
             target="_blank"
             rel="noreferrer"
+            style={{ fontWeight: "bold", color: "#BA68C8" }}
           >
             support@escomaps.com
           </a>

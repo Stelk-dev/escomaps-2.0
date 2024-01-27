@@ -13,7 +13,7 @@ export default function SelectCityLocationModal({ open, onClose }) {
     if (value === "") return;
 
     // City pre selected
-    if (Cities.includes(value)) navigate("/escorts/" + value);
+    if (Cities.includes(value)) navigate("/escorts/" + value.toLowerCase());
     onClose();
   }
 

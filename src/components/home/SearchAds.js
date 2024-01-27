@@ -47,6 +47,7 @@ export default function SearchAds() {
         {/* Titles */}
         <div style={{ marginBottom: "12px" }}>
           <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
+            Risultati per{" "}
             {query.substring(0, 1).toUpperCase() + query.substring(1)}
           </h1>
           <div style={{ color: "grey", fontSize: "14px" }}>

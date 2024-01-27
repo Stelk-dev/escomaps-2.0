@@ -503,7 +503,15 @@ export default function TermsAndConditions() {
         </p>
         <p>
           <span lang="IT">
-            Per qualunque richiesta scrivere a info@escomaps.com
+            Per qualunque richiesta scrivere a{" "}
+            <a
+              href="mailto:support@escomaps.com"
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontWeight: "bold", color: "#BA68C8" }}
+            >
+              support@escomaps.com
+            </a>
           </span>
         </p>
         <p>
