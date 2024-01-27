@@ -13,6 +13,13 @@
     max-width: 250px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 700px) {
+    .grid-item-title:hover .grid-arrow-icon{
+        visibility: visible;
+    }
 }
 
 .grid-arrow-icon{
@@ -26,14 +33,6 @@
     color: #FFFFFFBB;
     padding: 0px 12px;
     font-size: 32px;
-}
-
-.grid-item:hover{
-    cursor: pointer;
-}
-
-.grid-item:hover .grid-arrow-icon{
-    visibility: visible;
 }
 
 .grid-item-title{

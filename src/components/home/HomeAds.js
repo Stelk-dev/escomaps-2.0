@@ -15,12 +15,10 @@ import DisclaimerBox from "../widgets/boxes/Disclaimer";
 import { GetAds } from "../../providers/AdsProvider";
 import { useParams } from "react-router-dom";
 
-const HeaderSection = () => {
+const HeaderSection = ({ cityName }) => {
   const [, setLoading] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [position, setPosition] = useRecoilState(UserLocation);
-  var { city } = useParams();
-  const cityName = city[0].toUpperCase() + city.substring(1);
 
   async function InitPosition() {
     const r = await HavePositionPermission();
@@ -81,7 +79,7 @@ const HeaderSection = () => {
           }}
         >
           Escort
-          {typeof city !== "string" ? " vicino a te" : " a " + cityName}
+          {typeof cityName !== "string" ? " vicino a te" : " a " + cityName}
         </h1>
 
         {/* Subtitle */}
@@ -147,8 +145,11 @@ export default function HomeAds() {
     );
   };
 
+  // City filter
   var { city } = useParams();
-  const cityName = city[0].toUpperCase() + city.substring(1);
+  const cityName =
+    city === undefined ? null : city[0].toUpperCase() + city.substring(1);
+
   return (
     <div
       style={{
@@ -169,7 +170,7 @@ export default function HomeAds() {
         }}
       >
         {/* Title */}
-        <HeaderSection />
+        <HeaderSection cityName={cityName} />
         <div style={{ height: 36 }} />
 
         {/* Filters */}

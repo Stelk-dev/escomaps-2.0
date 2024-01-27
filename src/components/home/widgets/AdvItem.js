@@ -8,7 +8,7 @@ import {
   GetDistanceFromAdv,
   UserLocation,
 } from "../../../providers/UserLocation";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { MdArrowForwardIos, MdArrowBackIosNew } from "react-icons/md";
 
 export default function AdvItem({
   preselectedADV = null,
@@ -152,7 +152,7 @@ export default function AdvItem({
                 background: "linear-gradient(to right, #00000066, #FFFFFF00)",
               }}
             >
-              <FaArrowCircleLeft
+              <MdArrowBackIosNew
                 onClick={(e) => {
                   e.preventDefault();
                   setIndexPhoto(
@@ -168,7 +168,7 @@ export default function AdvItem({
                 background: "linear-gradient(to left, #00000066, #FFFFFF00)",
               }}
             >
-              <FaArrowCircleRight
+              <MdArrowForwardIos
                 onClick={(e) => {
                   e.preventDefault();
                   setIndexPhoto(

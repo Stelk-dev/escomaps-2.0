@@ -17,6 +17,7 @@ import SocialBox from "../widgets/boxes/SocialBox";
 import { GetDistanceFromAdv, UserLocation } from "../../providers/UserLocation";
 import AuthUserModal from "../auth/UserLoginSignup";
 import { CurrentUser, UpdateUserData } from "../../providers/ClientUserData";
+import { MdArrowForwardIos, MdArrowBackIosNew } from "react-icons/md";
 
 export default function AdvDetailView({
   defaultAdvValue = null,
@@ -235,29 +236,6 @@ export default function AdvDetailView({
                   }}
                   ref={(el) => (tabsRef.current[index] = el)}
                 >
-                  {/* Left scroller */}
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "50%",
-                      left: 0,
-                      position: "absolute",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-
-                      var indexToScroll = index - 1;
-                      if (indexToScroll < 0)
-                        indexToScroll = tabsRef.current.length - 1;
-
-                      tabsRef.current[indexToScroll].scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                        inline: "start",
-                      });
-                    }}
-                  />
-
                   {/* Image */}
                   <img
                     src={e}
@@ -270,33 +248,53 @@ export default function AdvDetailView({
                       backgroundColor: "#111111",
                     }}
                   />
-
-                  {/* Right scroller */}
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "50%",
-                      right: 0,
-                      position: "absolute",
-                      cursor: "pointer",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-
-                      var indexToScroll = index + 1;
-                      if (index + 1 > tabsRef.current.length - 1)
-                        indexToScroll = 0;
-
-                      tabsRef.current[indexToScroll].scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                        inline: "start",
-                      });
-                    }}
-                  />
                 </Tab>
               ))}
             </TabList>
+
+            {/* Left scroller */}
+            <div
+              className="scroller-arrow"
+              style={{
+                left: 0,
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+
+                var indexToScroll = indexPhoto - 1;
+                if (indexToScroll < 0)
+                  indexToScroll = tabsRef.current.length - 1;
+
+                tabsRef.current[indexToScroll].scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                  inline: "start",
+                });
+              }}
+            >
+              <MdArrowBackIosNew />
+            </div>
+
+            {/* Right scroller */}
+            <div
+              className="scroller-arrow"
+              style={{
+                right: 0,
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                var indexToScroll = indexPhoto + 1;
+                if (indexToScroll > tabsRef.current.length - 1)
+                  indexToScroll = 0;
+                tabsRef.current[indexToScroll].scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                  inline: "start",
+                });
+              }}
+            >
+              <MdArrowForwardIos />
+            </div>
 
             {/* Favourite */}
             {!isAdvFromAdvertiser() && (

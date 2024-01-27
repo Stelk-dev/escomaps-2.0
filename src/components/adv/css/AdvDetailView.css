@@ -46,3 +46,14 @@
     color: white;
     font-size: 32px;
 }
+
+.scroller-arrow{
+    margin: 0px 8px;
+    padding: 8px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 45%;
+    z-index: 1;
+    color: #FFFFFF99;
+    font-size: 32px;
+}
