@@ -12,8 +12,6 @@ const MapView = ({ latLng, isPositionPublic }) => {
     tooltipAnchor: [18, -28],
   });
 
-  // TODOs: center the map when get lat lng
-
   return (
     <MapContainer id="map" center={latLng} zoom={17}>
       <TileLayer

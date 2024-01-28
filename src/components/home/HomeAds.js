@@ -16,6 +16,7 @@ const HeaderSection = ({ cityName }) => {
   const [position, setPosition] = useRecoilState(UserLocation);
 
   useEffect(() => {
+    // TODOs: Save position local
     async function InitPosition() {
       if (position.lat !== null) return;
 
