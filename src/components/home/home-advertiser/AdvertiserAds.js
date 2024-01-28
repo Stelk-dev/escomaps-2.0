@@ -5,9 +5,9 @@ import {
   CurrentUserAdvertiser,
 } from "../../../providers/AdvertiserUserData";
 import { Link, useNavigate } from "react-router-dom";
-import { IoMdAdd } from "react-icons/io";
 import AdvItem from "../widgets/AdvItem";
 import { CircularProgress } from "@mui/material";
+import { IoMdAddCircle } from "react-icons/io";
 
 export default function AdvertiserAds() {
   const [user] = useRecoilState(CurrentUserAdvertiser);
@@ -22,7 +22,7 @@ export default function AdvertiserAds() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "32px 0px",
+        padding: "32px 12px",
       }}
     >
       <h1 style={{ fontWeight: "600", fontSize: "24px", textAlign: "center" }}>
@@ -73,7 +73,8 @@ export default function AdvertiserAds() {
         className="floating-action-button"
         onClick={() => navigate("/create-adv")}
       >
-        <IoMdAdd />
+        <IoMdAddCircle fontSize={"28px"} style={{ marginRight: "8px" }} />
+        <div style={{ fontSize: "18px" }}>Crea annuncio</div>
       </button>
     </div>
   );
