@@ -209,302 +209,268 @@ export default function AdvDetailView({
       </div>
 
       {/* All information */}
-      <div>
-        {/* Images carousel */}
-        <div>
-          <Tabs aria-label="Scrollable tabs" defaultValue={0}>
-            <TabList
-              sx={{
-                overflow: "auto",
-                overflowY: "hidden",
-                scrollSnapType: "x mandatory",
-                backgroundColor: "black",
-                "&::-webkit-scrollbar": { display: "none" },
-              }}
-              onScroll={handleScroll}
-            >
-              {photos.map((e, index) => (
-                <Tab
-                  key={index}
-                  sx={{
-                    flex: "none",
-                    scrollSnapAlign: "start",
-                    width: "100%",
-                    padding: "0px",
-                    border: "none",
-                    height: "500px",
-                  }}
-                  ref={(el) => (tabsRef.current[index] = el)}
-                >
-                  {/* Image */}
-                  <img
-                    src={e}
-                    key={index}
-                    alt="main_escort_label"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                      backgroundColor: "#111111",
-                    }}
-                  />
-                </Tab>
-              ))}
-            </TabList>
-
-            {/* Left scroller */}
-            <div
-              className="scroller-arrow"
-              style={{
-                left: 0,
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-
-                var indexToScroll = indexPhoto - 1;
-                if (indexToScroll < 0)
-                  indexToScroll = tabsRef.current.length - 1;
-
-                tabsRef.current[indexToScroll].scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                  inline: "start",
-                });
-              }}
-            >
-              <MdArrowBackIosNew />
-            </div>
-
-            {/* Right scroller */}
-            <div
-              className="scroller-arrow"
-              style={{
-                right: 0,
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                var indexToScroll = indexPhoto + 1;
-                if (indexToScroll > tabsRef.current.length - 1)
-                  indexToScroll = 0;
-                tabsRef.current[indexToScroll].scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                  inline: "start",
-                });
-              }}
-            >
-              <MdArrowForwardIos />
-            </div>
-
-            {/* Favourite */}
-            {!isAdvFromAdvertiser() && (
-              <div
-                style={{
-                  cursor: "pointer",
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  padding: "16px",
-                  zIndex: "1",
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ maxWidth: "1324px", border: "2px solid #1c1c1c" }}>
+          {/* Images carousel */}
+          <div>
+            <Tabs aria-label="Scrollable tabs" defaultValue={0}>
+              <TabList
+                sx={{
+                  overflow: "auto",
+                  overflowY: "hidden",
+                  scrollSnapType: "x mandatory",
+                  backgroundColor: "black",
+                  "&::-webkit-scrollbar": { display: "none" },
                 }}
-                onClick={() => {
-                  if (isFromEditOrCreation) return;
+                onScroll={handleScroll}
+              >
+                {photos.map((e, index) => (
+                  <Tab
+                    key={index}
+                    sx={{
+                      flex: "none",
+                      scrollSnapAlign: "start",
+                      width: "100%",
+                      padding: "0px",
+                      border: "none",
+                      height: "500px",
+                    }}
+                    ref={(el) => (tabsRef.current[index] = el)}
+                  >
+                    {/* Image */}
+                    <img
+                      src={e}
+                      key={index}
+                      alt="main_escort_label"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        backgroundColor: "#111111",
+                      }}
+                    />
+                  </Tab>
+                ))}
+              </TabList>
 
-                  if (clientUser.uid.length === 0) {
-                    setshowLoginUserModal(true);
-                    return;
-                  }
+              {/* Left scroller */}
+              <div
+                className="scroller-arrow"
+                style={{
+                  left: 0,
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
 
-                  // Save to favourite
-                  var fvAds = clientUser.favouritesAds;
-                  if (clientUser.favouritesAds.includes(adv.idAdv))
-                    fvAds = fvAds.filter((v) => v !== adv.idAdv);
-                  else fvAds = [...clientUser.favouritesAds, adv.idAdv];
+                  var indexToScroll = indexPhoto - 1;
+                  if (indexToScroll < 0)
+                    indexToScroll = tabsRef.current.length - 1;
 
-                  setClientUser({
-                    ...clientUser,
-                    favouritesAds: fvAds,
-                  });
-                  UpdateUserData(clientUser.uid, {
-                    favouritesAds: fvAds,
+                  tabsRef.current[indexToScroll].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "start",
                   });
                 }}
               >
-                {isFromEditOrCreation ? (
-                  <FaHeart className="favourite-icon" />
-                ) : clientUser.favouritesAds.includes(adv.idAdv) ? (
-                  <FaHeart className="favourite-icon" />
-                ) : (
-                  <FaRegHeart className="favourite-icon" />
-                )}
+                <MdArrowBackIosNew />
               </div>
-            )}
-          </Tabs>
 
-          {/* Images list */}
-          <div
-            className="center-class"
-            style={{
-              flexDirection: "row",
-              marginTop: "8px",
-              padding: "0px 12px",
-            }}
-          >
-            {photos.map((e, index) => (
-              <CarouselPhotoElement image={e} key={index} index={index} />
-            ))}
-          </div>
-        </div>
+              {/* Right scroller */}
+              <div
+                className="scroller-arrow"
+                style={{
+                  right: 0,
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  var indexToScroll = indexPhoto + 1;
+                  if (indexToScroll > tabsRef.current.length - 1)
+                    indexToScroll = 0;
+                  tabsRef.current[indexToScroll].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "start",
+                  });
+                }}
+              >
+                <MdArrowForwardIos />
+              </div>
 
-        {/* Detail ADV */}
-        <div style={{ margin: "20px 14px" }}>
-          {/* Name, age, sex */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderRadius: "8px",
-              backgroundColor: "#2C2D2C",
-              border: "1px #434244 solid",
-              padding: "14px",
-              marginBottom: "12px",
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: "18px", fontWeight: "600" }}>
-                {adv.name}, {age}
-              </h1>
+              {/* Favourite */}
               {!isAdvFromAdvertiser() && (
-                <h2
+                <div
                   style={{
-                    fontSize: "12px",
-                    fontWeight: "400",
-                    color: "grey",
-                    marginLeft: "1px",
+                    cursor: "pointer",
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    padding: "16px",
+                    zIndex: "1",
+                  }}
+                  onClick={() => {
+                    if (isFromEditOrCreation) return;
+
+                    if (clientUser.uid.length === 0) {
+                      setshowLoginUserModal(true);
+                      return;
+                    }
+
+                    // Save to favourite
+                    var fvAds = clientUser.favouritesAds;
+                    if (clientUser.favouritesAds.includes(adv.idAdv))
+                      fvAds = fvAds.filter((v) => v !== adv.idAdv);
+                    else fvAds = [...clientUser.favouritesAds, adv.idAdv];
+
+                    setClientUser({
+                      ...clientUser,
+                      favouritesAds: fvAds,
+                    });
+                    UpdateUserData(clientUser.uid, {
+                      favouritesAds: fvAds,
+                    });
                   }}
                 >
-                  {DistanceFromUser()} km da te
-                </h2>
+                  {isFromEditOrCreation ? (
+                    <FaHeart className="favourite-icon" />
+                  ) : clientUser.favouritesAds.includes(adv.idAdv) ? (
+                    <FaHeart className="favourite-icon" />
+                  ) : (
+                    <FaRegHeart className="favourite-icon" />
+                  )}
+                </div>
+              )}
+            </Tabs>
+
+            {/* Images list */}
+            <div
+              className="center-class"
+              style={{
+                flexDirection: "row",
+                marginTop: "8px",
+                padding: "0px 12px",
+              }}
+            >
+              {photos.map((e, index) => (
+                <CarouselPhotoElement image={e} key={index} index={index} />
+              ))}
+            </div>
+          </div>
+
+          {/* Detail ADV */}
+          <div style={{ margin: "20px 14px" }}>
+            {/* Name, age, sex */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                borderRadius: "8px",
+                backgroundColor: "#2C2D2C",
+                border: "1px #434244 solid",
+                padding: "14px",
+                marginBottom: "12px",
+              }}
+            >
+              <div>
+                <h1 style={{ fontSize: "18px", fontWeight: "600" }}>
+                  {adv.name}, {age}
+                </h1>
+                {!isAdvFromAdvertiser() && (
+                  <h2
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      color: "grey",
+                      marginLeft: "1px",
+                    }}
+                  >
+                    {DistanceFromUser()} km da te
+                  </h2>
+                )}
+              </div>
+
+              {adv.gender === 0 ? (
+                <IoMdMale className="sex-symbol-icon" />
+              ) : adv.gender === 1 ? (
+                <IoMdFemale className="sex-symbol-icon" />
+              ) : (
+                <IoMdTransgender className="sex-symbol-icon" />
               )}
             </div>
 
-            {adv.gender === 0 ? (
-              <IoMdMale className="sex-symbol-icon" />
-            ) : adv.gender === 1 ? (
-              <IoMdFemale className="sex-symbol-icon" />
-            ) : (
-              <IoMdTransgender className="sex-symbol-icon" />
-            )}
-          </div>
-
-          {/* Description */}
-          <div
-            style={{
-              borderRadius: "8px",
-              backgroundColor: "#2C2D2C",
-              border: "1px #434244 solid",
-              padding: "14px",
-              marginBottom: "20px",
-            }}
-          >
-            <h3 style={{ fontSize: "16px", fontWeight: "bold" }}>
-              {adv.title}
-            </h3>
-            <div style={{ fontSize: "14px", marginTop: "14px" }}>
-              {adv.description}
-            </div>
-          </div>
-          {/* Description */}
-
-          {/* Categories */}
-          <div style={{ marginBottom: "20px" }}>
-            <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>Categorie:</h3>
-
-            {/* List categories */}
+            {/* Description */}
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "start",
-                marginTop: "8px",
-              }}
-            >
-              {categories.map((c) => (
-                <CategoryBox name={c} key={c} />
-              ))}
-            </div>
-          </div>
-          {/* Categories */}
-
-          {/* Services */}
-          {services.length > 0 && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
+                borderRadius: "8px",
+                backgroundColor: "#2C2D2C",
+                border: "1px #434244 solid",
+                padding: "14px",
                 marginBottom: "20px",
               }}
             >
-              <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>Servizi:</h3>
+              <h3 style={{ fontSize: "16px", fontWeight: "bold" }}>
+                {adv.title}
+              </h3>
+              <div style={{ fontSize: "14px", marginTop: "14px" }}>
+                {adv.description}
+              </div>
+            </div>
+            {/* Description */}
 
-              {/* List services */}
-              <div style={{ marginTop: "8px" }}>
-                {services.map((s) => (
-                  <CategoryBox name={s} key={s} />
+            {/* Categories */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>
+                Categorie:
+              </h3>
+
+              {/* List categories */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "start",
+                  marginTop: "8px",
+                }}
+              >
+                {categories.map((c) => (
+                  <CategoryBox name={c} key={c} />
                 ))}
               </div>
             </div>
-          )}
-          {/* Services */}
+            {/* Categories */}
 
-          {/* Map */}
-          <div>
-            <h3
-              style={{
-                fontWeight: "bold",
-                fontSize: "14px",
-                marginBottom: "8px",
-              }}
-            >
-              Dove risiedo:
-            </h3>
-            {/* Webview */}
-            <MapView
-              latLng={[adv.locationData.lat, adv.locationData.lon]}
-              isPositionPublic={adv.locationData.locationPublic}
-            />
+            {/* Services */}
+            {services.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginBottom: "20px",
+                }}
+              >
+                <h3 style={{ fontWeight: "bold", fontSize: "14px" }}>
+                  Servizi:
+                </h3>
 
-            {/* Form address */}
-            <input
-              className="main-form"
-              defaultValue={adv.locationData.address}
-              style={{
-                height: "45px",
-                marginTop: "8px",
-                color: "white",
-                pointerEvents: "none",
-              }}
-              readOnly={true}
-            />
+                {/* List services */}
+                <div style={{ marginTop: "8px" }}>
+                  {services.map((s) => (
+                    <CategoryBox name={s} key={s} />
+                  ))}
+                </div>
+              </div>
+            )}
+            {/* Services */}
 
-            {/* Type of coming */}
-            <div
-              style={{
-                display: "flex",
-                marginTop: "8px",
-                marginBottom: "20px",
-              }}
-            >
-              {TypeOfMoving().map((e) => (
-                <CategoryBox name={e} key={e} />
-              ))}
-            </div>
-          </div>
-
-          {/* Social list */}
-          {SocialList().length > 0 && (
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            {/* Map */}
+            <div>
               <h3
                 style={{
                   fontWeight: "bold",
@@ -512,35 +478,81 @@ export default function AdvDetailView({
                   marginBottom: "8px",
                 }}
               >
-                Link social:
+                Dove risiedo:
               </h3>
+              {/* Webview */}
+              <MapView
+                latLng={[adv.locationData.lat, adv.locationData.lon]}
+                isPositionPublic={adv.locationData.locationPublic}
+              />
+
+              {/* Form address */}
+              <input
+                className="main-form"
+                defaultValue={adv.locationData.address}
+                style={{
+                  height: "45px",
+                  marginTop: "8px",
+                  color: "white",
+                  pointerEvents: "none",
+                }}
+                readOnly={true}
+              />
+
               {/* Type of coming */}
               <div
                 style={{
+                  display: "flex",
                   marginTop: "8px",
+                  marginBottom: "20px",
                 }}
               >
-                {SocialList().map((e) => (
-                  <SocialBox
-                    socialName={e.link}
-                    socialTitle={e.social}
-                    key={e.social}
-                  />
+                {TypeOfMoving().map((e) => (
+                  <CategoryBox name={e} key={e} />
                 ))}
               </div>
             </div>
-          )}
+
+            {/* Social list */}
+            {SocialList().length > 0 && (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <h3
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Link social:
+                </h3>
+                {/* Type of coming */}
+                <div
+                  style={{
+                    marginTop: "8px",
+                  }}
+                >
+                  {SocialList().map((e) => (
+                    <SocialBox
+                      socialName={e.link}
+                      socialTitle={e.social}
+                      key={e.social}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Extra space */}
+          <div style={{ height: "80px" }} />
         </div>
 
-        {/* Extra space */}
-        <div style={{ height: "80px" }} />
+        {/* Signup/Login user */}
+        <AuthUserModal
+          open={showLoginUserModal}
+          onClose={() => setshowLoginUserModal(false)}
+        />
       </div>
-
-      {/* Signup/Login user */}
-      <AuthUserModal
-        open={showLoginUserModal}
-        onClose={() => setshowLoginUserModal(false)}
-      />
     </div>
   );
 }
