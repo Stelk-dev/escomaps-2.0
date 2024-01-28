@@ -9,6 +9,7 @@ import {
   UserLocation,
 } from "../../../providers/UserLocation";
 import { MdArrowForwardIos, MdArrowBackIosNew } from "react-icons/md";
+import { FaRegImages } from "react-icons/fa";
 
 export default function AdvItem({
   preselectedADV = null,
@@ -145,6 +146,25 @@ export default function AdvItem({
         {/* Adv item */}
         <div className="grid-item">
           <div className="grid-item-title" style={{ position: "relative" }}>
+            {/* Total image */}
+            <div
+              style={{
+                display: "flex",
+                backgroundColor: "#000000AA",
+                borderRadius: "8px",
+                position: "absolute",
+                bottom: 0,
+                margin: "8px",
+                alignItems: "center",
+                padding: "4px 8px",
+                fontSize: "14px",
+              }}
+            >
+              <FaRegImages style={{ marginRight: "8px" }} />
+              <div>{adv.photos.length}</div>
+            </div>
+
+            {/* Arrows back and forward */}
             <div
               className="grid-arrow-icon"
               style={{
