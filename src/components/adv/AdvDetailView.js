@@ -36,8 +36,8 @@ export default function AdvDetailView({
   const [location] = useRecoilState(UserLocation);
   const DistanceFromUser = () => {
     return GetDistanceFromAdv({
-      userLatitude: location.latitude,
-      userLongitude: location.longitude,
+      userLatitude: location.lat,
+      userLongitude: location.lon,
       advLatitude: adv.locationData.lat,
       advLongitude: adv.locationData.lon,
     });

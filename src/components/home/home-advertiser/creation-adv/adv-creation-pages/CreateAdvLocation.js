@@ -21,7 +21,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   const [canReceiveAtHome, setcanReceiveAtHome] = useState(
     advData.locationData.canReceiveAtHome ?? true
   );
-  const [loadingLocation, setLoadingLocation] = useState(false);
+  const [loadingLocation, setLoadingLocation] = useState(true);
 
   const BoxHideShowPosition = ({
     icon,
@@ -93,19 +93,12 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
   }, []);
 
   const GetLocation = () => {
-    GetUserPosition(
-      (p) => {
-        console.log("Success: " + p);
-        setLatLng([p.coords.latitude, p.coords.longitude]);
+    GetUserPosition().then((position) => {
+      if (position === null) return;
 
-        // TODOs: Get address from latitude and longitude
-        setLoadingLocation(false);
-      },
-      (e) => {
-        console.log("Error: " + e);
-        setLoadingLocation(false);
-      }
-    );
+      setLatLng([position.lat, position.lon]);
+      setLoadingLocation(false);
+    });
   };
 
   return (

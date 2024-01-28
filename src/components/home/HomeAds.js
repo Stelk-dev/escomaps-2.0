@@ -4,11 +4,7 @@ import AdsList from "./widgets/AdsList";
 import SelectableBox from "../widgets/boxes/SelectableBox";
 import { FiltersInHome } from "../../constants/ValueConstants";
 import { useRecoilState } from "recoil";
-import {
-  GetUserPosition,
-  HavePositionPermission,
-  UserLocation,
-} from "../../providers/UserLocation";
+import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
 import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
@@ -16,56 +12,23 @@ import { GetAds } from "../../providers/AdsProvider";
 import { useParams } from "react-router-dom";
 
 const HeaderSection = ({ cityName }) => {
-  const [, setLoading] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [position, setPosition] = useRecoilState(UserLocation);
 
-  async function InitPosition() {
-    const r = await HavePositionPermission();
-
-    setPosition((prev) => ({ ...prev, hasPermission: r }));
-
-    if (r && (position.latitude === null || position.longitude === null))
-      getPosition();
-    else
-      setPosition((prev) => ({
-        ...prev,
-        hasPermission: false,
-        latitude: 0,
-        longitude: 0,
-      }));
-  }
-
-  function getPosition() {
-    setLoading(true);
-
-    GetUserPosition(
-      (position) => {
-        console.log("Position: ");
-        console.log(position);
-
-        setPosition((prev) => ({
-          ...prev,
-          hasPermission: true,
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        }));
-
-        setLoading(false);
-      },
-      (error) => {
-        console.log("Error..");
-        // TODOs: Handle user denied location
-        setLoading(false);
-      }
-    );
-  }
-
   useEffect(() => {
+    async function InitPosition() {
+      if (position.lat !== null) return;
+
+      GetUserPosition().then((position) => {
+        if (position === null) return;
+
+        setPosition(position);
+      });
+    }
+
     InitPosition();
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    // eslint-disable-next-line
-  }, []);
+  }, [position, setPosition]);
 
   return (
     <div>
@@ -78,16 +41,13 @@ const HeaderSection = ({ cityName }) => {
             marginBottom: "4px",
           }}
         >
-          Escort
-          {typeof cityName !== "string" ? " vicino a te" : " a " + cityName}
+          Escort a {typeof cityName !== "string" ? position.city : cityName}
         </h1>
 
         {/* Subtitle */}
         {/* When user doesn't location permission ask it, if it has show change location modal */}
         <div style={{ color: "grey", fontSize: "14px" }}>
-          {position.hasPermission
-            ? "Vuoi cercare in una zona diversa? "
-            : "Vuoi cercare nella tua zona? "}
+          Vuoi cercare in una zona diversa?{" "}
           <button
             style={{
               border: "none",

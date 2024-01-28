@@ -301,27 +301,18 @@ export default function Sidebar(props) {
           <SecondaryButton
             title="Posizione"
             description={
-              position.latitude === null
+              position.regionName === null
                 ? "Attiva posizione"
-                : position.latitude.toString()
+                : position.regionName
             }
             icon={<BiSolidMap className="buttons-icons-secondary" />}
-            onClick={
-              position.hasPermission
-                ? () => {}
-                : () =>
-                    GetUserPosition(
-                      (position) => {
-                        setPosition((prev) => ({
-                          ...prev,
-                          hasPermission: true,
-                          latitude: position.coords.latitude,
-                          longitude: position.coords.longitude,
-                        }));
-                      },
-                      () => {}
-                    )
-            }
+            onClick={() => {
+              GetUserPosition().then((position) => {
+                if (position === null) return;
+
+                setPosition(position);
+              });
+            }}
           />
           <SecondaryButton
             title="Domande frequenti"

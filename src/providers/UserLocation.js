@@ -4,30 +4,43 @@ import { atom } from "recoil";
 const UserLocation = atom({
   key: "UserLocation",
   default: {
-    hasPermission: false,
-    latitude: null,
-    longitude: null,
+    city: "",
+    lat: null,
+    lon: null,
+    regionName: "",
+    zip: "",
   },
 });
 
-// [bool] Check if permission are enabled
-async function HavePositionPermission() {
-  const { state } = await navigator.permissions.query({
-    name: "geolocation",
-  });
-  console.log("HavePositionPermission: " + state === "granted");
-
-  return state === "granted";
+async function GetIPData() {
+  try {
+    const response = await fetch("https://api.ipify.org?format=json");
+    return await response.json();
+  } catch (error) {
+    return null;
+  }
 }
 
-// [void] Get position from geolocalisation
-function GetUserPosition(onSuccess, onError) {
-  console.log("GetUserPosition: ");
+async function GetPositionFromIP(ip) {
+  try {
+    const response = await fetch("http://ip-api.com/json/" + ip);
+    const _j = await response.json();
+    console.log(_j);
 
-  navigator.geolocation.getCurrentPosition(
-    (position) => onSuccess(position),
-    (error) => onError(error)
-  );
+    return _j;
+  } catch (error) {
+    return null;
+  }
+}
+
+// Get position full function
+async function GetUserPosition() {
+  console.log("GetUserPosition");
+  const r = await GetIPData();
+  console.log(r.ip);
+
+  // Get Position from IP
+  return GetPositionFromIP(r.ip);
 }
 
 // [double] Get distance from adv
@@ -67,6 +80,7 @@ const GetDistanceFromAdv = ({
 export {
   UserLocation,
   GetDistanceFromAdv,
-  HavePositionPermission,
   GetUserPosition,
+  GetIPData,
+  GetPositionFromIP,
 };

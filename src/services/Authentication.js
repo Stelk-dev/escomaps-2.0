@@ -32,12 +32,7 @@ async function CreateAnonymousUser() {
     });
 }
 
-async function CreateUser(
-  email,
-  password,
-  nameUser = null,
-) {
-  console.log(nameUser);
+async function CreateUser(email, password, nameUser = null) {
   return await createUserWithEmailAndPassword(Auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;

@@ -13,10 +13,7 @@ export default function SearchAds() {
   const [ads, setAds] = useState(null);
 
   useEffect(() => {
-    console.log("SearchAdsInDatabase");
     SearchAdsInDatabase(query).then((v) => {
-      console.log(v);
-
       if (v.length === 0)
         GetAds.then((oldAds) => {
           const data = oldAds.docs.map((a) => a.data());
