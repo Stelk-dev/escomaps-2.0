@@ -11,7 +11,7 @@
     margin-bottom: 8px;
 }
 
-.selected{
+.box-to-pay-selected{
     border: 2px solid #BA68C8;
     background-color: transparent;
 }

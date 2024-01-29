@@ -30,7 +30,9 @@ export default function BuyCredits() {
 
     return (
       <div
-        className={"credits-box-to-pay" + (boxSelected ? " selected" : "")}
+        className={
+          "credits-box-to-pay" + (boxSelected ? " box-to-pay-selected" : "")
+        }
         onClick={() => {
           if (boxSelected)
             setBoxOfCredits(

@@ -63,6 +63,7 @@ function App() {
 
   const hideFooter = () =>
     loc.pathname === "/advertiser/ads" ||
+    loc.pathname === "/buy-credits" ||
     loc.pathname.includes("/adv-detail") ||
     loc.pathname.includes("/create-adv");
 

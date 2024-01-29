@@ -88,7 +88,7 @@ export default function AdvItem({
     <div
       className="grid-item"
       style={{
-        width: "250px",
+        height: "400px",
         backgroundColor: "grey",
         display: "flex",
         alignItems: "center",
