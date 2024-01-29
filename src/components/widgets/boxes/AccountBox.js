@@ -7,6 +7,12 @@ import { CurrentUser } from "../../../providers/ClientUserData";
 import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
 import { SignOut } from "../../../services/Authentication";
 import { useNavigate } from "react-router-dom";
+import { IoIosSettings } from "react-icons/io";
+import { TbLogout2 } from "react-icons/tb";
+
+import { AiFillHome, AiFillHeart } from "react-icons/ai";
+import { BsPostcardHeartFill } from "react-icons/bs";
+import "../css/Boxs.css";
 
 export default function AccountBox() {
   const [user] = useRecoilState(CurrentUser);
@@ -62,19 +68,32 @@ export default function AccountBox() {
         },
       },
     },
+    "& .MuiMenuItem-root:hover": {
+      backgroundColor: "#555555",
+    },
   }));
 
   const ItemsUser = () => {
     return [
-      <MenuItem
+      <CustomMenuItem
+        title={"Preferiti"}
+        icon={<AiFillHeart />}
+        onClick={() => {
+          navigate("/favourites-user");
+          close();
+        }}
+      />,
+      <CustomMenuItem
+        title={"Impostazioni"}
+        icon={<IoIosSettings />}
         onClick={() => {
           navigate("/settings-user");
           close();
         }}
-      >
-        Impostazioni
-      </MenuItem>,
-      <MenuItem
+      />,
+      <CustomMenuItem
+        title={"Esci"}
+        icon={<TbLogout2 />}
         onClick={() => {
           SignOut();
           resetUser();
@@ -83,23 +102,39 @@ export default function AccountBox() {
 
           navigate("");
         }}
-      >
-        Esci
-      </MenuItem>,
+      />,
     ];
   };
 
   const ItemsAdvertiser = () => {
     return [
-      <MenuItem
+      <CustomMenuItem
+        title={"Annunci"}
+        icon={<AiFillHome />}
+        onClick={() => {
+          navigate("/advertiser");
+          close();
+        }}
+      />,
+      <CustomMenuItem
+        title={"I tuoi annunci"}
+        icon={<BsPostcardHeartFill />}
+        onClick={() => {
+          navigate("/advertiser/ads");
+          close();
+        }}
+      />,
+      <CustomMenuItem
+        title={"Impostazioni"}
+        icon={<IoIosSettings />}
         onClick={() => {
           navigate("/advertiser/settings");
           close();
         }}
-      >
-        Impostazioni
-      </MenuItem>,
-      <MenuItem
+      />,
+      <CustomMenuItem
+        title={"Esci"}
+        icon={<TbLogout2 />}
         onClick={() => {
           SignOut();
           resetAdvertiser();
@@ -108,10 +143,17 @@ export default function AccountBox() {
 
           navigate("/");
         }}
-      >
-        Esci
-      </MenuItem>,
+      />,
     ];
+  };
+
+  const CustomMenuItem = ({ icon, title, onClick }) => {
+    return (
+      <MenuItem onClick={onClick}>
+        <div style={{ marginRight: "10px" }}>{icon}</div>
+        <div style={{ fontSize: "15px" }}>{title}</div>
+      </MenuItem>
+    );
   };
 
   return (
