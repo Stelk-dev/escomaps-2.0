@@ -42,6 +42,7 @@ export default function Favourites() {
           style={{
             margin: "100px 0px",
             maxWidth: "1300px",
+            width: "100%",
           }}
         >
           <div

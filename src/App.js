@@ -69,6 +69,7 @@ function App() {
 
   const showBottomBar = () =>
     loc.pathname === "/" ||
+    loc.pathname.includes("/escorts") ||
     loc.pathname === "/chats-user" ||
     loc.pathname === "/favourites-user";
 

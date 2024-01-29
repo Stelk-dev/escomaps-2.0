@@ -43,3 +43,12 @@
 *::-webkit-scrollbar {
     display: none;
   }
+
+.link-style{
+    text-decoration: none;
+    color: white;
+}
+
+.link-style:hover{
+    text-decoration: underline;
+}

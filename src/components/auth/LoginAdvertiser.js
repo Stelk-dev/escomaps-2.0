@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/AuthAdvertiser.css";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -62,6 +62,10 @@ export default function LoginAdvertiser() {
       Login();
     }
   }
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
 
   return (
     <div className="main-div" style={{ height: "100vh" }}>
@@ -131,13 +135,21 @@ export default function LoginAdvertiser() {
             <div style={{ height: 8 }} />
 
             {/* Forgot email/password */}
-            <Link
-              to="/forgot-credentials"
-              className="link-style"
-              style={{ fontSize: 12 }}
+            <div
+              style={{
+                fontSize: 12,
+                display: "flex",
+              }}
             >
-              Non ricordi email o password? Clicca qui
-            </Link>
+              <div>Non ricordi email o password?</div>
+              <Link
+                to="/forgot-credentials"
+                className="link-style"
+                style={{ marginLeft: "4px" }}
+              >
+                Clicca qui
+              </Link>
+            </div>
 
             {/* Error message */}
             <div
@@ -213,7 +225,10 @@ export default function LoginAdvertiser() {
             <Link
               to="/signup-advertiser"
               className="link-style"
-              style={{ marginLeft: 8, color: "#B02D23" }}
+              style={{
+                marginLeft: "4px",
+                color: "red",
+              }}
             >
               Registrati ora
             </Link>

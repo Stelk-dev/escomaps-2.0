@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/AuthAdvertiser.css";
 import { Link, useNavigate } from "react-router-dom";
 import { CreateUser } from "../../../services/Authentication";
@@ -54,6 +54,10 @@ export default function SignupAdvertiser() {
       Signup();
     }
   }
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
 
   return (
     <div className="main-div" style={{ height: "100vh" }}>
@@ -160,20 +164,18 @@ export default function SignupAdvertiser() {
               type="checkbox"
               checked={data.acceptTOS}
               onChange={() => setData({ ...data, acceptTOS: !data.acceptTOS })}
-              style={{ width: 16, height: 16 }}
+              style={{ width: 16, height: 16, cursor: "pointer" }}
             />
           </div>
 
           <div style={{ paddingLeft: 16, color: "grey", fontSize: 12 }}>
             Cliccando su registrati ora confermi di aver letto e accettato i{" "}
-            <Link to="" className="link-style">
-              <strong style={{ color: "white" }}>Termini e condizioni</strong>
+            <Link to="/terms-and-conditions" className="link-style">
+              <strong>Termini e condizioni</strong>
             </Link>{" "}
             e{" "}
-            <Link to="" className="link-style">
-              <strong style={{ color: "white" }}>
-                Informativa sulla privacy
-              </strong>
+            <Link to="/privacy-policy" className="link-style">
+              <strong>Informativa sulla privacy</strong>
             </Link>{" "}
             e autorizzi il trattamento dei tuoi dati personali per la fornitura
             di questo servizio
@@ -219,7 +221,7 @@ export default function SignupAdvertiser() {
           <Link
             to="/login-advertiser"
             className="link-style"
-            style={{ marginLeft: 8, color: "red" }}
+            style={{ marginLeft: "4px", color: "red" }}
           >
             Accedi ora
           </Link>

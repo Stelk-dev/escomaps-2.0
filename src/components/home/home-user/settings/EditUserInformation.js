@@ -36,9 +36,10 @@ export default function EditUserInformation() {
   return (
     <div
       style={{
+        height: "80vh",
         marginTop: "90px",
         display: "flex",
-        alignItems: "center",
+        alignItems: "start",
         justifyContent: "center",
       }}
     >
