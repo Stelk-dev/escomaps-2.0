@@ -31,6 +31,7 @@ export default function CreateAdvBio({ advData, onContinue, onBack }) {
             height: "200px",
             minHeight: "200px",
             maxHeight: "200px",
+            marginTop: "10px",
           }}
           rows="5"
           value={description}
