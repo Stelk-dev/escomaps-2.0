@@ -101,7 +101,7 @@ export default function AdvItem({
     <Link
       key={adv.idAdv}
       to={{
-        pathname: "/adv-detail/" + adv.idAdv.split("-")[0],
+        pathname: "/adv-detail/" + adv.idAdv,
       }}
       state={{ adv: adv }}
       style={{

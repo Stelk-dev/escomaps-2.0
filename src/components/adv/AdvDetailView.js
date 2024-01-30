@@ -10,7 +10,7 @@ import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { BsTelephoneFill } from "react-icons/bs";
 import { Tabs, TabList, Tab } from "@mui/joy";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { CurrentUserAdvertiser } from "../../providers/AdvertiserUserData";
 import SocialBox from "../widgets/boxes/SocialBox";
@@ -18,11 +18,25 @@ import { GetDistanceFromAdv, UserLocation } from "../../providers/UserLocation";
 import AuthUserModal from "../auth/UserLoginSignup";
 import { CurrentUser, UpdateUserData } from "../../providers/ClientUserData";
 import { MdArrowForwardIos, MdArrowBackIosNew } from "react-icons/md";
+import { GetAdvData } from "../../providers/AdsProvider";
+import { CircularProgress } from "@mui/material";
 
 export default function AdvDetailView({
   defaultAdvValue = null,
   isFromEditOrCreation = false,
 }) {
+  const { id } = useParams();
+  const loc = useLocation();
+
+  useEffect(() => {
+    // Get adv data if adv is null
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+    // Get adv if it's null
+    if (defaultAdvValue === null && loc.state?.adv === undefined)
+      GetAdvData(id).then((newData) => setADV(newData));
+  }, [defaultAdvValue, id, loc.state?.adv]);
+
   // Tab list ref
   const tabsRef = useRef([]);
 
@@ -30,28 +44,27 @@ export default function AdvDetailView({
   const [advertiser] = useRecoilState(CurrentUserAdvertiser);
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
 
-  const loc = useLocation();
-  const adv = defaultAdvValue ?? loc.state.adv;
+  const [adv, setADV] = useState(defaultAdvValue ?? loc.state?.adv);
 
   const [location] = useRecoilState(UserLocation);
   const DistanceFromUser = () => {
     return GetDistanceFromAdv({
       userLatitude: location.lat,
       userLongitude: location.lon,
-      advLatitude: adv.locationData.lat,
-      advLongitude: adv.locationData.lon,
+      advLatitude: adv?.locationData.lat,
+      advLongitude: adv?.locationData.lon,
     });
   };
 
   const [indexPhoto, setIndexPhoto] = useState(0);
 
-  const age = adv.age;
-  const photos = adv.photos;
-  const categories = adv.categories;
-  const services = adv.services;
+  const age = adv?.age ?? 18;
+  const photos = adv?.photos ?? [];
+  const categories = adv?.categories ?? [];
+  const services = adv?.services ?? [];
   const TypeOfMoving = () => {
-    const canReceive = adv.locationData.canReceiveAtHome;
-    const canGo = adv.locationData.canGoToHomes;
+    const canReceive = adv?.locationData.canReceiveAtHome;
+    const canGo = adv?.locationData.canGoToHomes;
     var values = ["Ricevo a casa", "Vengo in casa"];
 
     if (!canReceive && !canGo) values = [];
@@ -63,23 +76,23 @@ export default function AdvDetailView({
   const SocialList = () => {
     const socials = [];
 
-    if (adv.instagram !== null && adv.instagram.length > 0)
+    if (adv?.instagram !== null && adv?.instagram.length > 0)
       socials.push({ social: "Instagram", link: adv.instagram });
 
-    if (adv.onlyfans !== null && adv.onlyfans.length > 0)
+    if (adv?.onlyfans !== null && adv?.onlyfans.length > 0)
       socials.push({ social: "OnlyFans", link: adv.onlyfans });
 
-    if (adv.facebook !== null && adv.facebook.length > 0)
+    if (adv?.facebook !== null && adv?.facebook.length > 0)
       socials.push({ social: "Facebook", link: adv.facebook });
 
-    if (adv.tiktok !== null && adv.tiktok.length > 0)
+    if (adv?.tiktok !== null && adv?.tiktok.length > 0)
       socials.push({ social: "TikTok", link: adv.tiktok });
 
     return socials;
   };
 
-  const waNumber = adv.waNumberPrefix + adv.waNumber;
-  const tgNumber = adv.tgNumberPrefix + adv.tgNumber;
+  const waNumber = adv?.waNumberPrefix + adv?.waNumber;
+  const tgNumber = adv?.tgNumberPrefix + adv?.tgNumber;
 
   function CarouselPhotoElement({ image, index }) {
     return (
@@ -126,14 +139,19 @@ export default function AdvDetailView({
   };
 
   const isAdvFromAdvertiser = () =>
-    advertiser.adsIds?.includes(adv.idAdv) ?? false;
+    advertiser.adsIds?.includes(adv?.idAdv) ?? false;
 
-  useEffect(() => {
-    // Get adv data if adv is null
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, []);
-
-  return (
+  return adv === undefined ? (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <CircularProgress style={{ color: "white" }} />
+    </div>
+  ) : (
     <div style={{ marginTop: isFromEditOrCreation ? "" : "68px" }}>
       {/* Chat icons */}
       <div
@@ -339,7 +357,7 @@ export default function AdvDetailView({
                 >
                   {isFromEditOrCreation ? (
                     <FaHeart className="favourite-icon" />
-                  ) : clientUser.favouritesAds.includes(adv.idAdv) ? (
+                  ) : clientUser.favouritesAds.includes(adv?.idAdv) ? (
                     <FaHeart className="favourite-icon" />
                   ) : (
                     <FaRegHeart className="favourite-icon" />
@@ -380,7 +398,7 @@ export default function AdvDetailView({
             >
               <div>
                 <h1 style={{ fontSize: "18px", fontWeight: "600" }}>
-                  {adv.name}, {age}
+                  {adv?.name}, {age}
                 </h1>
                 {!isAdvFromAdvertiser() && (
                   <h2
@@ -396,9 +414,9 @@ export default function AdvDetailView({
                 )}
               </div>
 
-              {adv.gender === 0 ? (
+              {adv?.gender === 0 ? (
                 <IoMdMale className="sex-symbol-icon" />
-              ) : adv.gender === 1 ? (
+              ) : adv?.gender === 1 ? (
                 <IoMdFemale className="sex-symbol-icon" />
               ) : (
                 <IoMdTransgender className="sex-symbol-icon" />
@@ -416,10 +434,10 @@ export default function AdvDetailView({
               }}
             >
               <h3 style={{ fontSize: "16px", fontWeight: "bold" }}>
-                {adv.title}
+                {adv?.title}
               </h3>
               <div style={{ fontSize: "14px", marginTop: "14px" }}>
-                {adv.description}
+                {adv?.description}
               </div>
             </div>
             {/* Description */}
@@ -482,14 +500,17 @@ export default function AdvDetailView({
               </h3>
               {/* Webview */}
               <MapView
-                latLng={[adv.locationData.lat, adv.locationData.lon]}
-                isPositionPublic={adv.locationData.locationPublic}
+                latLng={[
+                  adv?.locationData.lat ?? 0,
+                  adv?.locationData.lon ?? 0,
+                ]}
+                isPositionPublic={adv?.locationData.locationPublic ?? false}
               />
 
               {/* Form address */}
               <input
                 className="main-form"
-                defaultValue={adv.locationData.address}
+                defaultValue={adv?.locationData.address}
                 style={{
                   height: "45px",
                   marginTop: "8px",
