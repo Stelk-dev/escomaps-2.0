@@ -15,34 +15,15 @@ export default function AdvItem({
   preselectedADV = null,
   advId,
   isFromAdvertiser = false,
+  showDistance = true,
 }) {
   const [adv, setAdv] = useState({
     idAdv: null,
-    uidAdvertiser: "",
-    name: "",
-    age: "",
-    gender: -1,
-    phoneNumber: "",
-    whatsapp: "",
-    telegram: "",
-    categories: [],
-    services: [],
-    instagram: "",
-    onlyfans: "",
-    facebook: "",
-    tiktok: "",
-    photos: [],
-    title: "",
-    description: "",
-    isDisabled: false,
-    datePublished: null,
-    dateExpire: null,
-    lastDateOfBoostActivated: null,
   });
 
   const [indexPhoto, setIndexPhoto] = useState(0);
   const [userPosition] = useRecoilState(UserLocation);
-  const ShowDistance = () => !isFromAdvertiser;
+  const ShowDistance = () => !isFromAdvertiser && showDistance;
 
   const ExpireDate = () => {
     const date = new Date(adv.dateExpire.seconds * 1000);
@@ -229,9 +210,15 @@ export default function AdvItem({
               </div>
             ) : (
               <div style={{ fontSize: "11px", color: "grey" }}>
-                Data di scadenza:
-                <br />
-                {ExpireDate()}
+                {isFromAdvertiser ? (
+                  <div>
+                    Data di scadenza:
+                    <br />
+                    {ExpireDate()}
+                  </div>
+                ) : (
+                  <div className="address-text">{adv.locationData.address}</div>
+                )}
               </div>
             )}
           </div>

@@ -3,10 +3,16 @@ import React from "react";
 import { MdOutlineClear } from "react-icons/md";
 import "./../css/SelectCityLocation.css";
 import { Cities } from "../../../constants/ValueConstants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { UserLocation } from "../../../providers/UserLocation";
 
 // Appear search button when input is filled
 export default function SelectCityLocationModal({ open, onClose }) {
+  const [position] = useRecoilState(UserLocation);
+  var { city } = useParams();
+  const cityName = (city === undefined ? position.city : city).toLowerCase();
+
   const navigate = useNavigate();
 
   function handleSubmit(value) {
@@ -17,7 +23,7 @@ export default function SelectCityLocationModal({ open, onClose }) {
     onClose();
   }
 
-  const SelectCityElement = ({ name }) => {
+  const SelectCityElement = ({ name, selected }) => {
     return (
       <div
         style={{
@@ -26,7 +32,13 @@ export default function SelectCityLocationModal({ open, onClose }) {
           marginBottom: "8px",
         }}
       >
-        <button className="location-element" onClick={() => handleSubmit(name)}>
+        <button
+          className={"location-element"}
+          style={{
+            backgroundColor: selected && "#992d2d",
+          }}
+          onClick={() => handleSubmit(name)}
+        >
           {name}
         </button>
       </div>
@@ -99,7 +111,11 @@ export default function SelectCityLocationModal({ open, onClose }) {
           {/* Cities list */}
           <div>
             {Cities.map((e, index) => (
-              <SelectCityElement name={e} key={index} />
+              <SelectCityElement
+                name={e}
+                key={index}
+                selected={e.toLowerCase() === cityName}
+              />
             ))}
           </div>
         </div>

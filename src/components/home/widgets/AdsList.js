@@ -2,7 +2,7 @@ import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import AdvItem from "./AdvItem";
 
-export default function AdsList({ ads, loading }) {
+export default function AdsList({ ads, loading, showDistance = true }) {
   return (
     <div
       style={{
@@ -32,7 +32,13 @@ export default function AdsList({ ads, loading }) {
       {/* Grid view list */}
       <div className="grid-container">
         {ads.map((a) => {
-          return <AdvItem preselectedADV={a} key={a.idAdv} />;
+          return (
+            <AdvItem
+              preselectedADV={a}
+              key={a.idAdv}
+              showDistance={showDistance}
+            />
+          );
         })}
       </div>
     </div>

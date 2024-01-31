@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./css/Home.css";
 import AdsList from "./widgets/AdsList";
 import SelectableBox from "../widgets/boxes/SelectableBox";
-import { FiltersInHome } from "../../constants/ValueConstants";
+import { Cities, FiltersInHome } from "../../constants/ValueConstants";
 import { useRecoilState } from "recoil";
-import { GetUserPosition, UserLocation } from "../../providers/UserLocation";
+import {
+  GetDistanceFromAdv,
+  GetUserPosition,
+  UserLocation,
+} from "../../providers/UserLocation";
 import SelectCityLocationModal from "./widgets/SelectCityLocationModal";
 import "./css/HomeAds.css";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
@@ -42,7 +46,7 @@ const HeaderSection = ({ cityName }) => {
             marginBottom: "4px",
           }}
         >
-          Escort a {typeof cityName !== "string" ? position.city : cityName}
+          Escort a {cityName}
         </h1>
 
         {/* Subtitle */}
@@ -74,6 +78,15 @@ const HeaderSection = ({ cityName }) => {
 };
 
 export default function HomeAds() {
+  // City name of user
+  const [position] = useRecoilState(UserLocation);
+  var { city } = useParams();
+  const cityName =
+    city === undefined
+      ? position.city
+      : city[0].toUpperCase() + city.substring(1);
+
+  const [userPosition] = useRecoilState(UserLocation);
   const [interestedFilters, setInterestedFilters] = useState([]);
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -96,20 +109,46 @@ export default function HomeAds() {
     return;
   }, []);
 
+  // Show the first one
+
   const AdsToShow = () => {
-    if (interestedFilters.length === 0) return ads;
+    let _ads = ads;
+    const _cityFilter = cityName.toLowerCase();
 
-    return ads.filter(
-      (e) =>
-        e.categories.filter((c) => interestedFilters.includes(c)).length > 0 ||
-        e.services.filter((c) => interestedFilters.includes(c)).length > 0
-    );
+    // Filtering by city
+    if (Cities.filter((c) => c.toLowerCase() === _cityFilter).length > 0)
+      _ads = ads.filter(
+        (a) => a.locationData.city.toLowerCase() === _cityFilter
+      );
+
+    // Filtering by categories
+    if (interestedFilters.length > 0)
+      _ads = _ads.filter(
+        (e) =>
+          e.categories.filter((c) => interestedFilters.includes(c)).length >
+            0 ||
+          e.services.filter((c) => interestedFilters.includes(c)).length > 0
+      );
+
+    _ads.sort((a, b) => {
+      const distanceA = GetDistanceFromAdv({
+        userLatitude: userPosition.lat,
+        userLongitude: userPosition.lon,
+        advLatitude: a.locationData.lat,
+        advLongitude: a.locationData.lon,
+      });
+      const distanceB = GetDistanceFromAdv({
+        userLatitude: userPosition.lat,
+        userLongitude: userPosition.lon,
+        advLatitude: b.locationData.lat,
+        advLongitude: b.locationData.lon,
+      });
+
+      return distanceA - distanceB;
+    });
+
+    return _ads;
   };
-
-  // City filter
-  var { city } = useParams();
-  const cityName =
-    city === undefined ? null : city[0].toUpperCase() + city.substring(1);
 
   return (
     <div
@@ -158,7 +197,11 @@ export default function HomeAds() {
         </div>
 
         {/* Ads list */}
-        <AdsList ads={AdsToShow()} loading={loading} />
+        <AdsList
+          ads={AdsToShow()}
+          loading={loading}
+          showDistance={city === undefined}
+        />
 
         {/* Divider */}
         <div

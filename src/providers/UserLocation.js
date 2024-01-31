@@ -20,14 +20,12 @@ async function GetIPData() {
     return null;
   }
 }
-
 async function GetPositionFromIP(ip) {
   try {
     const response = await fetch(
       "https://pro.ip-api.com/json/" + ip + "?key=oKx3b50wPDTNzw4"
     );
     const _j = await response.json();
-    console.log(_j);
 
     return _j;
   } catch (error) {
@@ -37,9 +35,7 @@ async function GetPositionFromIP(ip) {
 
 // Get position full function
 async function GetUserPosition() {
-  console.log("GetUserPosition");
   const r = await GetIPData();
-  console.log(r.ip);
 
   // Get Position from IP
   return GetPositionFromIP(r.ip);
