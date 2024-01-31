@@ -6,7 +6,7 @@ import "./css/Sidebar.css";
 import { CgProfile } from "react-icons/cg";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { MdOutlineLanguage, MdContactSupport } from "react-icons/md";
+import { MdContactSupport } from "react-icons/md";
 import { BiSolidMap, BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { IoDocuments } from "react-icons/io5";
 import AuthUserModal from "../auth/UserLoginSignup";
@@ -21,8 +21,10 @@ import { FaCircleUser } from "react-icons/fa6";
 import { FiShoppingCart } from "react-icons/fi";
 import { CurrentUser } from "../../providers/ClientUserData";
 import { IoSettingsOutline } from "react-icons/io5";
+import SelectCityLocationModal from "../home/widgets/SelectCityLocationModal";
 
 export default function Sidebar(props) {
+  const [showLocationModal, setShowLocationModal] = useState(false);
   const [showLoginUserModal, setshowLoginUserModal] = useState(false);
   const [position, setPosition] = useRecoilState(UserLocation);
   const navigate = useNavigate();
@@ -292,12 +294,12 @@ export default function Sidebar(props) {
           <br />
 
           {/* Options */}
-          <SecondaryButton
+          {/* <SecondaryButton
             title="Lingua"
             description="Italiano"
             icon={<MdOutlineLanguage className="buttons-icons-secondary" />}
             onClick={() => {}}
-          />
+          /> */}
           <SecondaryButton
             title="Posizione"
             description={
@@ -307,11 +309,13 @@ export default function Sidebar(props) {
             }
             icon={<BiSolidMap className="buttons-icons-secondary" />}
             onClick={() => {
-              GetUserPosition().then((position) => {
-                if (position === null) return;
+              if (position.regionName === null)
+                GetUserPosition().then((position) => {
+                  if (position === null) return;
 
-                setPosition(position);
-              });
+                  setPosition(position);
+                });
+              else setShowLocationModal(true);
             }}
           />
           <SecondaryButton
@@ -357,6 +361,12 @@ export default function Sidebar(props) {
       <AuthUserModal
         open={showLoginUserModal}
         onClose={() => setshowLoginUserModal(false)}
+      />
+
+      {/* Select location dialog */}
+      <SelectCityLocationModal
+        open={showLocationModal}
+        onClose={() => setShowLocationModal(false)}
       />
     </div>
   );

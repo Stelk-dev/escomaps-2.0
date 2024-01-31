@@ -23,7 +23,9 @@ async function GetIPData() {
 
 async function GetPositionFromIP(ip) {
   try {
-    const response = await fetch("http://ip-api.com/json/" + ip);
+    const response = await fetch(
+      "https://pro.ip-api.com/json/" + ip + "?key=oKx3b50wPDTNzw4"
+    );
     const _j = await response.json();
     console.log(_j);
 
