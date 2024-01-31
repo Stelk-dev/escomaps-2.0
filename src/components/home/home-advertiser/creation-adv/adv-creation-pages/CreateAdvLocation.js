@@ -11,6 +11,7 @@ import MapView from "../../../../widgets/views/MapView";
 export default function CreateAdvLocation({ onContinue, onBack }) {
   const [advData] = useRecoilState(CreationAdvAtom);
   const [latLng, setLatLng] = useState([44.6185515, 10.2920119]);
+  const [city, setCity] = useState(advData.locationData.city ?? "");
   const [address, setAddress] = useState(advData.locationData.address ?? "");
   const [locationPublic, setLocationPublic] = useState(
     advData.locationData.locationPublic ?? false
@@ -52,14 +53,22 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
         <div
           style={{
             color: "white",
-            fontSize: "18px",
+            fontSize: "16px",
             fontWeight: "600",
-            marginTop: "8px",
+            margin: "8px 0px",
+            lineHeight: 1.2,
           }}
         >
           {title}
         </div>
-        <div style={{ color: "#FFFFFF88", fontSize: "12px", marginTop: "4px" }}>
+        <div
+          style={{
+            color: "#FFFFFF88",
+            fontSize: "12px",
+            marginTop: "4px",
+            lineHeight: 1.2,
+          }}
+        >
           {subtitle}
         </div>
       </div>
@@ -149,13 +158,24 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
       )}
 
       {/* Form location */}
-      <input
-        type="text"
-        className="main-form"
-        placeholder="Via Santo Stefano"
-        value={address}
-        onChange={(v) => setAddress(v.target.value)}
-      />
+      <form>
+        <input
+          type="text"
+          className="main-form"
+          placeholder="Città"
+          value={city}
+          onChange={(v) => setCity(v.target.value)}
+        />
+        <div style={{ marginTop: "8px" }} />
+        <input
+          type="text"
+          className="main-form"
+          placeholder="Via Santo Stefano"
+          value={address}
+          onChange={(v) => setAddress(v.target.value)}
+        />
+      </form>
+
       {/* Public location */}
       <div style={{ display: "flex", marginTop: "8px", marginBottom: "16px" }}>
         <BoxHideShowPosition
@@ -205,6 +225,7 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
           onContinue({
             locationData: {
               address: address,
+              city: city,
               canGoToHomes: canGoToHomes,
               canReceiveAtHome: canReceiveAtHome,
               lat: latLng[0],
@@ -213,7 +234,9 @@ export default function CreateAdvLocation({ onContinue, onBack }) {
             },
           });
         }}
-        isDisabled={address.length === 0 || latLng.length === 0}
+        isDisabled={
+          city.length === 0 || address.length === 0 || latLng.length === 0
+        }
         onBack={onBack}
       />
     </div>

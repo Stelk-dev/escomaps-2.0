@@ -190,7 +190,7 @@ const MobileUiDesign = ({
               </div>
 
               {/* Favourite */}
-              {!isAdvFromAdvertiser && (
+              {(!isAdvFromAdvertiser || isFromEditOrCreation) && (
                 <div
                   style={{
                     cursor: "pointer",
@@ -355,6 +355,17 @@ const MobileUiDesign = ({
               />
 
               {/* Form address */}
+              <input
+                className="main-form"
+                defaultValue={adv?.locationData.city}
+                style={{
+                  height: "45px",
+                  marginTop: "8px",
+                  color: "white",
+                  pointerEvents: "none",
+                }}
+                readOnly={true}
+              />
               <input
                 className="main-form"
                 defaultValue={adv?.locationData.address}
@@ -783,6 +794,17 @@ const DesktopUiDesign = ({
               {/* Form address */}
               <input
                 className="main-form"
+                defaultValue={adv?.locationData.city}
+                style={{
+                  height: "45px",
+                  marginTop: "8px",
+                  color: "white",
+                  pointerEvents: "none",
+                }}
+                readOnly={true}
+              />
+              <input
+                className="main-form"
                 defaultValue={adv?.locationData.address}
                 style={{
                   height: "45px",
@@ -886,20 +908,19 @@ export default function AdvDetailView({
 
     tabsRef.current[indexToScroll].scrollIntoView({
       behavior: "smooth",
-      block: "center",
       inline: "start",
     });
   }
 
   function PhotoScrollRight(e) {
-    console.log(tabsRef.current.length);
     e.preventDefault();
 
     var indexToScroll = indexPhoto + 1;
+
     if (indexToScroll > tabsRef.current.length - 1) indexToScroll = 0;
+
     tabsRef.current[indexToScroll].scrollIntoView({
       behavior: "smooth",
-      block: "center",
       inline: "start",
     });
   }
@@ -999,7 +1020,6 @@ export default function AdvDetailView({
           e.preventDefault();
           tabsRef.current[index].scrollIntoView({
             behavior: "smooth",
-            block: "center",
             inline: "start",
           });
         }}
@@ -1046,7 +1066,7 @@ export default function AdvDetailView({
     >
       <CircularProgress style={{ color: "white" }} />
     </div>
-  ) : windowWidth >= 1200 ? (
+  ) : windowWidth >= 1200 && !isFromEditOrCreation ? (
     <DesktopUiDesign
       adv={adv}
       isFromEditOrCreation={isFromEditOrCreation}

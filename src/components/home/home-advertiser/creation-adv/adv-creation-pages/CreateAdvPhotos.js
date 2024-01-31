@@ -58,12 +58,15 @@ export default function CreateAdvPhotos({ onContinue, onBack }) {
   function UploadImage(event) {
     if (event.target.files.length === 0) return;
 
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = function (e) {
-      setPhotos([...photos, reader.result]);
-    };
+    const files = event.target.files;
+
+    Array.from(files).forEach((f) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(f);
+      reader.onloadend = function (e) {
+        setPhotos((prev) => [...prev, reader.result]);
+      };
+    });
   }
 
   const UploadDisabled = () => photos.length === 8;
@@ -105,6 +108,7 @@ export default function CreateAdvPhotos({ onContinue, onBack }) {
       <input
         type="file"
         id="fileInput"
+        multiple
         accept="image/*"
         onChange={UploadImage}
         style={{ display: "none" }}

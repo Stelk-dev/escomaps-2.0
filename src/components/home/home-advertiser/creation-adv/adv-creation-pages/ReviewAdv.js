@@ -47,7 +47,7 @@ export default function ReviewAdv({ onBack }) {
       nowDate.getTime() + advData.packageSelected.hoursLeft * 3600000;
 
     // Upload images:
-    const idAdv = v4();
+    const idAdv = v4().split("-")[0];
     const urlPhotos = [];
     for (let i = 0; i < advData.photos.length; i++) {
       const element = advData.photos[i];

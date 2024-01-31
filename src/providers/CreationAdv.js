@@ -16,6 +16,7 @@ const CreationAdvAtom = atom({
     tgNumber: null,
     locationData: {
       address: null,
+      city: null,
       canGoToHomes: null,
       canReceiveAtHome: null,
       lat: 0,
