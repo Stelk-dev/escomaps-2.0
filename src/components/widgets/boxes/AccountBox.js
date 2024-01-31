@@ -76,6 +76,7 @@ export default function AccountBox() {
   const ItemsUser = () => {
     return [
       <CustomMenuItem
+        key={"Preferiti"}
         title={"Preferiti"}
         icon={<AiFillHeart />}
         onClick={() => {
@@ -84,6 +85,7 @@ export default function AccountBox() {
         }}
       />,
       <CustomMenuItem
+        key={"Impostazioni"}
         title={"Impostazioni"}
         icon={<IoIosSettings />}
         onClick={() => {
@@ -92,6 +94,7 @@ export default function AccountBox() {
         }}
       />,
       <CustomMenuItem
+        key={"Esci"}
         title={"Esci"}
         icon={<TbLogout2 />}
         onClick={() => {
@@ -109,6 +112,7 @@ export default function AccountBox() {
   const ItemsAdvertiser = () => {
     return [
       <CustomMenuItem
+        key={"Annunci"}
         title={"Annunci"}
         icon={<AiFillHome />}
         onClick={() => {
@@ -117,6 +121,7 @@ export default function AccountBox() {
         }}
       />,
       <CustomMenuItem
+        key={"I tuoi annunci"}
         title={"I tuoi annunci"}
         icon={<BsPostcardHeartFill />}
         onClick={() => {
@@ -125,6 +130,7 @@ export default function AccountBox() {
         }}
       />,
       <CustomMenuItem
+        key={"Impostazioni"}
         title={"Impostazioni"}
         icon={<IoIosSettings />}
         onClick={() => {
@@ -133,6 +139,7 @@ export default function AccountBox() {
         }}
       />,
       <CustomMenuItem
+        key={"Esci"}
         title={"Esci"}
         icon={<TbLogout2 />}
         onClick={() => {
