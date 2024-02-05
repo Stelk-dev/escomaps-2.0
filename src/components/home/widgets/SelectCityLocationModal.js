@@ -19,11 +19,11 @@ export default function SelectCityLocationModal({ open, onClose }) {
     if (value === "") return;
 
     // City pre selected
-    if (Cities.includes(value)) navigate("/escorts/" + value.toLowerCase());
+    if (Object.values(Cities).includes(value)) navigate("/escorts" + value);
     onClose();
   }
 
-  const SelectCityElement = ({ name, selected }) => {
+  const SelectCityElement = ({ name, path, selected }) => {
     return (
       <div
         style={{
@@ -37,7 +37,7 @@ export default function SelectCityLocationModal({ open, onClose }) {
           style={{
             backgroundColor: selected && "#992d2d",
           }}
-          onClick={() => handleSubmit(name)}
+          onClick={() => handleSubmit(path)}
         >
           {name}
         </button>
@@ -110,11 +110,12 @@ export default function SelectCityLocationModal({ open, onClose }) {
 
           {/* Cities list */}
           <div>
-            {Cities.map((e, index) => (
+            {Object.entries(Cities).map((map) => (
               <SelectCityElement
-                name={e}
-                key={index}
-                selected={e.toLowerCase() === cityName}
+                name={map[0]}
+                path={map[1]}
+                key={map[0]}
+                selected={map[0].toLowerCase() === cityName}
               />
             ))}
           </div>

@@ -116,10 +116,14 @@ export default function HomeAds() {
     const _cityFilter = cityName.toLowerCase();
 
     // Filtering by city
-    if (Cities.filter((c) => c.toLowerCase() === _cityFilter).length > 0)
+    const citySelected = Cities[cityName];
+    if (citySelected !== undefined)
       _ads = ads.filter(
         (a) => a.locationData.city.toLowerCase() === _cityFilter
       );
+
+    // If in that city there is nothing show all ads in all city
+    if (_ads.length === 0) _ads.push(...ads);
 
     // Filtering by categories
     if (interestedFilters.length > 0)

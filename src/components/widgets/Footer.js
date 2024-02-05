@@ -75,16 +75,16 @@ export default function Footer() {
           <div style={{ flex: 1 }}>
             <h5 className="title-footer">Città popolari</h5>
             <div>
-              {Cities.map((e) => (
+              {Object.entries(Cities).map((map) => (
                 <Link
-                  key={e}
-                  to={"/escorts/" + e}
+                  key={map[1]}
+                  to={"/escorts" + map[1]}
                   className="city-link-footer"
                   onClick={() =>
                     window.scrollTo({ top: 0, behavior: "instant" })
                   }
                 >
-                  {e}
+                  {map[0]}
                 </Link>
               ))}
             </div>
