@@ -14,8 +14,6 @@ import {
 import "./css/BottomBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { PiChatsCircleLight, PiChatsCircleFill } from "react-icons/pi";
-import { CiSettings } from "react-icons/ci";
-import { IoIosSettings } from "react-icons/io";
 
 export default function BottomBar({ hideAnimation, isAdvertiser }) {
   // Animation
@@ -58,23 +56,24 @@ export default function BottomBar({ hideAnimation, isAdvertiser }) {
             path="/advertiser"
           />
           <BottomElement
-            FilledIcon={<PiChatsCircleFill className="bottom-icon" />}
-            Icon={<PiChatsCircleLight className="bottom-icon" />}
-            title="Chats"
-            path="/advertiser/chats"
-          />
-          <BottomElement
             FilledIcon={<BsPostcardHeartFill className="bottom-icon" />}
             Icon={<BsPostcardHeart className="bottom-icon" />}
             title="Annunci"
             path="/advertiser/ads"
           />
+
           <BottomElement
+            FilledIcon={<PiChatsCircleFill className="bottom-icon" />}
+            Icon={<PiChatsCircleLight className="bottom-icon" />}
+            title="Chats"
+            path="/advertiser/chats"
+          />
+          {/* <BottomElement
             FilledIcon={<IoIosSettings className="bottom-icon" />}
             Icon={<CiSettings className="bottom-icon" />}
             title="Impostazioni"
             path="/advertiser/settings"
-          />
+          /> */}
         </div>
       );
 

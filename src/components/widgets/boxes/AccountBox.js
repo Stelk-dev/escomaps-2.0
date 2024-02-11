@@ -7,8 +7,9 @@ import { CurrentUser } from "../../../providers/ClientUserData";
 import { CurrentUserAdvertiser } from "../../../providers/AdvertiserUserData";
 import { SignOut } from "../../../services/Authentication";
 import { useNavigate } from "react-router-dom";
-import { IoIosSettings } from "react-icons/io";
+import { IoIosSettings, IoMdAddCircle } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
+import { FaShoppingBasket } from "react-icons/fa";
 
 import { AiFillHome, AiFillHeart } from "react-icons/ai";
 import { BsPostcardHeartFill } from "react-icons/bs";
@@ -121,6 +122,24 @@ export default function AccountBox() {
         }}
       />,
       <CustomMenuItem
+        key={"Carica annuncio"}
+        title={"Carica annuncio"}
+        icon={<IoMdAddCircle />}
+        onClick={() => {
+          navigate("/create-adv/select-package");
+          close();
+        }}
+      />,
+      <CustomMenuItem
+        key={"Compra crediti"}
+        title={"Compra crediti"}
+        icon={<FaShoppingBasket />}
+        onClick={() => {
+          navigate("/buy-credits");
+          close();
+        }}
+      />,
+      <CustomMenuItem
         key={"I tuoi annunci"}
         title={"I tuoi annunci"}
         icon={<BsPostcardHeartFill />}
@@ -129,15 +148,15 @@ export default function AccountBox() {
           close();
         }}
       />,
-      <CustomMenuItem
-        key={"Impostazioni"}
-        title={"Impostazioni"}
-        icon={<IoIosSettings />}
-        onClick={() => {
-          navigate("/advertiser/settings");
-          close();
-        }}
-      />,
+      // <CustomMenuItem
+      //   key={"Impostazioni"}
+      //   title={"Impostazioni"}
+      //   icon={<IoIosSettings />}
+      //   onClick={() => {
+      //     navigate("/advertiser/settings");
+      //     close();
+      //   }}
+      // />,
       <CustomMenuItem
         key={"Esci"}
         title={"Esci"}

@@ -26,9 +26,7 @@ import {
 import VerifyIdentity from "./components/auth/signup/VerifyIdentity";
 import AdvertiserAds from "./components/home/home-advertiser/AdvertiserAds";
 import AdvertiserChats from "./components/home/home-advertiser/AdvertiserChats";
-import AdvertiserSettings from "./components/home/home-advertiser/AdvertiserSettings";
 import ForgotCredentials from "./components/auth/ForgotCredentials";
-import DeleteAccount from "./components/home/home-advertiser/settings/DeleteAccount";
 import BuyCredits from "./components/home/home-advertiser/creation-adv/BuyCredits";
 import SuccessScreen from "./components/home/widgets/SuccessScreen";
 import CreateAdv from "./components/home/home-advertiser/creation-adv/adv-creation-pages/CreateAdv";
@@ -212,11 +210,11 @@ function App() {
         <Route path="/buy-credits" element={<BuyCredits />} />
         <Route path="/advertiser/chats" element={<AdvertiserChats />} />
         <Route path="/advertiser/ads" element={<AdvertiserAds />} />
-        <Route path="/advertiser/settings" element={<AdvertiserSettings />} />
-        <Route
+        {/* <Route path="/advertiser/settings" element={<AdvertiserSettings />} /> */}
+        {/* <Route
           path="/advertiser/settings/delete-account"
           element={<DeleteAccount />}
-        />
+        /> */}
 
         {/* Create Adv*/}
         <Route path="/create-adv/*" element={<CreateAdv />} />
