@@ -8,7 +8,7 @@ export default function ContactUs() {
         <br />
         <div>
           <div>
-            Per qualsiasi domande, esigenza, o problema generico puoi scriverci
+            Per qualsiasi domanda, esigenza, o problema generico puoi scriverci
             all'indirizzo:
           </div>
           <a
@@ -33,7 +33,7 @@ export default function ContactUs() {
             fontSize: "14px",
           }}
         >
-          Ti risponderemo in meno di 24 ore lavorative
+          Rispondiamo in meno di 24 ore lavorative
         </div>
       </div>
     </div>
