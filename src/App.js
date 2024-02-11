@@ -37,6 +37,7 @@ import SettingsUser from "./components/home/home-user/settings/SettingsUser";
 import EditUserInformation from "./components/home/home-user/settings/EditUserInformation";
 import AddEmailAndPassword from "./components/home/home-user/settings/AddEmailAndPassword";
 import Footer from "./components/widgets/Footer";
+import AgeConfirmModal from "./components/home/widgets/AgeConfirmModal";
 
 function App() {
   const [currentClientUser, setcurrentClientUser] = useRecoilState(CurrentUser);
@@ -48,6 +49,7 @@ function App() {
   const loc = useLocation();
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
+  const [showConfirmAge, setShowConfirmAge] = useState(true);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -103,6 +105,11 @@ function App() {
 
   // Init user from DB
   useEffect(() => {
+    const is18 = localStorage.getItem("age-18");
+
+    if (is18 !== null) setShowConfirmAge(false);
+    else setShowConfirmAge(true);
+
     Auth.onAuthStateChanged(async (user) => {
       console.log("[onAuthStateChanged] Uid: " + user?.uid);
 
@@ -131,6 +138,26 @@ function App() {
 
   return (
     <div style={{ padding: "0px", display: "flex", flexDirection: "column" }}>
+      {/* 18 Pop up */}
+      <AgeConfirmModal
+        open={showConfirmAge}
+        onClose={(reason) => {
+          // User clicked tos
+          if (reason.target.id === "terms-and-conditions") {
+            setShowConfirmAge(false);
+            return;
+          }
+
+          // Close it only if confirm to be 18
+          if (reason.target.id === "confirm-button") {
+            setShowConfirmAge(false);
+
+            // Save to coockie
+            localStorage.setItem("age-18", "true");
+          }
+        }}
+      />
+
       {/* Side bar */}
       <Sidebar
         open={showSidebar}
