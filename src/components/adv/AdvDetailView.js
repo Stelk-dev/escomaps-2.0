@@ -78,7 +78,7 @@ const MobileUiDesign = ({
           className="chat-button"
           style={{ backgroundColor: "white" }}
           onClick={() => {
-            if (isAdvFromAdvertiser()) return;
+            if (isAdvFromAdvertiser) return;
             if (isFromEditOrCreation) return;
             window.open("sms://" + adv.phoneNumber, "_blank");
           }}
@@ -91,7 +91,7 @@ const MobileUiDesign = ({
           className="chat-button"
           style={{ backgroundColor: "white" }}
           onClick={() => {
-            if (isAdvFromAdvertiser()) return;
+            if (isAdvFromAdvertiser) return;
             if (isFromEditOrCreation) return;
             window.open("tel:" + adv.phoneNumber, "_blank");
           }}
@@ -105,7 +105,7 @@ const MobileUiDesign = ({
             className="social-circle-button"
             style={{ backgroundColor: "#29b7f7", marginRight: "0px" }}
             onClick={() => {
-              if (isAdvFromAdvertiser()) return;
+              if (isAdvFromAdvertiser) return;
               if (isFromEditOrCreation) return;
 
               window.open("https://t.me/" + tgNumber, "_blank");
@@ -499,7 +499,7 @@ const DesktopUiDesign = ({
           className="chat-button"
           style={{ backgroundColor: "white" }}
           onClick={() => {
-            if (isAdvFromAdvertiser()) return;
+            if (isAdvFromAdvertiser) return;
             if (isFromEditOrCreation) return;
             window.open("sms://" + adv.phoneNumber, "_blank");
           }}
@@ -513,7 +513,7 @@ const DesktopUiDesign = ({
           style={{ backgroundColor: "white" }}
           onClick={() => {
             console.log(adv.phoneNumber);
-            if (isAdvFromAdvertiser()) return;
+            if (isAdvFromAdvertiser) return;
             if (isFromEditOrCreation) return;
             window.open("tel:" + adv.phoneNumber, "_blank");
           }}
@@ -527,7 +527,7 @@ const DesktopUiDesign = ({
             className="social-circle-button"
             style={{ backgroundColor: "#29b7f7", marginRight: "0px" }}
             onClick={() => {
-              if (isAdvFromAdvertiser()) return;
+              if (isAdvFromAdvertiser) return;
               if (isFromEditOrCreation) return;
 
               window.open("https://t.me/" + tgNumber, "_blank");
@@ -910,6 +910,7 @@ export default function AdvDetailView({
 
     tabsRef.current[indexToScroll].scrollIntoView({
       behavior: "smooth",
+      block: "nearest",
       inline: "start",
     });
   }
@@ -923,6 +924,7 @@ export default function AdvDetailView({
 
     tabsRef.current[indexToScroll].scrollIntoView({
       behavior: "smooth",
+      block: "nearest",
       inline: "start",
     });
   }
@@ -949,7 +951,7 @@ export default function AdvDetailView({
 
     // Save to favourite
     var fvAds = clientUser.favouritesAds;
-    if (isFavourite) fvAds = fvAds.filter((v) => v !== adv.idAdv);
+    if (isFavourite()) fvAds = fvAds.filter((v) => v !== adv.idAdv);
     else fvAds = [...clientUser.favouritesAds, adv.idAdv];
 
     setClientUser({
@@ -1022,6 +1024,7 @@ export default function AdvDetailView({
           e.preventDefault();
           tabsRef.current[index].scrollIntoView({
             behavior: "smooth",
+            block: "nearest",
             inline: "start",
           });
         }}
@@ -1072,7 +1075,7 @@ export default function AdvDetailView({
     <DesktopUiDesign
       adv={adv}
       isFromEditOrCreation={isFromEditOrCreation}
-      isFavourite={isFavourite}
+      isFavourite={isFavourite()}
       showLoginUserModal={showLoginUserModal}
       setShowLoginUserModal={setshowLoginUserModal}
       SetRefs={(el, index) => SetRefs(el, index)}
@@ -1080,7 +1083,7 @@ export default function AdvDetailView({
       onPhotoScrollRight={PhotoScrollRight}
       handleScroll={HandleScroll}
       onClickFavouriteIcon={ClickFavouriteIcon}
-      isAdvFromAdvertiser={isAdvFromAdvertiser}
+      isAdvFromAdvertiser={isAdvFromAdvertiser()}
       distanceFromUser={DistanceFromUser}
       TypeOfMoving={TypeOfMoving}
       SocialList={SocialList}
@@ -1090,7 +1093,7 @@ export default function AdvDetailView({
     <MobileUiDesign
       adv={adv}
       isFromEditOrCreation={isFromEditOrCreation}
-      isFavourite={isFavourite}
+      isFavourite={isFavourite()}
       showLoginUserModal={showLoginUserModal}
       setShowLoginUserModal={setshowLoginUserModal}
       SetRefs={(el, index) => SetRefs(el, index)}
@@ -1098,7 +1101,7 @@ export default function AdvDetailView({
       onPhotoScrollRight={PhotoScrollRight}
       handleScroll={HandleScroll}
       onClickFavouriteIcon={ClickFavouriteIcon}
-      isAdvFromAdvertiser={isAdvFromAdvertiser}
+      isAdvFromAdvertiser={isAdvFromAdvertiser()}
       distanceFromUser={DistanceFromUser}
       TypeOfMoving={TypeOfMoving}
       SocialList={SocialList}

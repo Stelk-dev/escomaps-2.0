@@ -58,14 +58,15 @@ export default function AdvItem({
   useEffect(() => {
     if (preselectedADV === null)
       GetData(advertisementsKey, advId).then((resp) => {
-        setAdv(resp);
+        if (resp === null) setAdv({ idAdv: null });
+        else setAdv(resp);
       });
     else setAdv(preselectedADV);
 
     return () => {};
   }, [advId, preselectedADV]);
 
-  return adv.idAdv === null ? (
+  return adv === null || adv?.idAdv === null ? (
     <div
       className="grid-item"
       style={{
