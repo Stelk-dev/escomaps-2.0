@@ -18,6 +18,7 @@ export default function AgeConfirmModal({ open, onClose }) {
           backgroundColor: "#141416",
           borderRadius: "24px",
           padding: "32px",
+          margin: "0px 16px",
         },
       }}
     >
@@ -30,19 +31,19 @@ export default function AgeConfirmModal({ open, onClose }) {
         <div
           style={{
             display: "flex",
-            height: "300px",
             alignItems: "center",
             justifyContent: "space-between",
             flexDirection: "column",
+            height: "300px",
             textAlign: "center",
           }}
         >
-          <img src={img} width={"200px"} alt="logo" />
+          <img src={img} width={"230px"} alt="logo" />
 
           <div>
             <h1
               style={{
-                fontSize: "24px",
+                fontSize: "20px",
                 fontWeight: "bold",
                 marginBottom: "14px",
               }}
@@ -50,7 +51,7 @@ export default function AgeConfirmModal({ open, onClose }) {
               Confermi di avere almeno 18 anni?
             </h1>
 
-            <div style={{ color: "#999999", padding: "0px 32px" }}>
+            <div style={{ color: "#999999", fontSize: "15px" }}>
               Prima di continuare devi confermare di avere almeno 18 anni per
               visualizzare questo sito web. Puoi leggere i nostri termini e
               condizioni{" "}
@@ -79,6 +80,7 @@ export default function AgeConfirmModal({ open, onClose }) {
                 border: "none",
                 padding: "12px",
                 borderRadius: "4px",
+                fontSize: "14px",
                 fontWeight: "500",
                 color: "white",
                 backgroundColor: "#B02D23",
@@ -89,19 +91,6 @@ export default function AgeConfirmModal({ open, onClose }) {
             >
               Confermo di avere almeno 18 anni
             </button>
-
-            <a
-              href={"https://google.com"}
-              style={{
-                border: "none",
-                marginTop: "12px",
-                backgroundColor: "transparent",
-                textDecorationLine: "none",
-                color: "grey",
-              }}
-            >
-              Abbandona
-            </a>
           </div>
         </div>
       </div>
