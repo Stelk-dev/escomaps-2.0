@@ -249,12 +249,7 @@ function App() {
         {/* One time screen */}
         <Route
           path="/buy-credits/buy-success"
-          element={
-            <SuccessScreen
-              title={"Grazie per il tuo ordine!"}
-              isBuyFlow={true}
-            />
-          }
+          element={<SuccessScreen title={"Grazie per il tuo ordine!"} />}
         />
       </Routes>
 

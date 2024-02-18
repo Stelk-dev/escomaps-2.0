@@ -484,7 +484,6 @@ const DesktopUiDesign = ({
             className="social-circle-button"
             style={{ backgroundColor: "#4caf51" }}
             onClick={() => {
-              console.log(adv.waNumber);
               if (isAdvFromAdvertiser) return;
               if (isFromEditOrCreation) return;
               window.open("https://wa.me/" + waNumber, "_blank");
@@ -512,7 +511,6 @@ const DesktopUiDesign = ({
           className="chat-button"
           style={{ backgroundColor: "white" }}
           onClick={() => {
-            console.log(adv.phoneNumber);
             if (isAdvFromAdvertiser) return;
             if (isFromEditOrCreation) return;
             window.open("tel:" + adv.phoneNumber, "_blank");

@@ -19,6 +19,7 @@ const CurrentUserAdvertiser = atom({
     phoneNumber: "",
     adsIds: null,
     credits: 0,
+    paymentSessions: [],
     isOnline: false,
     identityVerified: false,
     emailVerified: false,

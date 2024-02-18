@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import {
-  CreditsToShow,
-  CurrentUserAdvertiser,
-  UpdateAdvertiserData,
-} from "../../../../providers/AdvertiserUserData";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { CreditsToShow } from "../../../../providers/AdvertiserUserData";
+import { useRecoilValue } from "recoil";
 import "./CreationAdv.css";
 import { Checkbox, CircularProgress } from "@mui/material";
 import { FaCircleCheck, FaRegCircle } from "react-icons/fa6";
 import { Prices } from "../../../../constants/ValueConstants";
-import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function BuyCredits() {
   const credits = useRecoilValue(CreditsToShow);
-  const [user, setUser] = useRecoilState(CurrentUserAdvertiser);
-  const navigate = useNavigate();
   const [boxOfCredits, setBoxOfCredits] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -100,7 +94,7 @@ export default function BuyCredits() {
                 borderRadius: "50px",
                 padding: "4px 10px",
                 fontSize: "13px",
-                marginRight: "16px",
+                marginRight: "4px",
               }}
             >
               Raccomandato
@@ -148,22 +142,40 @@ export default function BuyCredits() {
     return loading || boxOfCredits.length > 0;
   };
 
-  const Continue = () => {
+  const Continue = async () => {
     setLoading(true);
 
-    // TODOs: stripe webview function call
+    try {
+      const response = await fetch(
+        "https://europe-west1-escomaps.cloudfunctions.net/createStripeCheckout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            totalCredits: TotalCredits(),
+            description: TotalCredits() + " 💎 crediti",
+            price: TotalPriceForCredits() * 100,
+          }),
+        }
+      );
+      const _json = await response.json();
 
-    // Save new data to user
-    const newCredits = user.credits + TotalCredits();
-    UpdateAdvertiserData(user.uid, {
-      credits: newCredits,
-    }).then((v) => {
-      setLoading(false);
-      setUser({ ...user, credits: newCredits });
-      navigate("/buy-credits/buy-success", {
-        state: { totalCredits: TotalCredits() },
+      if (typeof _json.sessionId !== "string") return;
+
+      // Redirect to Stripe Checkout
+      const stripe = await loadStripe(
+        "pk_test_51MZYfBGRBlPIb5Y4xEacbhUB9mt7lNRWlfBiUORSi52hUHjMKYqiaiaHSl91t0r4cZdkKF4GNJXy6yJuMPVsRaV900oEuPFy7I"
+        // "pk_live_51MZYfBGRBlPIb5Y4iSoHeMGv4CGtyMpdrqRBRWVlC38pL865QEenkzPEN5626xthUPDNscRIdqJhGd17LAJ6htcE00Q3lThqrk"
+      );
+
+      await stripe.redirectToCheckout({
+        sessionId: _json.sessionId,
       });
-    });
+    } catch (_) {}
+
+    setLoading(false);
   };
 
   return (
@@ -207,6 +219,7 @@ export default function BuyCredits() {
         {/* Prices */}
         {Prices.map((e, i) => (
           <CreditBox
+            key={e.price}
             totCredits={e.totCredits}
             price={e.price}
             priceDiscounted={e.priceDiscounted}

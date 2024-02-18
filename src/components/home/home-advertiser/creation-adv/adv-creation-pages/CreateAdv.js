@@ -166,6 +166,7 @@ export default function CreateAdv() {
                 <SuccessScreen
                   title={"Annuncio pubblicato!"}
                   isAdvCreation={true}
+                  isBuyFlow={false}
                 />
               }
             />
