@@ -29,6 +29,8 @@ export default function SuccessScreen({
       user.uid.length > 0
     )
       GetSession();
+
+    // eslint-disable-next-line
   }, [user.uid]);
 
   const GetSession = async () => {
