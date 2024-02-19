@@ -161,9 +161,14 @@ export default function HomeAds() {
 
     return _ads;
   };
+  const _limitADSPerPage = 10;
   const AdsFiltered = () =>
-    AdsToShow().slice(counterPage * 5, (counterPage + 1) * 5);
-  const getLimitAdsPage = () => Math.ceil(AdsToShow().length / 5);
+    AdsToShow().slice(
+      counterPage * _limitADSPerPage,
+      (counterPage + 1) * _limitADSPerPage
+    );
+  const getLimitAdsPage = () =>
+    Math.ceil(AdsToShow().length / _limitADSPerPage);
 
   const IndexPageContainer = ({ index, isLast }) => {
     return (
@@ -173,7 +178,10 @@ export default function HomeAds() {
           marginRight: isLast ? "0px" : "8px",
           border: index === counterPage && "1px solid white",
         }}
-        onClick={() => setCounterPage(index)}
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "instant" });
+          setCounterPage(index);
+        }}
       >
         {index + 1}
       </div>
@@ -245,7 +253,12 @@ export default function HomeAds() {
           <FaArrowAltCircleLeft
             className="arrow-pagination"
             style={{ color: counterPage === 0 && "grey" }}
-            onClick={() => counterPage !== 0 && setCounterPage(counterPage - 1)}
+            onClick={() => {
+              if (counterPage === 0) return;
+
+              window.scrollTo({ top: 0, behavior: "instant" });
+              setCounterPage(counterPage - 1);
+            }}
           />
 
           <div style={{ display: "flex" }}>
@@ -257,10 +270,12 @@ export default function HomeAds() {
           <FaArrowAltCircleRight
             className="arrow-pagination"
             style={{ color: counterPage + 1 === getLimitAdsPage() && "grey" }}
-            onClick={() =>
-              counterPage + 1 !== getLimitAdsPage() &&
-              setCounterPage(counterPage + 1)
-            }
+            onClick={() => {
+              if (counterPage + 1 === getLimitAdsPage()) return;
+
+              window.scrollTo({ top: 0, behavior: "instant" });
+              setCounterPage(counterPage + 1);
+            }}
           />
         </div>
 
