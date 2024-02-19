@@ -14,6 +14,7 @@ import "./css/HomeAds.css";
 import DisclaimerBox from "../widgets/boxes/Disclaimer";
 import { GetAds } from "../../providers/AdsProvider";
 import { useParams } from "react-router-dom";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 const HeaderSection = ({ cityName }) => {
   const [showLocationModal, setShowLocationModal] = useState(false);
@@ -80,17 +81,24 @@ const HeaderSection = ({ cityName }) => {
 export default function HomeAds() {
   // City name of user
   const [position] = useRecoilState(UserLocation);
+
+  // index of the current page in home
+  const [counterPage, setCounterPage] = useState(0);
+
+  // city name, from path or from current location
   var { city } = useParams();
   const cityName =
     city === undefined
       ? position.city
       : city[0].toUpperCase() + city.substring(1);
 
-  const [userPosition] = useRecoilState(UserLocation);
-  const [interestedFilters, setInterestedFilters] = useState([]);
-  const [ads, setAds] = useState([]);
+  // Ads
   const [loading, setLoading] = useState(true);
+  const [ads, setAds] = useState([]);
 
+  const [interestedFilters, setInterestedFilters] = useState([]);
+
+  // Clicking filter function
   function HandleFilterTap(name) {
     const elementExist = interestedFilters.some((item) => item === name);
 
@@ -109,8 +117,7 @@ export default function HomeAds() {
     return;
   }, []);
 
-  // Show the first one
-
+  // Ads filtered
   const AdsToShow = () => {
     let _ads = ads;
     const _cityFilter = cityName.toLowerCase();
@@ -134,16 +141,17 @@ export default function HomeAds() {
           e.services.filter((c) => interestedFilters.includes(c)).length > 0
       );
 
+    // Sorting by position
     _ads.sort((a, b) => {
       const distanceA = GetDistanceFromAdv({
-        userLatitude: userPosition.lat,
-        userLongitude: userPosition.lon,
+        userLatitude: position.lat,
+        userLongitude: position.lon,
         advLatitude: a.locationData.lat,
         advLongitude: a.locationData.lon,
       });
       const distanceB = GetDistanceFromAdv({
-        userLatitude: userPosition.lat,
-        userLongitude: userPosition.lon,
+        userLatitude: position.lat,
+        userLongitude: position.lon,
         advLatitude: b.locationData.lat,
         advLongitude: b.locationData.lon,
       });
@@ -152,6 +160,24 @@ export default function HomeAds() {
     });
 
     return _ads;
+  };
+  const AdsFiltered = () =>
+    AdsToShow().slice(counterPage * 5, (counterPage + 1) * 5);
+  const getLimitAdsPage = () => Math.ceil(AdsToShow().length / 5);
+
+  const IndexPageContainer = ({ index, isLast }) => {
+    return (
+      <div
+        className="index-pagination-container"
+        style={{
+          marginRight: isLast ? "0px" : "8px",
+          border: index === counterPage && "1px solid white",
+        }}
+        onClick={() => setCounterPage(index)}
+      >
+        {index + 1}
+      </div>
+    );
   };
 
   return (
@@ -202,10 +228,41 @@ export default function HomeAds() {
 
         {/* Ads list */}
         <AdsList
-          ads={AdsToShow()}
+          ads={AdsFiltered()}
           loading={loading}
           showDistance={city === undefined}
         />
+
+        {/* List of index per pages */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "32px",
+          }}
+        >
+          <FaArrowAltCircleLeft
+            className="arrow-pagination"
+            style={{ color: counterPage === 0 && "grey" }}
+            onClick={() => counterPage !== 0 && setCounterPage(counterPage - 1)}
+          />
+
+          <div style={{ display: "flex" }}>
+            {Array.from({ length: getLimitAdsPage() }).map((e, i) => (
+              <IndexPageContainer index={i} isLast={i === getLimitAdsPage()} />
+            ))}
+          </div>
+
+          <FaArrowAltCircleRight
+            className="arrow-pagination"
+            style={{ color: counterPage + 1 === getLimitAdsPage() && "grey" }}
+            onClick={() =>
+              counterPage + 1 !== getLimitAdsPage() &&
+              setCounterPage(counterPage + 1)
+            }
+          />
+        </div>
 
         {/* Divider */}
         <div

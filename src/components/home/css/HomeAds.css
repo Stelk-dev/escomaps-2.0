@@ -13,3 +13,30 @@
 .container-list::-webkit-scrollbar {
     display: none;
 }
+
+.index-pagination-container{
+    cursor: pointer;
+    background-color: #1A1A1A;
+    height: 40px;
+    width: 40px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+}
+
+.index-pagination-container:hover{
+    background-color: #00000050;
+}
+
+.arrow-pagination{
+    color: white;
+    font-size: 20px;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.arrow-pagination:hover{
+    color: #FFFFFFCC;
+}
