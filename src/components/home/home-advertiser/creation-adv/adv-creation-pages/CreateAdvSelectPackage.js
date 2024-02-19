@@ -1,20 +1,31 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { CreditsToShow } from "../../../../../providers/AdvertiserUserData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  CreditsToShow,
+  CurrentUserAdvertiser,
+} from "../../../../../providers/AdvertiserUserData";
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateAdvSelectPackage({ onContinue }) {
   const credits = useRecoilValue(CreditsToShow);
+  const [user] = useRecoilState(CurrentUserAdvertiser);
+  const navigate = useNavigate();
 
   const PackageCredits = ({ title, totCredits, subTitle, hoursLeft }) => {
     return (
       <div
         className="package-box-create-adv"
-        onClick={() =>
+        onClick={() => {
+          if (totCredits > user.credits) {
+            navigate("/buy-credits");
+            return;
+          }
+
           onContinue({
             packageSelected: { totCredits: totCredits, hoursLeft: hoursLeft },
-          })
-        }
+          });
+        }}
       >
         <div
           style={{

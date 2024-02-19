@@ -84,7 +84,7 @@ export default function SuccessScreen({
     <div className="main-div" style={{ height: "100vh" }}>
       {loading ? (
         <CircularProgress style={{ color: "white" }} />
-      ) : dataSession.totalCredits === undefined ? (
+      ) : isBuyFlow && dataSession.totalCredits === undefined ? (
         <div className="main-div" style={{ width: "100vw", maxWidth: "800px" }}>
           <h1 style={{ fontWeight: "600", fontSize: 40, textAlign: "center" }}>
             Ci scusiamo per il disagio ma sembra che ci siano stati errori con
